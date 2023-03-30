@@ -1,0 +1,41 @@
+<style>
+	.card {
+    width: 45rem;
+    height: 80rem;
+    /* other styles */
+}
+.col-md-3 {
+    margin-right: 5rem;
+    margin-bottom: 5rem;
+    /* other styles */
+}
+
+</style>
+
+    <section class="ftco-section bg-light">
+		<div class="container mt-5">
+    	<div class="row">
+			
+			<% products.forEach((item)=>{ %>
+							  
+			<div class="col-md-3 p-3">
+				<div class="card" style="width: 22rem; height: 40rem;">
+					<img class="card-img-top " src="/uploads/<%= item.images[0] %>" alt="Card image cap">
+					<div class="card-body">
+					  <h5 class="card-title"><%= item.name %></h5>
+					  <p class="card-text"><%= item.category %></p>
+					  <h5 class="card-text"><%= item.description %></h5>
+					  <h2 class="card-text">₹<%= item.price%></h2>
+					  <a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				  </div>
+			</div>
+			
+			<%}) %>	
+
+		</div>
+	</div>
+		    	
+    </section>
+		
+	

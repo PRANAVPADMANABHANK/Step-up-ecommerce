@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    body {
+      background-color: #F8F8F8;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background-color: #007BFF;
+      border-color: #007BFF;
+    }
+
+    .btn-primary:hover {
+      background-color: #0069D9;
+      border-color: #0062CC;
+    }
+    
+    .error {
+  color: red;
+  margin-top: 5px;
+  display: block;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 mt-5">
+        <h2 class="text-center mb-5">Admin Login</h2>
+        <form id="login-form" action="/admin/adminLogin" method="post">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+            <div id="username-error" class="error"></div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+            <div id="password-error" class="error"></div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    $(document).ready(function() {
+      $("#login-form").submit(function(event) {
+       
+        var username = $("#username").val();
+        var password = $("#password").val();
+        if (username.length < 5) {
+          $("#username-error").text("Username must be at least 5 characters long.");
+        } else {
+          $("#username-error").text("");
+        }
+        if (password.length < 4) {
+          $("#password-error").text("Password must be at least 4 characters long.");
+        } else {
+          $("#password-error").text("");
+        }
+    
+      });
+    });
+  </script>
+  
+</body>
+</html>

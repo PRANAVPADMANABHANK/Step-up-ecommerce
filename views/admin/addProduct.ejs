@@ -1,0 +1,85 @@
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.1/css/bootstrap.min.css" integrity="sha512-VyvYODdTX5thOk83L98f3Cg4e85t2DwHEbJGyyWzS8KvRfuLdp57nX9pLW7D8RmZuV7w+MxZu3qLrTqzwu0Qng==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Custom CSS -->
+<style>
+  form {
+    max-width: 500px;
+    margin: auto;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  select,
+  input[type="text"],
+  textarea,
+  input[type="number"],
+  input[type="file"] {
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+  }
+
+  button[type="submit"] {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  
+
+  button[type="submit"]:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+    color: #fff;
+  }
+</style>
+
+<h1><b> Add Product </b></h1>
+<form action="/admin/addProduct" method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label for="name" class="form-label">Product Name:</label>
+    <input type="text" class="form-control" id="name" name="name" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="category" class="form-label">Category:</label>
+    <select class="form-select" id="category" name="category" required>
+      <option value="">--Select Category--</option>
+      <option value="Men">Men</option>
+      <option value="Women">Women</option>
+      <option value="Kids">Kids</option>
+      <option value=""></option>
+      <option value=""></option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Description:</label>
+    <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="price" class="form-label">Price:</label>
+    <input type="number" class="form-control" id="price" name="price"  min="0" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="image" class="form-label">Image:</label>
+    <input type="file" class="form-control" id="image" name="image" required>
+
+
+    <!-- <input type="file" class="form-control" id="image" name="image" >
+    <input type="file" class="form-control" id="image" name="image" > -->
+  </div>
+
+  <a href="/admin/addProduct"><button type="submit" class="btn btn-primary">Add Product</button></a>
+</form>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1
