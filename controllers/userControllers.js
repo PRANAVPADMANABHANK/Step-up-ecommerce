@@ -59,6 +59,7 @@ exports.postSignup = async (req, res) => {
       console.log(`User with ${req.body.email} already exist`)
       req.session.loginErr = "Email is already exist"
       res.redirect('/signup')
+      console.log("user already exist with this email")
     }else{
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const newUser = new User({
@@ -210,3 +211,41 @@ exports.otpSuccess = (req, res) => {
 exports.otpError = (req, res) => {
   res.render("user/error", { other: true });
 };
+
+
+//admin side user controller
+
+
+exports.userslist = async(req,res)=>{
+  try{
+    let adminDetails =req.session.admin;
+      const userList = await User.find({});
+      res.render('admin/userListView',{userList,admin:true,adminDetails});
+    }catch(error){
+      console.log(error);
+    }
+  
+}
+
+//admin side user management below 
+
+ exports.blockUser = async(req,res)=>{
+    await User.updateOne({_id: req.params.id}, { isActive: false });
+    res.redirect('/admin/users')
+ }
+ exports.unBlockUser = async(req,res)=>{
+    await User.updateOne({_id: req.params.id}, { isActive: true });
+    res.redirect('/admin/users')
+}
+
+exports.deleteUser = async (req,res)=>{
+  try{
+
+   await User.deleteOne({_id: req.params.id});
+   
+   res.redirect("/admin/Users");
+
+  }catch(error){
+   console.log(error)
+  }
+}
