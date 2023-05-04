@@ -1,10 +1,33 @@
+
+<style>
+    .modal-footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-footer p {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+    .btn-danger:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+  </style>
+  
+
+
 <section>
-    <div class="container">
+    <!-- <div class="container">
         <div class="row" style="float: right">
             <a href="#" class="btn btn-success m-3" style="width: fit-content">Export</a>
-        </div>
+        </div> -->
 
-        <table class="table mt-2" id="tableid">
+        <table class="table table-striped table-dark mt-5" id="tableid">
             <thead>
                 <tr>
                     <th scope="col">No</th>
@@ -31,7 +54,7 @@
                             <%= item.email %>
                         </td>
                         <td>
-                            <%= item.phone %>
+                            <%= item.mobile %>
                         </td>
                         <td>
                             <a class="btn btn-danger" href="/admin/block/<%=item._id%>">Block</a>
@@ -62,7 +85,21 @@
                                             </p>
                                         </div>
 
+
                                         <div class="modal-footer">
+                                            <div class="container text-center">
+                                              <p>Are you sure you want to remove this customer?</p>
+                                              <form action="/admin/delete/<%=item._id%>?_method=DELETE" method="post" class="position-relative">
+                                                <button type="submit" class="btn btn-danger">Yes, Remove Customer</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                              </form>
+                                            </div>
+                                          </div>
+                                          
+                                         
+
+                                        <!-- <div class="modal-footer">
+                                            
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                 Close
                                             </button>
@@ -72,7 +109,7 @@
                                                     Yes, Remove customer
                                                 </button>
                                             </form>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>

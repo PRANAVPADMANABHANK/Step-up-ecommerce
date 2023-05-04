@@ -30,10 +30,12 @@ exports.postProduct =(req,res,next)=>{
     
     try{
       const newProduct = new Product({
-          name: req.body.name,
+          company: req.body.company,
+          productname: req.body.productname,
           category: req.body.category,
-          description: req.body.description,
+          deal: req.body.deal,
           price: req.body.price,
+          size: req.body.size,
           images: req.files.map(file => file.filename)
       });
       await Product.create(newProduct);
@@ -85,10 +87,12 @@ exports.editProduct = async(req,res)=>{
   upload.array('image',4)(req, res, async (err) => {
    try{
     const items = await Product.updateOne({_id:req.params.id},{
-      name: req.body.name,
-      category: req.body.category,
-      description: req.body.description,
-      price: req.body.price,
+          company: req.body.company,
+          productname: req.body.productname,
+          category: req.body.category,
+          deal: req.body.deal,
+          price: req.body.price,
+          size: req.body.size,
       images: req.files.map(file => file.filename) 
     })
    console.log(items,'////////////////////');

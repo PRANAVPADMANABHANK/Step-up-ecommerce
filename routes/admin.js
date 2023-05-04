@@ -21,6 +21,7 @@ router.use(verifyAdminLogin = (req, res, next) => {
 
 
 router.get('/admin',productController.getAllProducts)
+router.get('/logout',adminController.logout)
 
 router.get('/addProduct', productController.addProductPage)
 
@@ -33,7 +34,7 @@ router.post('/editProduct/:id',productController.editProduct)
 
 router.get('/dashboard',adminController.getDashboard)
 
-router.get('/users',userController.userslist);
+router.get('/userListView',userController.userslist);
 router.get('/block/:id',userController.blockUser);
 router.get('/unBlock/:id',userController.unBlockUser);
 router.delete('/delete/:id',userController.deleteUser);

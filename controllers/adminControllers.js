@@ -63,3 +63,7 @@ exports.postAdminLogin = async(req, res) => {
     }
 }
 
+exports.logout =async (req,res)=>{
+    req.session.admin = null;
+    res.redirect('/admin/adminLogin');
+  }

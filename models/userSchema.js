@@ -18,6 +18,14 @@ const userSchema =new Schema({
         type: String,
         required: true
     },
+    status :{
+        type: Boolean,
+        required:true
+    },
+    isActive :{
+        type: Boolean,
+        required:true
+    },
 },
 {
     timestamps:true

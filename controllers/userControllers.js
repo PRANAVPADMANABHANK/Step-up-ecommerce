@@ -90,11 +90,17 @@ exports.postLogin = async (req, res) => {
       console.log("klasjdlfkj");
       bcrypt.compare(req.body.password, newUser.password).then((status) => {
         if (status) {
+          if(newUser.isActive){
           console.log("user exist");
           req.session.user = newUser;
           req.session.user.loggedIn = true;
           console.log(newUser);
           res.redirect("/");
+          }else{
+            req.session.loginErr = "User has been blocked";
+            console.log("User has been blocked");
+            res.status(400).redirect("/login");
+          }
         } else {
           req.session.loginErr = "Invalid Email or Password";
           console.log("password is not matching");
@@ -231,11 +237,11 @@ exports.userslist = async(req,res)=>{
 
  exports.blockUser = async(req,res)=>{
     await User.updateOne({_id: req.params.id}, { isActive: false });
-    res.redirect('/admin/users')
+    res.redirect('/admin/userListView')
  }
  exports.unBlockUser = async(req,res)=>{
     await User.updateOne({_id: req.params.id}, { isActive: true });
-    res.redirect('/admin/users')
+    res.redirect('/admin/userListView')
 }
 
 exports.deleteUser = async (req,res)=>{
@@ -243,9 +249,19 @@ exports.deleteUser = async (req,res)=>{
 
    await User.deleteOne({_id: req.params.id});
    
-   res.redirect("/admin/Users");
+   res.redirect("/admin/userListView");
 
   }catch(error){
    console.log(error)
+  }
+}
+
+exports.userSingleProduct = async (req,res)=>{
+  try {
+
+    console.log("dskjhkjsdfh")
+    res.render('user/userSingleProduct')
+  } catch (error) {
+    console.log(error)
   }
 }

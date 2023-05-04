@@ -34,6 +34,8 @@ router.get('/kids', function(req, res) {
 
 
 
+router.get('/singleProduct',userController.userSingleProduct)
+
 router.get('/home',userController.userHome)
 router.post('/signup', userController.postSignup)
 router.post('/login',userController.postLogin)

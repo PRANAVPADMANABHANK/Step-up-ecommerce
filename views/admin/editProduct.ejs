@@ -43,24 +43,40 @@
 <h1><b> Edit Product </b></h1>
 <form action="/admin/editProduct/<%=editProduct._id %>" id="editProductForm" method="POST" enctype="multipart/form-data" >
   <div class="mb-3">
-    <label for="name" class="form-label">Product Name:</label>
-    <input type="text" class="form-control" id="name" name="name" value="<%=editProduct.name %>" required>
+    <label for="name" class="form-label">Company:</label>
+    <input type="text" class="form-control" id="name" name="company" value="<%=editProduct.company %>" required>
   </div>
 
   <div class="mb-3">
-    <label for="category" class="form-label" >Category:</label>
-    <input type="text" class="form-control" id="name" name="category" required value="<%=editProduct.category %>">
+    <label for="description" class="form-label">Product Name:</label>
+    <input type="text" class="form-control" id="description" name="productname" required value="<%=editProduct.productname %>">
+    <!-- <textarea class="form-control" id="description" name="description" rows="5" value="<%#editProduct.description%>" required></textarea> -->
   </div>
 
   <div class="mb-3">
-    <label for="description" class="form-label">Description:</label>
-    <input type="text" class="form-control" id="description" name="description" required value="<%=editProduct.description %>">
-    <!-- <textarea class="form-control" id="description" name="description" rows="5" value="<%=editProduct.description%>" required></textarea> -->
+    <label for="price" class="form-label">Category:</label>
+    <!-- <input type="number" class="form-control" id="price" name="category"  min="0" value="<%=editProduct.category %>" required> -->
+    <select class="form-select" id="category" name="category" required>
+      <option value="">--Select Category--</option>
+      <option value="Men's">Men's</option>
+      <option value="Women's">Women's</option>
+      <option value="Baby's & Kid's">Baby's & Kid's</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="price" class="form-label">Deal:</label>
+    <input type="text" class="form-control" id="description" name="deal"  value="<%=editProduct.deal %>" required>
   </div>
 
   <div class="mb-3">
     <label for="price" class="form-label">Price:</label>
     <input type="number" class="form-control" id="price" name="price"  min="0" value="<%=editProduct.price %>" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="price" class="form-label">Size:</label>
+    <input type="text" class="form-control" id="price" name="size"  value="<%=editProduct.size %>" required>
   </div>
 
   <div class="mb-3">
