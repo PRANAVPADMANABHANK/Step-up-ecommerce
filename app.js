@@ -12,20 +12,34 @@ const fast2sms = require('fast-two-sms')
 const ejs = require('ejs')
 const expressLayout = require('express-ejs-layouts')
 const session = require('express-session')
+const MongoDBStore = require('connect-mongodb-session')(session);
 const connectDB = require('./server/config/db')
 const multer = require('multer')
 const methodOverride = require('method-override');
+const toastr = require('express-toastr');
 
+const flash = require('express-flash');
+
+
+
+// const { MongoDBStore } = require('connect-mongodb-session');
 
 
 //modules
 
 var userRouter= require('./routes/user');
-var adminRouter = require('./routes/admin')
+var adminRouter = require('./routes/admin');
+
 
 
 
 var app = express();
+
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: false
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,13 +49,27 @@ app.set('view engine', 'ejs');
 
 app.use(expressLayout);
 
-
+//session store
+const mongoDBStore = new MongoDBStore({ 
+  uri: process.env.MONGO_URI,
+  collection: 'sessions'
+});
 
 connectDB();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set('layout','./layouts/layout')
+
+// Add the flash middleware to your Express app
+app.use(flash());
+app.use(toastr());  
+
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success');
+  next();
+});
+
 
 app.use(methodOverride('_method'));
 app.use(bodyParser.json())
@@ -51,12 +79,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//session config
 app.use(session
-  ({secret:"Key",
+  ({secret:process.env.COOKIE_SECRET,
  resave: false,
+ store: mongoDBStore,
  saveUninitialized: true,
- cookie:{maxAge:43200} //12 hours
+ cookie:{maxAge:1000 * 60 * 60 * 24} //24 hours
 }));
+app.use((req,res,next)=>{
+  res.header('cache-control','private,nocache,no-store,must revalidate')
+  res.header('expurse','-1')
+  res.header('parama','no-cache')
+next()
+})
 
 app.use('/', userRouter);
 app.use('/admin',adminRouter)
@@ -78,6 +115,10 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+app.listen(3001, () => {
+  console.log('Server started on port 3001');
 });
 
 module.exports = app;

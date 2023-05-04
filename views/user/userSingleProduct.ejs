@@ -1,48 +1,248 @@
-    <section class="ftco-section">
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-lg-6 mb-5 ftco-animate">
-    				<a href="images/product-1.png" class="image-popup prod-img-bg"><img src="images/product-1.png" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
-    				<h3>Nike Free RN 2019 iD</h3>
-    				<div class="rating d-flex">
-							<p class="text-left mr-4">
-								<a href="#" class="mr-2">5.0</a>
-								<a href="#"><span class="ion-ios-star-outline"></span></a>
-								<a href="#"><span class="ion-ios-star-outline"></span></a>
-								<a href="#"><span class="ion-ios-star-outline"></span></a>
-								<a href="#"><span class="ion-ios-star-outline"></span></a>
-								<a href="#"><span class="ion-ios-star-outline"></span></a>
-							</p>
-							<p class="text-left mr-4">
-								<a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">Rating</span></a>
-							</p>
-							<p class="text-left">
-								<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
-							</p>
-						</div>
-    				<p class="price"><span>$120.00</span></p>
-    				<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-    				<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.
-						</p>
-						<div class="row mt-4">
-							<div class="col-md-6">
-								<div class="form-group d-flex">
-		              <div class="select-wrap">
-	                  <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-	                  <select name="" id="" class="form-control">
-	                  	<option value="">Small</option>
-	                    <option value="">Medium</option>
-	                    <option value="">Large</option>
-	                    <option value="">Extra Large</option>
-	                  </select>
-	                </div>
-		            </div>
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"/>
+
+</head>
+
+
+<style>
+	.product-images {
+		display: flex;
+	}
+
+	.small-images {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.large-image {
+		margin-left: 20px;
+		position: relative;
+		overflow: hidden;
+		margin-top: 16px;
+	}
+
+	.large-image img {
+		transition: all 0.3s ease-out;
+	}
+
+	.overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		background-color: rgba(255, 255, 255, 0.5);
+		z-index: 1;
+		opacity: 0;
+		transition: all 0.3s ease-out;
+	}
+
+	.large-image:hover img {
+		transform: scale(1.2);
+	}
+
+	.size__btn {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.size-btn {
+		background-color: transparent;
+		border: 1px solid #ccc;
+		color: #333;
+		cursor: pointer;
+		font-size: 16px;
+		margin: 0 5px;
+		padding: 10px 20px;
+		transition: all 0.3s ease;
+	}
+
+	.size-btn:hover {
+		background-color: #333;
+		color: #fff;
+	}
+
+	.size__btn {
+		display: flex;
+		flex-wrap: nowrap;
+		/* prevents buttons from wrapping to next line */
+		width: 180px;
+		/* adjust the width to fit all the buttons */
+	}
+
+	.size-btn {
+		border-radius: 20px;
+		/* make the buttons round */
+		background-color: #e5e5e5;
+		/* set the background color */
+		color: #333;
+		/* set the text color */
+		font-size: 14px;
+		/* adjust the font size if needed */
+		padding: 5px 10px;
+		/* adjust the padding if needed */
+		margin-right: 10px;
+		/* add some spacing between buttons */
+	}
+
+	.size-btn:hover {
+		background-color: #ccc;
+		/* change the background color on hover */
+		cursor: pointer;
+		/* show the pointer cursor on hover */
+	}
+
+	.size-btn.active {
+		background-color: #fff;
+		color: #555;
+		border-color: #555;
+		border-radius: 20px;
+		box-shadow: 0px 0px 0px 2px #555;
+	}
+
+
+	/* Define the black-button class */
+
+
+
+	/* .large-image:hover .overlay {
+		  opacity: 1;
+		} */
+</style>
+
+<div id="loader">
+	<span></span>
+</div>
+
+<section class="ftco-section">
+	<div class="container">
+		<div class="row">
+			<!-- <div class="col-lg-6 mb-5 ftco-animate">
+					<img style="width:100px; height: auto;" src="/uploads/<%=singleProduct.images[0]%>" alt="Product Image" id="imgView" class="pt-3">
+					<img style="width:100px; height: auto;" src="/uploads/<%=singleProduct.images[1]%>" alt="Product Image" id="imgView" class="pt-3">
+					<img style="width:100px; height: auto;" src="/uploads/<%=singleProduct.images[2]%>" alt="Product Image" id="imgView" class="pt-3">
+    			</div> -->
+
+			<!-- <div class="col-lg-6 mb-5 ftco-animate">
+					<div class="vertical-images">
+					  <img style="width:100px; height: auto;" src="/uploads/<%=singleProduct.images[0]%>" alt="Product Image" id="imgView" class="pt-3">
+					  <img style="width:100px; height: auto;" src="/uploads/<%=singleProduct.images[1]%>" alt="Product Image" id="imgView" class="pt-3">
+					  <img style="width:100px; height: auto;" src="/uploads/<%=singleProduct.images[2]%>" alt="Product Image" id="imgView" class="pt-3">
+					</div>
+				  </div> -->
+
+			<div class="col-lg-6 mb-5 ftco-animate">
+				<div class="product-images">
+					<div class="small-images" style="height: 100px;width: 121px;">
+						<a href="/uploads/<%=singleProduct.images[0]%>" class="MagicZoom small-image"
+							data-options="zoomWidth:400px; zoomHeight:400px">
+							<img style="width:100px; height: auto;" src="/uploads/<%=singleProduct.images[0]%>"
+								alt="Product Image" class="pt-3">
+						</a>
+						<a href="/uploads/<%=singleProduct.images[1]%>" class="MagicZoom small-image"
+							data-options="zoomWidth:400px; zoomHeight:400px">
+							<img style="width:100px; height: auto;" src="/uploads/<%=singleProduct.images[1]%>"
+								alt="Product Image" class="pt-3">
+						</a>
+						<a href="/uploads/<%=singleProduct.images[2]%>" class="MagicZoom small-image"
+							data-options="zoomWidth:400px; zoomHeight:400px">
+							<img style="width:100px; height: auto;" src="/uploads/<%=singleProduct.images[2]%>"
+								alt="Product Image" class="pt-3">
+						</a>
+						<a href="/uploads/<%=singleProduct.images[3]%>" class="MagicZoom small-image"
+							data-options="zoomWidth:400px; zoomHeight:400px">
+							<img style="width:100px; height: auto;" src="/uploads/<%=singleProduct.images[3]%>"
+								alt="Product Image" class="pt-3">
+						</a>
+					</div>
+					<div class="large-image" style="margin-top: 0px;">
+						<a href="/uploads/<%=singleProduct.images[4]%>" class="MagicZoom"
+							data-options="zoomPosition: inner">
+							<img style="height: 546px;" data-hash="product-1" class="product_big_img"
+								src="/uploads/<%=singleProduct.images[4]%>" alt="" id="largeImage">
+						</a>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- <div class="col-lg-6 mb-5 ftco-animate">
+					<div class="product-images">
+					  <div class="small-images">
+						<img style="width:100px; height: auto;"  src="/uploads/<%=singleProduct.images[0]%>" alt="Product Image" id="imgView" class="pt-3">
+						<img style="width:100px; height: auto;"  src="/uploads/<%=singleProduct.images[1]%>" alt="Product Image" id="imgView" class="pt-3">
+						<img style="width:100px; height: auto;"  src="/uploads/<%=singleProduct.images[2]%>" alt="Product Image" id="imgView" class="pt-3">
+						<img style="width:100px; height: auto;"  src="/uploads/<%=singleProduct.images[3]%>" alt="Product Image" id="imgView" class="pt-3">
+					  </div>
+					  <div class="large-image">
+						<a href="/uploads/<%=singleProduct.images[4]%>"   class="MagicZoom" data-options="zoomPosition: inner"> <img style="height: 546px;" data-hash="product-1" class="product_big_img" src="/uploads/<%=singleProduct.images[4]%>" alt=""></a>
+						
+					  </div>
+					</div>
+				  </div> -->
+
+
+
+			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
+				<h3>
+					<%= singleProduct.productname %>
+				</h3>
+				<div class="rating d-flex">
+					<p class="text-left mr-4">
+						<a href="#" class="mr-2">5.0</a>
+						<a href="#"><span class="ion-ios-star-outline"></span></a>
+						<a href="#"><span class="ion-ios-star-outline"></span></a>
+						<a href="#"><span class="ion-ios-star-outline"></span></a>
+						<a href="#"><span class="ion-ios-star-outline"></span></a>
+						<a href="#"><span class="ion-ios-star-outline"></span></a>
+					</p>
+					<p class="text-left mr-4">
+						<a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">Rating</span></a>
+					</p>
+					<p class="text-left">
+						<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
+					</p>
+				</div>
+				<p class="price"><span>₹<%= singleProduct.price %></span></p>
+				<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a
+					paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+				<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would
+					have been rewritten a thousand times and everything that was left from its origin would be the word
+					"and" and the Little Blind Text should turn around and return to its own, safe country. But nothing
+					the copy said could convince her and so it didn’t take long until a few insidious Copy Writers
+					ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they
+					abused her for their.
+				</p>
+				<div class="row mt-4">
+					<div class="col-md-6">
+						<div class="form-group d-flex">
+							<div class="select-wrap">
+								<!-- <div class="icon"><span class="ion-ios-arrow-down"></span></div> -->
+								<!-- <select name="" id="" class="form-control">
+									<option value="">Small</option>
+									<option value="">Medium</option>
+									<option value="">Large</option>
+									<option value="">Extra Large</option>
+								</select> -->
+								<li>
+									<span>Available size:</span>
+									<div class="size__btn">
+										<button id="s-btn" class="size-btn">S</button>
+										<button id="m-btn" class="size-btn">M</button>
+										<button id="l-btn" class="size-btn">L</button>
+										<button id="xl-btn" class="size-btn">XL</button>
+										<button id="xxl-btn" class="size-btn">XXL</button>
+									</div>
+								</li>
 							</div>
-							<div class="w-100"></div>
-							<div class="input-group col-md-6 d-flex mb-3">
-	             	<span class="input-group-btn mr-2">
+						</div>
+					</div>
+					<div class="w-100"></div>
+					<div class="input-group col-md-6 d-flex mb-3">
+						<!-- <span class="input-group-btn mr-2">
 	                	<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
 	                   <i class="ion-ios-remove"></i>
 	                	</button>
@@ -52,180 +252,304 @@
 	                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
 	                     <i class="ion-ios-add"></i>
 	                 </button>
-	             	</span>
-	          	</div>
-	          	<div class="w-100"></div>
-	          	<div class="col-md-12">
-	          		<p style="color: #000;">80 piece available</p>
-	          	</div>
-          	</div>
-          	<p><a href="cart.html" class="btn btn-black py-3 px-5 mr-2">Add to Cart</a><a href="cart.html" class="btn btn-primary py-3 px-5">Buy now</a></p>
-    			</div>
-    		</div>
+	             	</span> -->
+					</div>
+					<div class="w-100"></div>
+					<div class="col-md-12">
+						<p style="color: #000;">80 piece available</p>
+					</div>
+				</div>
+				<input type="text" id="hiddenId" value="<%=singleProduct._id %>" hidden>
+				<p><button type="button" onclick="addToCart('<%=singleProduct._id %>')" class="black-button">Add to
+						Cart</button>
+					<!-- <button href="cart.html" class="black-button">Buy now</button> -->
+				</p>
+			</div>
+		</div>
 
 
 
 
-    		<div class="row mt-5">
-          <div class="col-md-12 nav-link-wrap">
-            <div class="nav nav-pills d-flex text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link ftco-animate active mr-lg-1" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Description</a>
+		<div class="row mt-5">
+			<div class="col-md-12 nav-link-wrap">
+				<div class="nav nav-pills d-flex text-center" id="v-pills-tab" role="tablist"
+					aria-orientation="vertical">
+					<a class="nav-link ftco-animate active mr-lg-1" id="v-pills-1-tab" data-toggle="pill"
+						href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Description</a>
 
-              <a class="nav-link ftco-animate mr-lg-1" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Manufacturer</a>
+					<a class="nav-link ftco-animate mr-lg-1" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2"
+						role="tab" aria-controls="v-pills-2" aria-selected="false">Manufacturer</a>
 
-              <a class="nav-link ftco-animate" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3" aria-selected="false">Reviews</a>
+					<a class="nav-link ftco-animate" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab"
+						aria-controls="v-pills-3" aria-selected="false">Reviews</a>
 
-            </div>
-          </div>
-          <div class="col-md-12 tab-wrap">
-            
-            <div class="tab-content bg-light" id="v-pills-tabContent">
+				</div>
+			</div>
+			<div class="col-md-12 tab-wrap">
 
-              <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="day-1-tab">
-              	<div class="p-4">
-	              	<h3 class="mb-4">Nike Free RN 2019 iD</h3>
-	              	<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
-              	</div>
-              </div>
+				<div class="tab-content bg-light" id="v-pills-tabContent">
 
-              <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-day-2-tab">
-              	<div class="p-4">
-	              	<h3 class="mb-4">Manufactured By Nike</h3>
-	              	<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
-              	</div>
-              </div>
-              <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-day-3-tab">
-              	<div class="row p-4">
-						   		<div class="col-md-7">
-						   			<h3 class="mb-4">23 Reviews</h3>
-						   			<div class="review">
-								   		<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
-								   		<div class="desc">
-								   			<h4>
-								   				<span class="text-left">Jacob Webb</span>
-								   				<span class="text-right">14 March 2018</span>
-								   			</h4>
-								   			<p class="star">
-								   				<span>
-								   					<i class="ion-ios-star-outline"></i>
-								   					<i class="ion-ios-star-outline"></i>
-								   					<i class="ion-ios-star-outline"></i>
-								   					<i class="ion-ios-star-outline"></i>
-								   					<i class="ion-ios-star-outline"></i>
-							   					</span>
-							   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-								   			</p>
-								   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-								   		</div>
-								   	</div>
-								   	<div class="review">
-								   		<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-								   		<div class="desc">
-								   			<h4>
-								   				<span class="text-left">Jacob Webb</span>
-								   				<span class="text-right">14 March 2018</span>
-								   			</h4>
-								   			<p class="star">
-								   				<span>
-								   					<i class="ion-ios-star-outline"></i>
-								   					<i class="ion-ios-star-outline"></i>
-								   					<i class="ion-ios-star-outline"></i>
-								   					<i class="ion-ios-star-outline"></i>
-								   					<i class="ion-ios-star-outline"></i>
-							   					</span>
-							   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-								   			</p>
-								   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-								   		</div>
-								   	</div>
-								   	<div class="review">
-								   		<div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
-								   		<div class="desc">
-								   			<h4>
-								   				<span class="text-left">Jacob Webb</span>
-								   				<span class="text-right">14 March 2018</span>
-								   			</h4>
-								   			<p class="star">
-								   				<span>
-								   					<i class="ion-ios-star-outline"></i>
-								   					<i class="ion-ios-star-outline"></i>
-								   					<i class="ion-ios-star-outline"></i>
-								   					<i class="ion-ios-star-outline"></i>
-								   					<i class="ion-ios-star-outline"></i>
-							   					</span>
-							   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-								   			</p>
-								   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-								   		</div>
-								   	</div>
-						   		</div>
-						   		<div class="col-md-4">
-						   			<div class="rating-wrap">
-							   			<h3 class="mb-4">Give a Review</h3>
-							   			<p class="star">
-							   				<span>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					(98%)
-						   					</span>
-						   					<span>20 Reviews</span>
-							   			</p>
-							   			<p class="star">
-							   				<span>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					(85%)
-						   					</span>
-						   					<span>10 Reviews</span>
-							   			</p>
-							   			<p class="star">
-							   				<span>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					(98%)
-						   					</span>
-						   					<span>5 Reviews</span>
-							   			</p>
-							   			<p class="star">
-							   				<span>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					(98%)
-						   					</span>
-						   					<span>0 Reviews</span>
-							   			</p>
-							   			<p class="star">
-							   				<span>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					<i class="ion-ios-star-outline"></i>
-							   					(98%)
-						   					</span>
-						   					<span>0 Reviews</span>
-							   			</p>
-							   		</div>
-						   		</div>
-						   	</div>
-              </div>
-            </div>
-          </div>
-        </div>
-    	</div>
-    </section>
-		
+					<div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="day-1-tab">
+						<div class="p-4">
+							<h3 class="mb-4">
+								<%= singleProduct.productname %>
+							</h3>
+							<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from
+								it would have been rewritten a thousand times and everything that was left from its
+								origin would be the word "and" and the Little Blind Text should turn around and return
+								to its own, safe country. But nothing the copy said could convince her and so it didn’t
+								take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and
+								Parole and dragged her into their agency, where they abused her for their.</p>
+						</div>
+					</div>
 
-    
+					<div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-day-2-tab">
+						<div class="p-4">
+							<h3 class="mb-4">Manufactured By Nike</h3>
+							<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from
+								it would have been rewritten a thousand times and everything that was left from its
+								origin would be the word "and" and the Little Blind Text should turn around and return
+								to its own, safe country. But nothing the copy said could convince her and so it didn’t
+								take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and
+								Parole and dragged her into their agency, where they abused her for their.</p>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-day-3-tab">
+						<div class="row p-4">
+							<div class="col-md-7">
+								<h3 class="mb-4">23 Reviews</h3>
+								<div class="review">
+									<div class="user-img" imgsrc=""></div>
+									<div class="desc">
+										<h4>
+											<span class="text-left">Jacob Webb</span>
+											<span class="text-right">14 March 2018</span>
+										</h4>
+										<p class="star">
+											<span>
+												<i class="ion-ios-star-outline"></i>
+												<i class="ion-ios-star-outline"></i>
+												<i class="ion-ios-star-outline"></i>
+												<i class="ion-ios-star-outline"></i>
+												<i class="ion-ios-star-outline"></i>
+											</span>
+											<span class="text-right"><a href="#" class="reply"><i
+														class="icon-reply"></i></a></span>
+										</p>
+										<p>When she reached the first hills of the Italic Mountains, she had a last view
+											back on the skyline of her hometown Bookmarksgrov</p>
+									</div>
+								</div>
+								<div class="review">
+									<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
+									<div class="desc">
+										<h4>
+											<span class="text-left">Jacob Webb</span>
+											<span class="text-right">14 March 2018</span>
+										</h4>
+										<p class="star">
+											<span>
+												<i class="ion-ios-star-outline"></i>
+												<i class="ion-ios-star-outline"></i>
+												<i class="ion-ios-star-outline"></i>
+												<i class="ion-ios-star-outline"></i>
+												<i class="ion-ios-star-outline"></i>
+											</span>
+											<span class="text-right"><a href="#" class="reply"><i
+														class="icon-reply"></i></a></span>
+										</p>
+										<p>When she reached the first hills of the Italic Mountains, she had a last view
+											back on the skyline of her hometown Bookmarksgrov</p>
+									</div>
+								</div>
+								<div class="review">
+									<div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
+									<div class="desc">
+										<h4>
+											<span class="text-left">Jacob Webb</span>
+											<span class="text-right">14 March 2018</span>
+										</h4>
+										<p class="star">
+											<span>
+												<i class="ion-ios-star-outline"></i>
+												<i class="ion-ios-star-outline"></i>
+												<i class="ion-ios-star-outline"></i>
+												<i class="ion-ios-star-outline"></i>
+												<i class="ion-ios-star-outline"></i>
+											</span>
+											<span class="text-right"><a href="#" class="reply"><i
+														class="icon-reply"></i></a></span>
+										</p>
+										<p>When she reached the first hills of the Italic Mountains, she had a last view
+											back on the skyline of her hometown Bookmarksgrov</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="rating-wrap">
+									<h3 class="mb-4">Give a Review</h3>
+									<p class="star">
+										<span>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											(98%)
+										</span>
+										<span>20 Reviews</span>
+									</p>
+									<p class="star">
+										<span>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											(85%)
+										</span>
+										<span>10 Reviews</span>
+									</p>
+									<p class="star">
+										<span>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											(98%)
+										</span>
+										<span>5 Reviews</span>
+									</p>
+									<p class="star">
+										<span>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											(98%)
+										</span>
+										<span>0 Reviews</span>
+									</p>
+									<p class="star">
+										<span>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											<i class="ion-ios-star-outline"></i>
+											(98%)
+										</span>
+										<span>0 Reviews</span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+	const smallImages = document.querySelectorAll('.small-images img');
+	const largeImage = document.querySelector('.large-image img');
+	const overlay = document.createElement('div');
+	overlay.classList.add('overlay');
+	largeImage.parentElement.appendChild(overlay);
+	smallImages.forEach((img, index) => {
+		img.addEventListener('mouseover', () => {
+			const imgSrc = img.getAttribute('src');
+			largeImage.setAttribute('src', imgSrc);
+		});
+	});
+
+
+	function showLoader() {
+		document.getElementById("loader").style.visibility = "visible";
+	}
+
+	function hideLoader() {
+		document.getElementById("loader").style.visibility = "hidden";
+	}
+
+	$('.size-btn').click(function () {
+		$(this).toggleClass('active').siblings().removeClass('active');
+		const size = $(this).text();
+		console.log(`Selected size: ${size}`);
+	});
+
+	$(document).ready(function () {
+		$('.size-btn').click(function () {
+			showLoader()
+			var size = $(this).text(); // Get the size from the button's text
+			let proId = document.getElementById('hiddenId').value;
+			console.log(proId, 'hidden')
+			console.log(size)
+			$.ajax({
+				url: `/product-size-selector/${size}/?proId=${proId}`,
+				type: 'get',
+				success: (response) => {
+					if (response) {
+						let prev = $('.cart-btn').html();
+						$('.cart-btn').html('<span class="icon_bag_alt"></span> Go to cart');
+						$('.cart-btn').attr('onclick', 'window.location.href="/cart"');
+						hideLoader()
+					} else {
+						$('.cart-btn').html('<span class="icon_bag_alt"></span> Add to cart');
+						$('.cart-btn').attr('onclick', 'addToCart("' + proId + '")');
+
+						hideLoader()
+					}
+				}
+
+			});
+		});
+	});
+
+	function addToCart(proId) {
+		const activeBtn = $('.size-btn.active');
+		const size = $('.size-btn.active').text();
+		if (activeBtn.length > 0) {
+			$.ajax({
+				url: `/addtoCart/${proId}/?size=${size}`,
+				method: 'get',
+				success: (response) => {
+					// alert(response)
+					let count = $('#cartCount').html()
+					count = parseInt(count) + 1
+					$('#cartCount').html(count)
+
+					console.log(typeof (count))
+					console.log(count, 'countttt')
+
+					toastr.success('Product added successfully to the cart.', 'Success', {
+						timeOut: 3000, // time in milliseconds
+						progressBar: true, // show a progress bar
+						closeButton: true, // show a close button
+					});
+				}
+			})
+		} else {
+			toastr.error('Please select size');
+		}
+
+	}
+
+
+	document.addEventListener('DOMContentLoaded', function () {
+		var smallImages = document.getElementsByClassName('small-image');
+		for (var i = 0; i < smallImages.length; i++) {
+			smallImages[i].addEventListener('click', function () {
+				var imgSrc = this.getAttribute('data-imgsrc');
+				var largeImage = document.getElementById('largeImage');
+				largeImage.src = imgSrc;
+				new MagicZoom(largeImage);
+			});
+		}
+	});
+</script>

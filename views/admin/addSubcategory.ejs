@@ -1,0 +1,100 @@
+<body>
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-10">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h3 class="mb-0">Add SubCategory</h3>
+            </div>
+            <div class="card-body">
+              <form id="categoryForm" class="needs-validation" action="/admin/addSubCategory" method="post" novalidate>
+                <div class="form-group mt-3">
+                  <label for="categoryName">SubCategory Name</label>
+                  <input type="text" class="form-control" id="categoryName" placeholder="Enter category name" name="subcategory" required>
+                  <div class="invalid-feedback">
+                    Please enter a subcategory name.
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="categoryDescription">Category</label>
+                    <select class="form-control" id="categoryDescription" name="category" required>
+                      <option value="" selected disabled>Select category description</option>
+                      <% categories.forEach(element => { %>
+                        <option value="<%= element._id %>"><%= element.category %></option>
+                      <% }) %>
+                      <!-- Add more options as needed -->
+                    </select>
+                    <div class="invalid-feedback">
+                      Please select a category description.
+                    </div>
+                  </div>
+                  
+                <br>
+                <button id="submitbtn" value="Submit" type="submit" class="btn btn-primary">Submit</button>
+                <a href="#" class="btn btn-secondary">Cancel</a>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+<!-- New two-column table section below the form -->
+<!-- admin/addCategory.ejs -->
+<div class="container mt-3">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="card">
+          <div class="card-body">
+            <h4>Added SubCategories:</h4>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">No</th> <!-- Add index position column -->
+                  <th scope="col">SubCategory</th>
+                  <th scope="col">Category</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% subcategories.forEach((element, index) => { %> <!-- Add index position in the forEach loop -->
+                <tr>
+                  <td><%= index + 1 %></td> <!-- Display index position -->
+                  <td><%= element.sub_category %></td>
+                  <td><%= element.category_id %></td> 
+                </tr>
+                <% }) %>
+              
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+    <script>
+      // JavaScript for form validation
+      (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+          var forms = document.getElementsByClassName('needs-validation');
+          var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+              if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        }, false);
+      })();
+    </script>
+  </body>
+  

@@ -1,0 +1,109 @@
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<style type="text/css">
+    body {
+        background:#f2f2f2;
+    }
+
+    .payment {
+        border: 1px solid #f01b1b;
+        height: 400px;
+        border-radius: 20px;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .payment_header {
+        background: #f01b1b;
+        padding: 20px;
+        border-radius: 20px 20px 0px 0px;
+    }
+
+    .check {
+        margin: 0px auto;
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        background: #fff;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .check i {
+        font-size: 30px;
+        color: #f01b1b;
+    }
+
+    .content {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .content h1 {
+        font-size: 25px;
+        padding-top: 25px;
+        margin-bottom: 20px;
+    }
+
+    .content p {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .content a {
+        width: 200px;
+        height: 35px;
+        color: #fff;
+        border-radius: 30px;
+        padding: 5px 10px;
+        background: #f01b1b;
+        transition: all ease-in-out 0.3s;
+        display: inline-block;
+        margin-right: 10px;
+        text-decoration: none;
+        font-size: 16px;
+        line-height: 35px;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .content a:hover {
+        background: #000;
+    }
+
+    .emoji {
+        font-size: 60px;
+        margin-bottom: 20px;
+    }
+
+    .status-text {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #f01b1b;
+    }
+</style>
+
+<div class="container">
+    <div class="row ">
+        <div class="col-md-6 mx-auto mt-5">
+            <div class="payment">
+                <div class="payment_header">
+                    <div class="check"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></div>
+                </div>
+                <div class="content">
+                    <div class="emoji">😔</div>
+                    <div class="status-text">Oops! Payment Failed</div>
+                    <p>Sorry, it looks like there was an issue processing your payment. Please try again with another payment option.</p>
+                    <a href="/address">Retry</a>
+                    <a href="/">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

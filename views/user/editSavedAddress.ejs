@@ -1,0 +1,137 @@
+<!-- CSS for location icon and message alignment -->
+<style>
+    .fas.fa-map-marker-alt {
+        color: #007bff;
+    }
+
+    .text-right .d-block {
+        text-align: right;
+    }
+    .card-hover-shadow:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+
+<section class="ftco-section">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            
+            
+            <div class="col-xl-10 ftco-animate">
+                <form action="/editSavedAddress/<%= address._id %>" method="post" id="checkout-form" class="billing-form"
+                    style="background-color: #fdfbfb; padding: 20px;">
+                    <h3 class="mb-4 billing-heading">EDIT ADDRESS</h3>
+                    <div class="row align-items-end">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="firstname">Firt Name</label>
+                                <input type="text" class="form-control" name="firstname" placeholder="" value="<%= address.firstname %>" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lastname">Last Name</label>
+                                <input type="text" class="form-control" name="lastname" placeholder="" value="<%= address.lastname %>" required>
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="country">State / Country</label>
+                                <input type="text" name="state" id="" class="form-control"
+                                    placeholder="Enter state or country..." value="<%= address.state %>" required> 
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="streetaddress">Street Address</label>
+                                <input type="text" class="form-control" name="address"
+                                    placeholder="House number and street name" value="<%= address.streetaddress %>" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="streetaddress">Appartment</label>
+                                <input type="text" class="form-control" name="appartment"
+                                    placeholder="Appartment, suite, unit etc: (optional)" value="<%= address.appartment %>" required>
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="towncity">Town / City</label>
+                                <input type="text" class="form-control" name="town" placeholder="" value="<%= address.town %>" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="postcodezip">Postcode / ZIP *</label>
+                                <input type="text" class="form-control" name="postcode" placeholder="" value="<%= address.zip %>" required> 
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="text" class="form-control" name="mobile" placeholder="" value="<%= address.mobile %>" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="emailaddress">Email Address</label>
+                                <input type="text" class="form-control" name="email" placeholder="" value="<%= address.email %>" required>
+
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-12">
+                            <div class="form-group mt-4">
+                                <div class="radio">
+                                    <label class="mr-3">
+                                        <input type="radio" name="optradio" value="home" <%= address.radio === 'home' ? 'checked' : '' %>> Home
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="optradio" value="office" <%= address.radio === 'office' ? 'checked' : '' %>> Office
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Your existing form HTML code here -->
+
+                        <div class="row justify-content-end col-md-12 text-right mb-3">
+                            <div class="col-md-12">
+                                <button class="btn btn-secondary mr-2" id="cancel-button">Cancel</button>
+                                <input type="hidden" name="addressId" value="<%= address._id %>">
+                                <button class="btn btn-primary" id="save-button">Save</button>
+                            </div>
+                        </div>
+                    </div>
+            </div> <!-- .col-md-8 -->
+        </div>
+    </div>
+    </form><!-- END -->
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+<script>
+    const saveBtn = document.getElementById("save-button");
+    saveBtn.addEventListener("click", () => {
+        // Show the Toastr message with a 3-second lifetime
+        toastr.success('Address saved successfully!', 'Success!', { timeOut: 20000 });
+    });
+
+    const cancelBtn = document.getElementById("cancel-button");
+    cancelBtn.addEventListener("click", () => {
+        // Show the Toastr message with a 3-second lifetime
+        toastr.info('Address changes discarded.', 'Info', { timeOut: 20000 });
+    });
+</script>

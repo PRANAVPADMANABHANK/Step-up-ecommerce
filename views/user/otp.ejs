@@ -1,5 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+    <style>
+       /* Style for the body */
+       body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Style for the form container */
+        .form {
+            max-width: 500px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        /* Style for the form header */
+        .form h1, .form h2 {
+            text-align: center;
+        }
+
+        /* Style for the input field container */
+        .form input[type="text"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            background-color: #f8f8f8;
+            font-size: 16px;
+            transition: border-color 0.2s ease-in-out;
+        }
+
+        /* Style for the input field when it is focused */
+        .form input[type="text"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        /* Style for the input field label */
+        .form label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        /* Style for the submit button */
+        .form button[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        /* Style for the submit button when hovering */
+        .form button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .form input[type="text"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    transition: border-color 0.2s ease-in-out;
+    /* New styles for the input field */
+    color: #555;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+    </style>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +99,7 @@
         <form action="/otp" method="post">
             <h1>HELLO</h1>
             <h2>Welcome to OTP Authentication</h2>
-            <input name="number" placeholder="Enter phone number eg:1234567890" autocomplete="off" >
+            <input name="number" style="margin-left: 94px;" placeholder="Enter phone number eg:1234567890" autocomplete="off" required >
             <button type="submit" name="button">Submit</button>
         </form>
     </div>

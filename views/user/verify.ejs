@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,8 +14,105 @@
 </form>
 
 </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body, html {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        input[type="text"] {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        .otp-input {
+            width: 2rem;
+            height: 2rem;
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+            outline: none;
+        }
+        .resend-otp {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.resend-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.resend-link:hover {
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+    <form id="verify-form" action="/verify" method="post">
+        <h2>Enter your verification code:</h2>
+        <div>
+            <input type="text" style="width:auto" name="code" placeholder="eg:123456" autocomplete="off" >
+        </div>
+        <button name="verifyButton" type="submit">Submit</button>
+        <div class="resend-otp">
+            <p>Didn't receive the code?</p>
+            <a href="/verify" class="resend-link">Resend OTP</a>
+        </div>
+        
+    </form>
+</body>
 </html>
 
+<script>
+    const otpInputs = document.querySelectorAll('.otp-input');
 
+    for (let i = 0; i < otpInputs.length; i++) {
+        otpInputs[i].addEventListener('input', function() {
+            if (this.value.length === 1) {
+                if (i === otpInputs.length - 1) {
+                    return;
+                } else {
+                    otpInputs[i+1].focus();
+                }
+            }
+        });
+    }
+</script>
 
 

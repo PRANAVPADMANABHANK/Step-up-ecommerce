@@ -26,6 +26,14 @@ const userSchema =new Schema({
         type: Boolean,
         required:true
     },
+    appliedCoupon:[
+        {applied:String,
+        coupondis:Number,
+        minPurchase:Number,
+        status:Boolean
+        }
+
+    ],
 },
 {
     timestamps:true

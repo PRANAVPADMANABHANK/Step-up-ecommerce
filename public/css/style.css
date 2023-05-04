@@ -2122,7 +2122,7 @@ fieldset:disabled a.btn {
 
 .btn-success {
   color: #fff;
-  background-color: #28a745;
+  background-color: rgba(26, 211, 68, 0.86);
   border-color: #28a745; }
   .btn-success:hover {
     color: #fff;
@@ -2197,7 +2197,7 @@ fieldset:disabled a.btn {
 
 .btn-danger {
   color: #fff;
-  background-color: #dc3545;
+  background-color: #f64253e0;
   border-color: #dc3545; }
   .btn-danger:hover {
     color: #fff;
@@ -8299,10 +8299,10 @@ h1, h2, h3, h4, h5,
     -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1); }
     .ftco-navbar-light.scrolled .nav-item.active > a {
-      color: #dbcc8f !important; }
+      color: #211d11 !important; }
     .ftco-navbar-light.scrolled .nav-item.cta > a {
       color: #000000 !important;
-      background: #dbcc8f;
+      background: #ffffff;
       border: none !important; }
       .ftco-navbar-light.scrolled .nav-item.cta > a span {
         display: inline-block;
@@ -9239,7 +9239,7 @@ h1, h2, h3, h4, h5,
   height: 54px !important;
   text-align: center;
   bordeR: 1px solid rgba(0, 0, 0, 0.05) !important;
-  color: #000000 !important;
+  color: #ffffff !important;
   padding: 0;
   font-size: 14px; }
 
@@ -9388,7 +9388,7 @@ h1, h2, h3, h4, h5,
   padding-left: 15px;
   padding-right: 15px;
   background: transparent !important;
-  color: rgba(0, 0, 0, 0.4) !important;
+  color: rgb(0 0 0) !important;
   font-size: 14px;
   border-radius: 0px;
   -webkit-box-shadow: none !important;

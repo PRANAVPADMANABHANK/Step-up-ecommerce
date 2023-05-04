@@ -1,0 +1,387 @@
+<style>
+  #loader {
+ visibility: hidden;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+#loader > span {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  border-top-color: #000;
+  animation: spin 1s linear infinite;
+}
+
+/* CSS code for the loader animation */
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+</style>
+
+<main class="content">
+  <div id="loader" >
+    <span ></span>
+  </div>
+    <div class="container-fluid p-0">
+        <h1 class="h3 mb-3">Coupon</h1>
+  
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0"></h5>
+                        <div class="container mt-4">
+                            <div class="row">
+                                <div class="col-md-4">
+                                
+                                    <form action="/admin/coupon" id="cpn-gen-form" method="post">
+                                        <div class="mb-3">
+                                          <label for="discount" class="form-label">Discount</label>
+                                          <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-percent"></i></span>
+                                            <input type="text" name="discount" class="form-control" required>
+                                          </div>
+                                        </div>
+                                        <div class="mb-3">
+                                          <label for="minPurchase" class="form-label">Minimum Purchase</label>
+                                          <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
+                                            <input type="text" name="minPurchase" class="form-control" required>
+                                          </div>
+                                        </div>
+                                        <div class="mb-3">
+                                          <label for="expires" class="form-label">Expires On</label>
+                                          <input type="date" name="expires" class="form-control" required>
+                                        </div>
+                                        <input type="text" name="couponCode" class="form-control" hidden>
+                                        <div class="form-group mt-3">
+                                          <button type="submit" class="btn btn-primary btn-block">Generate Coupon</button>
+                                        </div>
+                                      </form>
+                                      
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-dark">
+                              <tr>
+                                <th scope="col">Coupon Code</th>
+                                <th scope="col">Discount</th>
+                                <th scope="col">Minimum Purchase</th>
+                                <th scope="col">Expires</th>
+                                <th scope="col">option</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                          
+                                <% (locals.coupon || []).forEach(element => { %>
+                                    
+                                 <tr data-coupon-id="<%= element._id %>" >
+                                <td id="cpn-code"><%= element.couponCode %></td>
+                                <td id="cpn-discount"><%= element.discount %></td>
+                                <td id="cpn-minpurchase"><%= element.minPurchase %></td>
+                                <td id="cpn-date"><%= new Date(element.expires).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour12: true })  %></td>
+                                <td>
+                                    
+                                    <% if (element.statusEnable) { %>
+                                        <button class="btn btn-sm btn-danger" id="btn-enable" type="button" onclick="disable('<%=element._id %>')">disable</button>
+
+                                    <% } else {%>
+                                        <button class="btn btn-sm btn-success" id="btn-disable" type="button" onclick="enable('<%=element._id %>')">Enable</button>
+
+                                     <% } %>
+                                   
+
+
+                                <button class="btn btn-primary edit-coupon-btn" data-coupon-id="<%= element._id %>" type="button" >Edit</button>
+                            
+                            
+                            </td>
+                            </tr>  
+                                <% }) %>
+                                                    
+                            </tbody>
+                            <div class="modal fade" id="editCouponModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit Coupon </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form id="cpn-edit-form" method="post">
+                                      <div class="mb-3">
+                                        <label for="couponCode" class="form-label fs-4">Coupon Code</label>
+                                        <div class="input-group">
+                                          <span class="input-group-text"><i class="bi bi-tag-fill"></i></span>
+                                          <input type="text" id="couponCode" name="couponCode" class="form-control" required>
+                                        </div>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="cpnDiscount" class="form-label fs-4">Discount</label>
+                                        <div class="input-group">
+                                          <span class="input-group-text"><i class="bi bi-percent"></i></span>
+                                          <input type="text" id="cpnDiscount" name="discount" class="form-control" required>
+                                        </div>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="minPurchase" class="form-label fs-4">Minimum Purchase</label>
+                                        <div class="input-group">
+                                          <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
+                                          <input type="text" id="minPurchase" name="minPurchase" class="form-control" required>
+                                        </div>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="cpnExp" class="form-label fs-4">Expires On</label>
+                                        <div class="input-group">
+                                          <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                                          <input type="date" id="cpnExp" name="expires" class="form-control" required>
+                                        </div>
+                                      </div>
+                                      <input type="text" id="couponId" name="couponId" class="form-control" hidden>
+                                    </form>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary bg-info border-0" id="saveCouponBtn"><i class="bi bi-save"></i> Save Changes</button>
+                                  </div>
+                                  
+                                  
+                                  
+                                </div>
+                              </div>
+                            </div>
+                          </table>
+                   
+                          
+                          <!-- Modal -->
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+  <script>
+    function showLoader() {
+       document.getElementById("loader").style.visibility = "visible";
+    }
+
+    function hideLoader() {
+          document.getElementById("loader").style.visibility = "hidden";
+    } 
+
+    function disable(couponId){
+
+        $.ajax({
+            url:`/admin/coupon-disable/${couponId}`,
+            method:'patch',
+            success:(response)=>{
+               location.href='/admin/coupon'
+            }
+
+        })
+    }
+    function enable(couponId){
+        $.ajax({
+            url:`/admin/coupon-enable/${couponId}`,
+            method:'patch',
+            success:(response)=>{
+                location.href='/admin/coupon'
+            }
+        })
+    }
+
+
+
+
+
+
+    
+
+    $(document).ready(function () {
+           $.validator.addMethod(
+             "noSpecialChars",
+             function (value, element) {
+               return this.optional(element) || /^(?!\s)[a-zA-Z ]+$/.test(value);
+             },
+             "Special characters and spaces are not allowed"
+           );
+           $.validator.addMethod(
+      "isNumber",
+      function (value, element) {
+        return this.optional(element) || (!isNaN(Number(value)) && /\S/.test(value));
+      },
+      "Please enter a valid number"
+    );
+     
+           $("#cpn-gen-form").validate({
+             rules: {
+               discount: {
+                 required: true,
+                isNumber:true
+               },
+               minPurchase: {
+                 required: true,
+                 isNumber:true
+            
+               },
+               expires:{
+                requried: true,
+
+               }
+           
+             },
+             messages: {
+               discount: {
+                 required: " enter discount",
+                 
+               },
+               minPurchase: {
+                 required: " minimum purchase amount",
+               
+               },
+               expires:{
+                required:'enter the exp date'
+               }
+             },
+             highlight: function (element) {
+               $(element).closest(".form-control").addClass("is-invalid");
+             },
+             unhighlight: function (element) {
+               $(element).closest(".form-control").removeClass("is-invalid");
+             },
+             errorElement: "div",
+             errorClass: "invalid-feedback",
+             errorPlacement: function (error, element) {
+               if (element.parent(".input-group").length) {
+                 error.insertAfter(element.parent());
+               } else {
+                 error.insertAfter(element);
+               }
+             },
+           });
+         });
+  
+
+     
+  
+   
+    // function editCoupon(couponId){
+    //     $.ajax({
+    //         url:`/admin/edit-coupon/${couponId}`,
+    //         method:'patch',
+    //         success:(response)=>{
+    //             location.href='/admin/coupon'
+    //         }
+    //     })
+    // }
+
+    $(document).ready(function() {
+         // When the edit coupon button is clicked
+         $('.edit-coupon-btn').click(function() {
+        // Get the coupon ID from the button's data-coupon-id attribute
+           var couponId = $(this).data('coupon-id');
+    
+        // Send an AJAX request to get the coupon details
+     $.ajax({
+         url: '/admin/edit-coupon',
+         data: { couponId: couponId },
+         type: 'GET',
+         success: function(data) {
+
+          
+           // Update the form fields in the modal with the coupon details
+           $('#couponCode').val(data.couponCode)
+           $('#cpnDiscount').val(data.discount);
+           $('#minPurchase').val(data.minPurchase);
+           var dateValue = data.expires;
+           var date = new Date(dateValue);
+           var year = date.getFullYear();
+           var month = ('0' + (date.getMonth() + 1)).slice(-2);
+           var day = ('0' + date.getDate()).slice(-2);
+           
+           var formattedDate = year + '-' + month + '-' + day;
+           $('#cpnExp').val(formattedDate);
+           $('#couponId').val(data._id)
+           
+           // Show the modal
+           $('#editCouponModal').modal('show');
+         }
+    });
+  });
+})
+
+
+$('#saveCouponBtn').click(function() {
+  
+  showLoader()
+  // Get the coupon details from the form fields
+  let couponCode = $('#couponCode').val();
+  let couponDiscount = $('#cpnDiscount').val();
+  console.log(couponDiscount,'passing')
+  let couponMinPurchase = $('#minPurchase').val();
+  let couponExp = $('#cpnExp').val();
+  let couponId = $('#couponId').val();
+
+  // Send an AJAX request to update the coupon details
+  $.ajax({
+    url: '/admin/update-coupon',
+    method: 'POST',
+    data: {
+      couponId: couponId,
+      couponCode: couponCode,
+      couponDiscount: couponDiscount,
+      couponMinPurchase:couponMinPurchase,
+      couponExp:couponExp
+    },
+    success: function(response) {
+          if(response){
+                                      
+              let row = $(`tr[data-coupon-id="${response._id}"]`);
+    row.find("#cpn-code").text(response.couponCode);
+    row.find("#cpn-discount").text(response.discount);
+    row.find("#cpn-minpurchase").text(response.minPurchase);
+    let formattedDate = new Date(response.expires).toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour12: true
+    });
+    row.find("#cpn-date").text(formattedDate);
+    $('#editCouponModal').modal('hide');
+    hideLoader();         
+
+          }
+    }
+
+  });
+});
+
+
+  </script>

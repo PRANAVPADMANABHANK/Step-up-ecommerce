@@ -1,0 +1,69 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<style>
+  .btn-success {
+  background-color: green;
+  border-color: green;
+}
+.my-btn {
+    background-color: #28a745;
+    color: #fff;
+    border-color: #28a745;
+  }
+  
+  .my-btn:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+  }
+
+</style>
+<br><br>
+<table class="table table-striped table-dark mt-5" id="myTable">
+  <thead>
+    <tr style="width: fit-content">
+      <th scope="col">No</th>
+      <th scope="col">Order Date</th>
+      <th scope="col">Name</th>
+      <th scope="col">Address</th>
+      <th scope="col">Pincode</th>
+      <th>Mobile</th>
+      <th>Total Amount</th>
+      <th>Total Quantity</th>
+      <th>Status</th>
+      <th>Payment</th>
+      <th>Option</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% orders.forEach(function(order, index) { %>
+      <tr>
+        <th scope="row"><%= index + 1 %></th>
+        <td><%= order.createdAt.toDateString() %></td>
+        <td><%= order.deliveryDetails.firstname %> <%= order.deliveryDetails.lastname %></td>
+        <td><%= order.deliveryDetails.streetaddress %>, <%= order.deliveryDetails.town %>, <%= order.deliveryDetails.state %></td>
+        <td><%= order.deliveryDetails.zip %></td>
+        <td><%= order.deliveryDetails.mobile %></td>
+        <td>₹<%= order.totalAmount %></td>
+        <td><%= order.products.reduce((total, product) => total + product.quantity, 0) %></td>
+        <td><%= order.paymentstatus %></td>
+        <td><%= order.paymentMethod %></td>
+        <td>
+          <button class="btn btn-success my-btn" onclick="viewDetails('<%= order._id %>')">View Details</button>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+  <script>
+    
+  function viewDetails(orderId) {
+    // Do something with the order ID, such as redirect to a details page
+    window.location.href = "/order/details/" + orderId;
+  }
+
+
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+  </script>

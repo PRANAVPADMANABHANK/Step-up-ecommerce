@@ -4,6 +4,24 @@
       font-size: 24px;
       color: red;
     }
+    
+    /* Sidebar */
+    #sidebar {
+        background-color: #00000033; /* Set the desired background color */
+        /* Additional styles for sidebar */
+    }
+    
+    /* Brand with smile icon */
+    #sidebar .brand {
+        background-color: #00000033; /* Set the same background color as sidebar */
+        /* Additional styles for brand */
+    }
+
+    /* Navbar */
+    nav {
+        background-color: #00000033; /* Set the desired background color */
+        /* Additional styles for navbar */
+    }
     </style>
 
     
@@ -21,10 +39,12 @@
                 <li><a href="#">Button</a></li>
             </ul> -->
         </li>
-        <li><a href="#"><i class="bx bxs-box icon"></i></i> Orders<i class='bx bx-chevron-right icon-right' ></i></a></li>
-        <li><a href="/admin/userListView"><i class='bx bxs-widget icon' ></i> Customers<i class='bx bx-chevron-right icon-right' ></i></a></li>
+        <li><a href="/admin/addCategory"><i class="bx bxs-category icon"></i></i> Category<i class='bx bx-chevron-right icon-right' ></i></a></li>
+        <li><a href="/admin/addsubCategory"><i class="bx bxs-category icon"></i></i> SubCategory<i class='bx bx-chevron-right icon-right' ></i></a></li>
+        <li><a href="/admin/Orders"><i class="bx bxs-box icon"></i></i> Orders<i class='bx bx-chevron-right icon-right' ></i></a></li>
+        <li><a href="/admin/userListView"><i class='bx bx-user-circle icon' ></i> Customers<i class='bx bx-chevron-right icon-right' ></i></a></li>
         <li class="divider" data-text="Discounts"></li>
-        <li><a href="#"><i class= "bx bxs-coupon icon"></i> Coupons<i class='bx bx-chevron-right icon-right' ></i></a></li>
+        <li><a href="/admin/coupon"><i class= "bx bxs-coupon icon"></i> Coupons<i class='bx bx-chevron-right icon-right' ></i></a></li>
         <li>
             <!-- <a href="#"><i class='bx bxs-notepad icon' >Others</i> -->
             <!-- <ul class="side-dropdown">
@@ -69,7 +89,7 @@
 
                     
                 <li><a href="/admin/admin"><i class='bx bxs-cog' ></i> Settings</a></li>
-                <li><a href="/admin/adminLogin"><i class='bx bxs-log-out-circle' ></i> Logout</a></li>
+                <li><a href="/admin/logout"><i class='bx bxs-log-out-circle' ></i> Logout</a></li>
             </ul>
         </div>
     </nav>

@@ -32,6 +32,9 @@ else{%>
      <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   </head>
   
 
@@ -44,11 +47,11 @@ else{%>
 
 		
 	<% }else{ %>
-		
+	
 		<%- include('../partials/user/userHead.ejs') %>
 		<%- include('../partials/user/userHeader.ejs') %>
     <%- body %>
-	<%- include('../partials/user/userFooter.ejs') %>
+	  <%- include('../partials/user/userFooter.ejs') %>
 		<% } %>
 
 

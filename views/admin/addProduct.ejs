@@ -52,8 +52,17 @@
     <input type="text" class="form-control" id="name" name="productname" required>
   </div>
 
-
   <div class="mb-3">
+    <label for="name" class="form-label">Type:</label>
+    <select class="form-select" id="category" name="type" required>
+      <option value="">Select Type</option>
+      <option value="Men's">Men</option>
+      <option value="Women's">Women</option>
+      <option value="Baby's & Kid's">Baby's & Kid's</option>
+    </select>
+  </div>
+
+  <!-- <div class="mb-3">
     <label for="category" class="form-label">Category:</label>
     <select class="form-select" id="category" name="category" required>
       <option value="">--Select Category--</option>
@@ -61,7 +70,35 @@
       <option value="Women's">Women's</option>
       <option value="Baby's & Kids's">Baby's & Kid's</option>
     </select>
+  </div> -->
+
+  <div class="form-group mt-3">
+    <label for="categoryDescription">Category</label>
+    <select class="form-control" id="categoryDescription" name="category" required>
+      <option value="" selected disabled>Select category description</option>
+      <% categories.forEach(element => { %>
+        <option value="<%= element._id %>"><%= element.category %></option>
+      <% }) %>
+      <!-- Add more options as needed -->
+    </select>
+    <div class="invalid-feedback">
+      Please select a category description.
+    </div>
   </div>
+  <div class="form-group mt-3">
+    <label for="categoryDescription">SubCategory</label>
+    <select class="form-control" id="categoryDescription" name="subcategory" required>
+      <option value="" selected disabled>Select subcategory description</option>
+      <% subcategories.forEach(element => { %>
+        <option value="<%= element._id %>"><%= element.sub_category %></option>
+      <% }) %>
+      <!-- Add more options as needed -->
+    </select>
+    <div class="invalid-feedback">
+      Please select a category description.
+    </div>
+  </div>
+  
 
   <div class="mb-3">
     <label for="description" class="form-label">Deal:</label>
@@ -80,7 +117,7 @@
 
   <div class="mb-3">
     <label for="image" class="form-label">Image:</label>
-    <input type="file" class="form-control" id="image" name="image" required>
+    <input type="file" class="form-control" id="image" name="image" multiple required>
 
 
     <!-- <input type="file" class="form-control" id="image" name="image" >

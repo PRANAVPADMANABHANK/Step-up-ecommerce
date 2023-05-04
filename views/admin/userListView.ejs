@@ -1,4 +1,7 @@
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+<div class="container-fluid">
 <style>
     .modal-footer {
       display: flex;
@@ -17,10 +20,39 @@
       background-color: #c82333;
       border-color: #bd2130;
     }
+    /* Custom alert box styles */
+/* Custom alert box styles */
+.custom-alert {
+  padding: 4px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 12px;
+}
+
+.custom-alert.success {
+  background-color: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+}
+
+.custom-alert.danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+
+
+    
   </style>
-  
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.5/dist/sweetalert2.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 
+<br><br>
 <section>
     <!-- <div class="container">
         <div class="row" style="float: right">
@@ -38,7 +70,11 @@
 
                     <th scope="col">Phone</th>
 
+                    <th scope="col">Status</th>
+
                     <th scope="col">Options</th>
+
+                    <th scope="col">isActive</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,9 +92,24 @@
                         <td>
                             <%= item.mobile %>
                         </td>
+
                         <td>
-                            <a class="btn btn-danger" href="/admin/block/<%=item._id%>">Block</a>
-                            <a class="btn btn-primary" href="/admin/unBlock/<%=item._id%>">UnBlock</a>
+                          <%= item.status %>
+                      </td>
+
+                        <td>
+                            <!-- <% if (item.isActive) { %>
+                                <a class="btn btn-danger" href="/admin/block/<%= item._id %>" onclick="showAlert('block')">Block</a>
+                              <% } else { %>
+                                <a class="btn btn-success" href="/admin/unBlock/<%= item._id %>" onclick="showAlert('unblock')">Unblock</a>
+                              <% } %> -->
+
+                              <% if (item.isActive) { %>
+                                <a class="btn btn-danger" href="/admin/block/<%= item._id %>" onclick="showAlert('block')">Block</a>
+                              <% } else { %>
+                                <a class="btn btn-success" href="/admin/unBlock/<%= item._id %>" onclick="showAlert('unblock')">Unblock</a>
+                              <% } %>
+                              
 
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" id="deleteButton"
                                 data-bs-target="#deleteModal<%=item._id%>">
@@ -114,6 +165,10 @@
                                 </div>
                             </div>
                         </td>
+
+                        <td>
+                          <%= item.isActive %>
+                      </td>
                     </tr>
                     <% }); %>
             </tbody>
@@ -121,8 +176,63 @@
     </div>
 </section>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.5/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
     $(document).ready(function () {
         $("#tableid").DataTable();
     });
+
+function showAlert(action) {
+  if (action === 'block') {
+    Swal.fire({
+      title: 'Success',
+      text: 'User blocked successfully!',
+      icon: 'success',
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 20000, // Adjust the timer value as needed
+      showClass: {
+        popup: '', // Empty string to remove show animation or transition
+        backdrop: '' // Empty string to remove show animation or transition for the backdrop
+      },
+      hideClass: {
+        popup: '', // Empty string to remove hide animation or transition
+        backdrop: '' // Empty string to remove hide animation or transition for the backdrop
+      }
+    });
+  } else if (action === 'unblock') {
+    Swal.fire({
+      title: 'Success',
+      text: 'User unblocked successfully!',
+      icon: 'success',
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 20000, // Adjust the timer value as needed
+      showClass: {
+        popup: '', // Empty string to remove show animation or transition
+        backdrop: '' // Empty string to remove show animation or transition for the backdrop
+      },
+      hideClass: {
+        popup: '', // Empty string to remove hide animation or transition
+        backdrop: '' // Empty string to remove hide animation or transition for the backdrop
+      }
+    });
+  }
+}
+
+
+
+$(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+
+
+
+
 </script>

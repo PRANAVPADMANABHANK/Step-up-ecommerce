@@ -74,9 +74,16 @@
 						<span id="password-error" style="color: red;"></span><br>
 					</div>
 
+					<div class="wrap-input100 validate-input m-b-23" data-validate="Confirm password is required">
+						<span class="label-input100">Confirm Password</span>
+						<input class="input100" type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password">
+						<span class="focus-input100" data-symbol="&#xf190;"></span>
+						<span id="confirm-password-error" style="color: red;"></span><br>
+					  </div>
+
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
 						<span class="label-input100">Mobile</span>
-						<input class="input100" type="text"  id="Mobile" name="mobile" placeholder="Type your mobile" >
+						<input class="input100" type="text"  id="Mobile" name="mobile" placeholder="Type your mobile" required>
 						
 						<span class="focus-input100" data-symbol="&#xf190;"></span>
 						<span id="mobile-error" style="color: red;"></span><br>
@@ -166,7 +173,47 @@
 }
 
 
-	</script>
+  const passwordInput = document.getElementById("password");
+  const confirmPasswordInput = document.getElementById("confirm-password");
+  const passwordError = document.getElementById("password-error");
+  const confirmPasswordError = document.getElementById("confirm-password-error");
+
+  function validatePassword() {
+    if (passwordInput.value.length < 4) {
+      passwordError.innerText = "Password must be at least 4 characters long";
+      return false;
+    } else {
+      passwordError.innerText = "";
+      return true;
+    }
+  }
+
+  function validateConfirmPassword() {
+    if (confirmPasswordInput.value !== passwordInput.value) {
+      confirmPasswordError.innerText = "Passwords do not match";
+      return false;
+    } else {
+      confirmPasswordError.innerText = "";
+      return true;
+    }
+  }
+
+  function validateForm() {
+    const isPasswordValid = validatePassword();
+    const isConfirmPasswordValid = validateConfirmPassword();
+    return isPasswordValid && isConfirmPasswordValid;
+  }
+
+  const form = document.querySelector("form");
+  form.addEventListener("submit", (event) => {
+    if (!validateForm()) {
+      event.preventDefault();
+    }
+  });
+</script>
+
+	
+
 
 </body>
 </html>

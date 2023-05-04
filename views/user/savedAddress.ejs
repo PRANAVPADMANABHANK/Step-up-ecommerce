@@ -1,0 +1,332 @@
+<!-- CSS for location icon and message alignment -->
+<style>
+  .fas.fa-map-marker-alt {
+    color: #007bff;
+  }
+
+  .text-right .d-block {
+    text-align: right;
+  }
+
+  .card-hover-shadow:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+
+<section class="ftco-section">
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <!-- Message with location icon -->
+      <div id="saved-addresses-message" class="text-right mb-3">
+        <div class="text-center">
+          <i class="fas fa-map-marker-alt"></i>
+          <span class="d-block text-center">SAVED YOUR ADDRESSES</span>
+        </div>
+        <span class="d-block text-center">Add your home and office addresses and enjoy faster checkout.</span>
+      </div>
+      <div class="row justify-content-end col-md-12 text-right mb-3">
+        <div class="col-md-12">
+          <a href="/address"><button class="btn btn-primary" id="#">Back to Checkout</button></a>
+        </div>
+      </div>
+      <div class="row justify-content-end col-md-12 text-right mb-3">
+        <div class="col-md-12">
+          <button class="btn btn-primary" id="add-new-address">Add New Address</button>
+        </div>
+      </div>
+
+      <div class="col-xl-10 ftco-animate">
+        <form action="#" id="checkout-form" class="billing-form" style="background-color: #fdfbfb; padding: 20px;">
+          <h3 class="mb-4 billing-heading">ADD NEW ADDRESS</h3>
+          <div class="row align-items-end">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="firstname">Firt Name</label>
+                <input type="text" class="form-control" name="firstname" placeholder="" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input type="text" class="form-control" name="lastname" placeholder="" required>
+              </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="country">State / Country</label>
+                <input type="text" name="state" id="" class="form-control" placeholder="Enter state or country..."
+                  required>
+              </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="streetaddress">Street Address</label>
+                <input type="text" class="form-control" name="address" placeholder="House number and street name"
+                  required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="streetaddress">Appartment</label>
+                <input type="text" class="form-control" name="appartment"
+                  placeholder="Appartment, suite, unit etc: (optional)" required>
+              </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="towncity">Town / City</label>
+                <input type="text" class="form-control" name="town" placeholder="" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="postcodezip">Postcode / ZIP *</label>
+                <input type="text" class="form-control" name="postcode" placeholder="" required>
+              </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" class="form-control" name="mobile" placeholder="" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="emailaddress">Email Address</label>
+                <input type="text" class="form-control" name="email" placeholder="" required>
+
+              </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-md-12">
+              <div class="form-group mt-4">
+                <div class="radio">
+                  <label class="mr-3">
+                    <input type="radio" name="optradio" value="home" <%=address.radio==='home' ? 'checked' : '' %>> Home
+                  </label>
+                  <label>
+                    <input type="radio" name="optradio" value="office" <%=address.radio==='office' ? 'checked' : '' %>>
+                    Office
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Your existing form HTML code here -->
+
+            <div class="row justify-content-end col-md-12 text-right mb-3">
+              <div class="col-md-12">
+                <button class="btn btn-secondary mr-2" id="cancel-button">Cancel</button>
+                <button class="btn btn-primary" id="save-button">Save</button>
+              </div>
+            </div>
+          </div>
+      </div> <!-- .col-md-8 -->
+    </div>
+  </div>
+  </form><!-- END -->
+</section>
+
+<div class="container" id="address-list">
+  <div class="row">
+    <% for (let i=0; i < address.length; i++) { %>
+      <div class="col-sm-12 col-md-8 offset-md-2">
+        <div class="card mx-auto w-100 card-hover-shadow mb-4" style="max-width: 100% !important;">
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-8">
+                <h5 class="card-title mb-1">
+                  <%= `${address[i].firstname} ${address[i].lastname}` %>
+                </h5>
+                <p class="card-text mb-1">
+                  <%= address[i].streetaddress %>
+                </p>
+                <p class="card-text mb-1">
+                  <%= address[i].appartment %>
+                </p>
+                <p class="card-text mb-1">
+                  <%= address[i].state %>
+                </p>
+                <p class="card-text mb-1">
+                  <%= address[i].town %>
+                </p>
+                <p class="card-text mb-0">
+                  <%= address[i].zip %>
+                </p>
+                <p class="card-text mt-1 mb-0">Phone: +91 <%= address[i].mobile %>
+                </p>
+              </div>
+              <div class="col-md-4 text-md-right">
+                <a href="/editSavedAddress/<%= address[i]._id %>" class="btn btn-link btn-lg">Edit</a>
+                <a href="#" class="btn btn-link btn-lg text-danger"
+                  onclick="deleteAddress('<%= address[i]._id %>')">Delete</a>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <% } %>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- JavaScript code -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Hide the form initially
+    $("#checkout-form").hide();
+
+    // Show the form when clicking "Add New Address" button
+    $("#add-new-address").on("click", function () {
+      $("#checkout-form").show();
+    });
+    // Hide the "SAVED YOUR ADDRESSES" message when clicking "Add New Address" button
+    $("#add-new-address").on("click", function () {
+      $("#saved-addresses-message").hide();
+      $("#checkout-form").show();
+    });
+  });
+  $("#checkout-form").submit((e) => {
+    e.preventDefault();
+    $.ajax({
+      url: '/savedAddress',
+      method: 'post',
+      data: $('#checkout-form').serialize(),
+      success: (response) => {
+        // Create a new card element and populate it with the response data
+
+        var newCard = '<div class="col-sm-12 col-md-8 offset-md-2">' +
+          '<div class="card mx-auto w-100 card-hover-shadow mb-4" style="max-width: 100% !important;">' +
+          '<div class="card-body">' +
+          '<div class="row">' +
+          '<div class="col-md-8">' +
+          '<h5 class="card-title mb-1">' + response.firstname + ' ' + response.lastname + '</h5>' +
+          '<p class="card-text mb-1">' + response.streetaddress + '</p>' +
+          '<p class="card-text mb-1">' + response.appartment + '</p>' +
+          '<p class="card-text mb-1">' + response.state + '</p>' +
+          '<p class="card-text mb-1">' + response.town + '</p>' +
+          '<p class="card-text mb-0">' + response.zip + '</p>' +
+          '<p class="card-text mt-1 mb-0">Phone: +91 ' + response.mobile + '</p>' +
+          '</div>' +
+          '<div class="col-md-4 text-md-right">' +
+          '<a href="#" class="btn btn-link btn-lg">Edit</a>' +
+          '<a href="#" class="btn btn-link btn-lg text-danger">Delete</a>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
+        // Append the new card element to the address list container
+        $('#address-list').append(newCard);
+        Swal.fire({
+          title: "Success!",
+          text: "Address added successfully!",
+          icon: "success",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "OK",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page after the alert is dismissed
+            window.location.reload();
+          }
+        });
+
+
+      }
+    });
+  });
+  $("#cancel-button").click((e) => {
+    e.preventDefault();
+    $("#checkout-form")[0].reset();
+  });
+
+  // Get the form and the add new address button
+  const form = document.querySelector('#checkout-form');
+  const addNewAddressButton = document.querySelector('#add-new-address');
+
+  // Hide the form by default
+  form.style.display = 'none';
+
+  // Show the form when the add new address button is clicked
+  addNewAddressButton.addEventListener('click', () => {
+    form.style.display = 'block';
+  });
+
+  // Hide the form when the user clicks outside of it
+  document.addEventListener('click', (event) => {
+    const isClickedInsideForm = form.contains(event.target);
+    const isClickedOnAddNewAddressButton = event.target === addNewAddressButton;
+
+    if (!isClickedInsideForm && !isClickedOnAddNewAddressButton) {
+      form.style.display = 'none';
+    }
+  });
+
+  function deleteAddress(addressId) {
+    swal({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      buttons: ["Cancel", "Delete"],
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          // Send an AJAX request to the server to delete the address
+          $.ajax({
+            url: `/deleteAddress/${addressId}`,
+            type: "DELETE",
+            success: function (result) {
+              // Refresh the page to show the updated list of addresses
+              location.reload();
+            },
+            error: function (error) {
+              console.log(error);
+              alert("Failed to delete address. Please try again later.");
+            }
+          });
+        }
+      });
+  }
+
+
+// function deleteAddress(addressId) {
+//   if (confirm("Are you sure you want to delete this address?")) {
+//     // Send an AJAX request to the server to delete the address
+//     $.ajax({
+//       url: `/deleteAddress/${addressId}`,
+//       type: "DELETE",
+//       success: function(result) {
+//         // Refresh the page to show the updated list of addresses
+//         location.reload();
+//       },
+//       error: function(error) {
+//         console.log(error);
+//         alert("Failed to delete address. Please try again later.");
+//       }
+//     });
+//   }
+// }
+
+
+
+
+</script>

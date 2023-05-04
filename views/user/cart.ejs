@@ -1,0 +1,450 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+<style>
+	.btn {
+		position: relative;
+		overflow: hidden;
+		transition: transform 0.3s ease;
+	}
+
+	.btn:before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(0, 0, 0, 0.1);
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		z-index: -1;
+	}
+
+	.btn:hover {
+		transform: scale(1.1);
+	}
+
+	.btn:hover:before {
+		opacity: 1;
+	}
+
+	.btn {
+		position: relative;
+		overflow: hidden;
+		transition: transform 0.3s ease;
+		border: none;
+		outline: none;
+	}
+
+	.btn:before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: rgba(0, 0, 0, 0.1);
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		z-index: -1;
+		border: 1px solid #007bff;
+	}
+
+	.btn:hover {
+		transform: scale(1.1);
+	}
+
+	.btn:hover:before {
+		opacity: 1;
+	}
+
+	.btn:focus {
+		outline: none;
+	}
+
+	.btn:focus:before {
+		content: "";
+		position: absolute;
+		top: -2px;
+		left: -2px;
+		right: -2px;
+		bottom: -2px;
+		border: 2px solid #007bff;
+	}
+</style>
+
+<!-- JavaScript -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+<!-- Bootstrap theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+
+
+<div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-center justify-content-center">
+			<div class="col-md-9 ftco-animate text-center">
+				<!-- <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span></p> -->
+				<h1 class="mb-0 bread">My Cart</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+<section class="ftco-section ftco-cart">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 ftco-animate">
+				<div class="cart-list">
+					<table class="table">
+						<thead class="thead-primary">
+							<tr class="text-center">
+								<th>Image</th>
+								<th>Details</th>
+								<th>Product</th>
+								<th>Price</th>
+								<th>Size</th>
+								<!-- <th>Sub Total</th> -->
+								<th>Quantity</th>
+								<th> </th>
+							</tr>
+						</thead>
+						<tbody>
+							<% locals.cartItems.forEach(item=> { %>
+
+
+								<!-- <tr class="text-center">
+						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td> -->
+
+								<td>
+									<img style="width: 50px; height:auto"
+										src="/uploads/<%= item.productInfo.images[0] %>" alt="" />
+								</td>
+
+								<!-- <td class="image-prod"><div class="img" src="/uploads/<%= item.productInfo.images[1] %>"></div></td> -->
+
+								<td class="product-name">
+									<h3>
+										<%= item.productInfo.productname %>
+									</h3>
+
+								</td>
+
+								<td class="category">
+									<%= item.productInfo.type %>
+								</td>
+
+
+								<td class="quantity">₹ <span>
+										<%= item.productInfo.price %>
+									</span>
+								</td>
+
+								<td>
+									<%= item.size %>
+								</td>
+
+								<!-- <td class="category">
+									<span id="subtotal-<%=item.unique_id %>">₹ <%= item.productInfo.price * item.quantity %></span>
+								</td> -->
+								<!-- <td class="quantity">
+						        	<div class="input-group mb-3">
+					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+					          	</div>
+					          </td> -->
+
+								<td class="total" style="display: 0; align-items: center;">
+									<button type="button" class="btn btn-danger"
+										style="width: 30px; height: 25px !important; border-radius: 0; margin-right: 5px;"
+										onclick="changeQuantity('<%=item._id%>','<%=item.unique_id%>','<%= user._id %>',-1,'<%= item.productInfo.price%>')">-</button>
+									<b id="<%=item.unique_id%>" style="margin-right: 5px;">
+										<%= item.quantity %>
+									</b>
+									<!-- <span id="<%#=item.unique_id %>"
+										><%#=item.quantity %></span
+									  > -->
+									<button type="button" class="btn btn-success"
+										style="width: 30px; height: 25px !important; border-radius: 0;"
+										onclick="changeQuantity('<%=item._id%>','<%=item.unique_id%>','<%= user._id %>',1,'<%= item.productInfo.price%>')">+</button>
+								</td>
+
+
+								<td class="category">
+									<button type="button" class="btn btn-danger"
+										style="width: 87px; height: 25px !important; border-radius: 0;"
+										onclick="removeItem('<%=item._id%>','<%=item.unique_id%>','<%= user._id %>')">Remove</button>
+								</td>
+
+
+
+								</tr>
+
+
+								<% }) %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-start">
+			<div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
+				<div class="cart-total mb-3">
+					<h3>Cart Totals</h3>
+					<p class="d-flex">
+						<span>Subtotal</span>
+						<span id="totalPrice">
+							₹<%= locals.subtotal %>
+						</span>
+					</p>
+					<p class="d-flex">
+						<span>Tax</span>
+						<span id="adTax">
+							₹<%= locals.tax %>
+						</span>
+					</p>
+					<!-- <p class="d-flex">
+						<span>Discount</span>
+						<span></span>
+					</p> -->
+					<hr>
+					<p class="d-flex total-price">
+						<span>Total</span>
+						<% if (total.length) { %>
+							<span id="taxWithTotal">₹<%=locals.totalWithTax %></span>
+							<% }else{ %>
+
+								<span id="total">0</span>
+
+								<% } %>
+
+					</p>
+				</div>
+				<p class="text-center"><a href="/address" class="btn btn-primary py-3 px-4">Proceed to Checkout</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+
+
+
+	// function changeQuantity(cartId, proId, count,userId) {
+	// 	console.log('hello')
+	// 	let quantity = parseInt(document.getElementById(proId).innerHTML);
+	// 	count = parseInt(count);
+
+	// 	if (quantity === 1 && count === -1) {
+	// 		Swal.fire({
+	// 			title: 'Confirm',
+	// 			text: 'Are you sure you want to remove this product from the cart?',
+	// 			icon: 'warning',
+	// 			showCancelButton: true,
+	// 			confirmButtonText: 'Confirm',
+	// 		}).then((result) => {
+	// 			if (result.isConfirmed) {
+	// 				updateQuantity(cartId, proId, count, quantity,userId);
+	// 			}
+	// 		});
+	// 	} else {
+	// 		updateQuantity(cartId, proId, count, quantity,userId);
+	// 	}
+	// }
+
+
+
+
+	function changeQuantity(cartId, proId, userId, count, salePrice) {
+		console.log(userId)
+		console.log(proId)
+		let quantity = document.getElementById(proId).innerHTML
+		quantity = parseInt(document.getElementById(proId).innerHTML);
+		count = parseInt(count)
+		console.log(quantity)
+		console.log(count)
+		$.ajax({
+			url: '/changeProductQuantity',
+			data: {
+				cart: cartId,
+				product: proId,
+				user: userId,
+				count: count,
+				quantity: quantity
+			},
+			method: 'post',
+			success: (response) => {
+
+				if (response.removeProduct) {
+					console.log('///////////////')
+					$('tr[data-product-id="' + proId + '"]').remove();
+
+					document.getElementById('totalPrice').innerHTML ="₹" + response.subtotal;
+					document.getElementById('adTax').innerHTML ="₹" + response.tax;
+					document.getElementById('taxWithTotal').innerHTML ="₹" + response.totalWithTax;
+
+					Swal.fire({
+						icon: 'success',
+						title: 'Item removed',
+						timer: 2000 // Set a timer to automatically close the message after 2 seconds
+					}).then(() => {
+						location.reload(); // Reload the page
+					});
+
+
+				} else {
+
+
+					console.log(response)
+					document.getElementById(proId).innerHTML = quantity + count;
+
+					// let abc= document.getElementById(proId).innerHTML = parseInt(response.quantity) ;
+					// document.getElementById('subtotal-' + proId).innerHTML = 'Rs. ' + abc*salePrice;
+
+					document.getElementById('totalPrice').innerHTML ="₹" + response.total[0].total;
+					document.getElementById('adTax').innerHTML ="₹" + response.total[0].totalTax;
+					document.getElementById('taxWithTotal').innerHTML ="₹" + response.total[0].totalWithTax;
+
+
+
+				}
+
+
+
+				// document.getElementById('totalPrice').innerHTML = response.subtotal;
+				// document.getElementById('adTax').innerHTML = response.tax;
+
+
+				// console.log("helllo gooys")
+				// console.log(response.total[0].total);
+				// var subtotalAmounts = response.subtotalAmounts; // Access the subtotalAmounts from the response
+				// var subtotal = response.subtotal; // Access the subtotal from the response
+
+				// // Use the subtotal and subtotalAmounts in your front-end code as needed
+				// console.log(subtotalAmounts);
+				// console.log(subtotalAmounts[0]);
+
+				// document.getElementById('totalPrice').innerHTML = response.subtotal;
+				// document.getElementById('adTax').innerHTML = response.tax;
+				// document.getElementById('taxWithTotal').innerHTML = response.totalWithTax;
+
+				// document.getElementById('total').innerHTML ="₹"+ response.total[0].total
+				// document.getElementById('subtotal').innerHTML = "₹"+ response.subtotalAmounts
+				// if (response.removeProduct) {
+
+				// 	console.log("heyyyyyhello");
+
+				// 	Swal.fire({
+				// 		title: 'Product Removed',
+				// 		text: 'Product has been removed from the cart.',
+				// 		icon: 'success',
+				// 		showCancelButton: true,
+				// 		confirmButtonText: 'Confirm',
+				// 	}).then((result) => {
+				// 		if (result.isConfirmed) {
+				// 			location.reload();
+				// 		}
+				// 	});
+				// } else {
+				// 			document.getElementById(proId).innerHTML = quantity + count;
+
+				// 		}
+			},
+		});
+	}
+
+
+
+
+	// function removeItem(cartId, proId) {
+	// 	Swal.fire({
+	// 		title: "Are you sure?",
+	// 		text: "Do you want to remove this product from the cart?",
+	// 		icon: "warning",
+	// 		showCancelButton: true,
+	// 		confirmButtonColor: "#3085d6",
+	// 		cancelButtonColor: "#d33",
+	// 		confirmButtonText: "Confirm",
+	// 		cancelButtonText: "Cancel",
+	// 	}).then((result) => {
+	// 		if (result.isConfirmed) {
+	// 			$.ajax({
+	// 				url: '/removeItem',
+	// 				data: {
+	// 					cart: cartId,
+	// 					product: proId,
+	// 					confirmResult: true, // Set confirmResult to true if user confirmed
+	// 				},
+	// 				method: 'post',
+	// 				success: (response) => {
+	// 					if (response.success && response.removeProduct) {
+	// 						Swal.fire({
+	// 							title: "Success",
+	// 							text: "Product removed from cart.",
+	// 							icon: "success",
+	// 						}).then(() => {
+	// 							location.reload();
+	// 						});
+	// 					}
+	// 				},
+	// 			});
+	// 		}
+	// 	});
+	// }
+function removeItem(cartId, proId, userId) {
+    $.ajax({
+        url: '/removeItem',
+        data: {
+            cart: cartId,
+            product: proId,
+            user: userId
+        },
+        method: 'post',
+        success: (response) => {
+            $('tr[data-product-id="' + proId + '"]').remove();
+
+            document.getElementById('totalPrice').innerHTML = response.subtotal;
+            document.getElementById('adTax').innerHTML = response.tax;
+            document.getElementById('taxWithTotal').innerHTML = response.totalWithTax;
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your item has been deleted.',
+                        'success'
+                    );
+                    location.reload(); // Reload the page
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    $('tr[data-product-id="' + proId + '"]').insertAfter($('tr[data-product-id]').last());
+                }
+            });
+        }
+    })
+}
+
+
+
+
+
+
+
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Include SweetAlert2 library -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>

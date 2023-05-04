@@ -52,18 +52,53 @@
     <input type="text" class="form-control" id="description" name="productname" required value="<%=editProduct.productname %>">
     <!-- <textarea class="form-control" id="description" name="description" rows="5" value="<%#editProduct.description%>" required></textarea> -->
   </div>
-
   <div class="mb-3">
-    <label for="price" class="form-label">Category:</label>
-    <!-- <input type="number" class="form-control" id="price" name="category"  min="0" value="<%=editProduct.category %>" required> -->
-    <select class="form-select" id="category" name="category" required>
-      <option value="">--Select Category--</option>
-      <option value="Men's">Men's</option>
-      <option value="Women's">Women's</option>
-      <option value="Baby's & Kid's">Baby's & Kid's</option>
+    <label for="name" class="form-label">Type:</label>
+    <select class="form-select" id="category" name="type" required>
+      
+      <option value="Men's">Men</option>
+      <option value="Women's">Women</option>
+      <option value="Baby's & Kids's">Baby's & Kid's</option>
     </select>
   </div>
 
+  <div class="form-group mt-3">
+    <label for="categoryDescription">Category</label>
+    <select class="form-control" id="categoryDescription" name="category" required>
+      
+      <% categories.forEach(element => { %>
+        <option value="<%= element._id %>"><%= element.category %></option>
+      <% }) %>
+      <!-- Add more options as needed -->
+    </select>
+    <div class="invalid-feedback">
+      Please select a category description.
+    </div>
+  </div>
+
+  <div class="form-group mt-3">
+    <label for="categoryDescription">SubCategory</label>
+    <select class="form-control" id="categoryDescription" name="subcategory" required>
+      
+      <% subcategories.forEach(element => { %>
+        <option value="<%= element._id %>"><%= element.sub_category %></option>
+      <% }) %>
+      <!-- Add more options as needed -->
+    </select>
+    <div class="invalid-feedback">
+      Please select a category description.
+    </div>
+  </div>
+  
+  <!-- <div class="mb-3">
+    <label for="category" class="form-label">Sub Category:</label>
+    <select class="form-select" id="category" name="subcategory" required>
+      <option value="">--Select Category--</option>
+      <% categories.forEach(element => { %>
+        <option value="<%= element._id %>"><%= element.description %></option>
+      <% }) %>
+    </select>
+  </div> -->
   <div class="mb-3">
     <label for="price" class="form-label">Deal:</label>
     <input type="text" class="form-control" id="description" name="deal"  value="<%=editProduct.deal %>" required>
@@ -94,7 +129,7 @@
     <input type="file" class="form-control" id="image" name="image" > --> 
   </div>
 
-  <button type="submit" class="btn btn-primary">Add Product</button>
+  <button type="submit" class="btn btn-primary">Edit Product</button>
 
 <!-- Bootstrap JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1">

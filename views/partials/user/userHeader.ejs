@@ -8,6 +8,11 @@
 	  object-fit: cover;
 	  z-index: -1;
 	}
+	/* .nav-item:hover {
+  		background-color: #ffffff;
+	} */
+
+
   </style>
   
 
@@ -47,21 +52,15 @@
 		  video {
  			 margin-top: 100px; /* adjust the value as needed */
 		}
-
-		</style>
-		
-	
-		<body class="container">
-			<video autoplay muted loop width="100%">
-			  <source src="/uploads/Shoes by 2GO - Theatrical Ad Film _ Commercial.webm">
-			  This browser does not support HTML5 audio
-			</video>
-		  </body>
-		  
-		  <head>
-			<title>Nike Air Max Plus</title>
-			<style>
-			  #container {
+		video {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px solid #333;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+#container {
 				text-align: center;
 			  }
 			  
@@ -74,19 +73,37 @@
 				font-size: 12px;
 				text-transform: uppercase;
 			  }
-			</style>
-		  </head>
-		  <body>
-			<div id="container">
-			  <p id="small">Just In</p>
-			  <h1 id="extra-large">NIKE AIR <BR> MAX PLUS</h1>
-			</div>
-		  </body>
+
+
+
+		</style>
+		
+	     <% if (!locals.video) { %>
+			<body class="container">
+				<video autoplay muted loop width="90%">
+				  <source src="/uploads/Shoes by 2GO - Theatrical Ad Film _ Commercial.webm">
+				  This browser does not support HTML5 audio
+				</video>
+			  </body>
+			  <head>
+				<title>Nike Air Max Plus</title>
+			
+			  </head>
+			  <body>
+				<div id="container">
+				  <p id="small">Just In</p>
+				  <h1 id="extra-large">NIKE AIR <BR> MAX PLUS</h1>
+				</div>
+			  </body>
+		 <% } %>
+		
+		  
+		 
 	  
 
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">StepUp</a>
+	      <a class="navbar-brand" href="/index">StepUp</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -98,34 +115,41 @@
 	          <li class="nav-item dropdown">
 				<li class="nav-item active"><a href="/women" class="nav-link">Women</a></li>
             </li>
-	          <li class="nav-item"><a href="/kids" class="nav-link">Kids</a></li>
+	          <li class="nav-item"><a href="/kids" class="nav-link">Baby & Kid</a></li>
 			  <% if (locals.user) { %>
-				<li class="nav-item"><a href="contact.html" class="nav-link">shop</a></li>
+				<li class="nav-item"><a href="/shop" class="nav-link">shop</a></li>
 			  <% } %>
 			  
 	          <li class="nav-item"><a href="/signup" class="nav-link">Signup</a></li>
-	          
-	          <li class="nav-item cta cta-colored"><a href="/cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-			  
+	          <% if (!locals.cartIcon){%>
+
+	          <li class="nav-item cta cta-colored"><a href="/cart"  class="nav-link"><span class="icon-shopping_cart" id="cartCount"><%=locals.cartCount%> </span></a></li>
+
+			  <%}%>
 
 			  <li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<span class="icon-user"></span>
 					<% if (locals.user) { %>
-						<%= user.name %>
+						Hello <%= user.name %>
 					 <% } else { %>
 						Account
 					 <% } %>	
 					
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+					<a class="dropdown-item" href="/savedAddress">Saved Addresses</a>
+					<a class="dropdown-item" href="/Orders">Orders</a>
+					<a class="dropdown-item" href="/signup">Register</a>
+
 					<% if (locals.user) { %>
 						<a class="dropdown-item" href="/logout">Logout</a>
 					 <% } else { %>
 						<a class="dropdown-item" href="/login">Login</a>
 					 <% } %>
 					
-					<a class="dropdown-item" href="/signup">Register</a>
+					
 				</div>
 			</li>
 			
@@ -138,3 +162,15 @@
 	  </nav>
     <!-- END nav -->
 </header>
+
+<script>
+
+
+$(document).ready(function() {
+  $('.nav-item').click(function() {
+    $(this).toggleClass('active');
+  });
+});
+
+  </script>
+  

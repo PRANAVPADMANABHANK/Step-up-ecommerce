@@ -1,72 +1,3 @@
-<!-- <style>
-	.card {
-    width: 45rem;
-    height: 80rem;
-    /* other styles */
-}
-.col-md-3 {
-    margin-right: 5rem;
-    margin-bottom: 5rem;
-    /* other styles */
-}
-
-/* .card:hover img {
-  transform: scale(1.2);
-  transition: transform 0.5s;
-} */
-
-
-.card-img-top {
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-.card-img-top:hover {
-    transform: scale(1.2);
-}
-
-.zoom-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: all 0.3s ease-in-out;
-}
-
-.card-img-top:hover + .zoom-icon {
-    opacity: 1;
-}
-
-
-</style>
-
-    <section class="ftco-section bg-light">
-		<div class="container mt-5">
-    	<div class="row">
-			
-			<% products.forEach((item)=>{ %>
-							  
-			<div class="col-md-3 p-3">
-				<div class="card" style="width: 19rem; height: 40rem;">
-					<img class="card-img-top " src="/uploads/<%= item.images[0] %>" alt="Card image cap">
-					<div class="card-body">
-					  <h5 class="card-title"><%= item.name %></h5>
-					  <p class="card-text"><%= item.category %></p>
-					  <h5 class="card-text"><%= item.description %></h5>
-					  <h2 class="card-text">₹<%= item.price%></h2>
-					  <a href="#" class="btn btn-primary">Go somewhere</a>
-					</div>
-				  </div>
-			</div>
-			
-			<%}) %>	
-
-		</div>
-	</div>
-		    	
-    </section> -->
-
 
 
 	<style>
@@ -121,15 +52,15 @@
 				<% products.forEach((item)=>{ %>
 				<div class="col-md-3 p-3">
 					<div class="card">
-						<img class="card-img-top" src="/uploads/<%= item.images[0] %>" alt="Card image cap">
+						<img class="card-img-top" src="/uploads/<%= item.images[1] %>" alt="Card image cap">
 						<div class="card-body">
 							<h5 class="card-title"><%= item.company %></h5>
 							<p class="card-text"><%= item.productname%></p>
-							<h5 class="card-text"><%= item.category %></h5>
+							<h5 class="card-text"><%= item.type %></h5>
 							<h2 class="card-text green"><%= item.deal%></h2>
 							<h1 class="card-text" style="font-weight: bold; font-size: 1.2em;">₹<%= item.price%></h1>
 							<h2 class="card-text">size <%= item.size%></h2>
-							<a href="/singleProduct" class="card-link btn btn-primary">PURCHASE</a>
+							<a href="/singleProduct/<%=item._id %>" class="card-link btn btn-primary">PURCHASE</a>
 						</div>
 					</div>
 				</div>

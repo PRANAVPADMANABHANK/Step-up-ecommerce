@@ -1,0 +1,54 @@
+<style>
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+  }
+
+  .card-img-top {
+    max-height: 250px;
+    object-fit: cover;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-text {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .btn {
+    margin-top: 1rem;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+  .btn:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+  }
+</style>
+<br><br><br>
+<div class="card-group">
+  <% products.forEach(product => { %>
+    <div class="card">
+      <img src="/uploads/<%= product.images[0] %>" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title"><%= product.productname %></h5>
+        <p class="card-text"><%= product.company %></p>
+        <p class="card-text"><%= product.type %></p>
+        <p class="card-text"><%= product.deal %></p>
+        <p class="card-text">Price: ₹<%= product.price %></p>
+        <p class="card-text">Sizes: <%= product.size %></p>
+        <p class="card-text">Quantity: <%= product.quantity %></p>
+      </div>
+    </div>
+  <% }) %>
+</div>
+
+<br><br><br>
+  

@@ -1,0 +1,47 @@
+<br><br><br><br><br>
+<div class="container-fluid">
+<table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Order Number</th>
+        <th>Order Date</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Pincode</th>
+        <th>Mobile</th>
+        <th>Total Amount</th>
+        <th>Total Quantity</th>
+        <th>Status</th>
+        <th>Payment</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <% orders.reverse().forEach((element, index) => { %>
+      <tbody>
+        <tr>
+          <td>#<%= index + 1 %></td>
+          <td><%= new Date(element.createdAt).toLocaleString() %></td>
+          <td><%= element.deliveryDetails.firstname + ' ' + element.deliveryDetails.lastname %></td>
+          <td><%= element.deliveryDetails.streetaddress %></td>
+          <td><%= element.deliveryDetails.zip %></td>
+          <td><%= element.deliveryDetails.mobile %></td>
+          <td>₹<%= element.totalAmount %></td>
+          <td><%= getTotalQuantity(element.products) %></td>
+          <td><span class="badge badge-success"><%= element.paymentstatus %></span></td>
+          <td><%= element.paymentMethod %></td>
+          <td><a href="/viewOrderProducts/<%= element._id %>" class="btn btn-primary">View Details</a></td>
+        </tr>
+      </tbody>
+    <% }) %>
+            
+  </table>
+</div>
+  <% function getTotalQuantity(products) { %>
+    <% let total = 0 %>
+    <% products.forEach(product => { %>
+      <% total += product.quantity %>
+    <% }) %>
+    <%= total %>
+  <% } %>
+
+  <br><br><br><br><br>
