@@ -428,7 +428,7 @@ exports.changeProductQuantity = async (req, res) => {
     // let userId = cart.userId;
     // console.log(userId);
     // let userId = req.session.user._id;
-    let response ={};
+    const response ={};
     let cart = req.body.cart
     console.log(cart,"...........")
     let count =req.body.count
@@ -506,7 +506,7 @@ exports.changeProductQuantity = async (req, res) => {
      
       ]);
       
-
+      console.log(total,'////////')
         // response.status = true;
         res.json({success:true,total})
         console.log("else worked")

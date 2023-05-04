@@ -229,14 +229,27 @@
                       <span>₹<%= total[0].totalTax %></span>
                     </p>
                     <p class="d-flex">
-                      <span>Discount</span>
-                      <span>₹<%#= total[0].totalWithTax %></span>
+                      <span>Discount Coupon</span>
+                      <% if (locals.discountAmount) { %>
+                        <span id="couponDiscount">₹ <%= locals.discountAmount %></span>
+                      <% } else { %>
+                        <span id="couponDiscount"></span>
+                      <% } %>
                     </p>
+                    
+
                     <hr>
                     <p class="d-flex total-price">
                       <span>Total</span>
-                      <span id="taxWithTotal">₹<%= total[0].totalWithTax %></span>
+                      <% if (locals.discountAmount) { %>
+                        <span id="taxWithTotal">₹ <%= total[0].totalWithTax - locals.discountAmount %></span>
+                        <span style="color: green; margin-left: 10px;">Coupon Applied</span>
+                        <% } else { %>
+                        <span id="taxWithTotal">₹ <%= total[0].totalWithTax %></span>
+                      <% } %>
                     </p>
+                    
+                    
                     <% }else{ %>
                       <span id="total">0</span>
 
@@ -499,31 +512,37 @@
           },
           method: 'post',
           success: (response) => {
-            alert("hellooooooo")
-            console.log(response)
-            if (response.message) {
-              document.getElementById("message").innerHTML = response.message;
-              alertify.set('notifier', 'delay', 2);
-              alertify.set('notifier', 'position', 'top-right');
-              alertify.success('Coupon applied successfully');
 
+            console.log(response)
+            if (response.success == false) {
+              document.getElementById("message").innerHTML = response.message;
+              alertify.set('notifier', 'delay', 5);
+              alertify.set('notifier', 'position', 'top-right');
+              alertify.error('Invalid coupon code');
+
+              location.reload();
+              
 
               //  document.getElementById("taxWithTotal").innerHTML = total;
 
-            } else {
-              document.getElementById("inputForCoupon").style.visibility = "hidden";
-              document.getElementById("popUpcoupon").style.display = "block";
-              document.getElementById("taxWithTotal").innerHTML = response;
-              document.getElementById('couponToggle').style.display = "block"
-              document.getElementById("couponDiscount").innerHTML = parseInt(total - response);
+            } else if (response.success == true) {
+              console.log(response.discountAmount);
+              console.log(response.cartTotal, '/////////');
+              console.log(response.cartTotal-response.discountAmount,'????????')
+
+              // Update the content of the #couponDiscount element with the discounted amount
+              if (response.discountAmount) {
+                document.getElementById("couponDiscount").innerHTML = `₹${response.discountAmount}`;
+                document.getElementById("taxWithTotal").innerHTML = `₹${response.cartTotal - response.discountAmount}`;
+              } else {
+                document.getElementById("couponDiscount").innerHTML = "";
+              }
+
               alertify.set('notifier', 'delay', 2);
               alertify.set('notifier', 'position', 'top-right');
-              alertify.success('coupon applied');
-              // document.getElementById("message").innerHTML = "coupon is activated";
-
-              // document.getElementById("message").innerHTML = "already activated the code";
-
+              alertify.success('Coupon applied');
             }
+
           }
         });
 
