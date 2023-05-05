@@ -19,7 +19,7 @@ const bcrypt = require('bcrypt')
 // });
 
 router.get('/index',userController.cartCount,userController.indexPage)
-
+router.get('/profile',userController.isLogin,userController.cartCount,userController.userProfile)
 
 
 router.get('/signup',userController.userSignup)
@@ -75,7 +75,7 @@ router.post('/editSavedAddress/:id',userController.editSavedAddressPost)
 router.delete('/deleteAddress/:id', userController.deleteAddress);
 
 router.get('/orderPlaced',userController.orderPlacedCod)
-router.get('/Orders',userController.orders)
+router.get('/Orders',userController.cartCount,userController.orders)
 router.get('/viewOrderProducts/:id',userController.viewOrderProducts)
 
 
@@ -97,5 +97,14 @@ router.post('/add-address',addressController.addAddressPost)
 
 
 router.post('/apply-coupon',couponControllers.applyCoupon);
+
+// router.use((req, res, next) => {
+//   res.render('user/404')
+// })
+
+// error handling middleware
+// router.use(function(req, res, next) {
+//   res.status(404).render('404', { pageTitle: '404 Page Not Found' });
+// });
 
 module.exports = router;

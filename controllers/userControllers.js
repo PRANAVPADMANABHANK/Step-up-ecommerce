@@ -61,6 +61,21 @@ exports.cartCount = async (req, res, next) => {
   }
 };
 
+
+exports.userProfile = async(req,res)=>{
+  
+  
+  let currentAddress =await User.findOne({_id:req.session.user._id});
+  let user = req.session.user
+   // Access cartCount value from req object
+   const cartCount = req.cartCount;
+   console.log(cartCount, "hello");
+
+  res.render('user/userprofile',{currentAddress,video:true,user,cartCount})
+  
+}
+
+
 exports.indexPage = async (req, res) => {
   let user = req.session.user;
 
@@ -1474,48 +1489,96 @@ exports.deliveryAddressPost = async (req, res) => {
     console.log(cart,userId);
 
 
+    // let total = await Cart.aggregate([
+    //   {
+    //     $match: { userId: userId },
+    //   },
+    //   {
+    //     $unwind: "$products",
+    //   },
+    //   {
+    //     $project: {
+    //       item: { $toObjectId: "$products.item" },
+    //       quantity: "$products.quantity",
+    //     },
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "products",
+    //       localField: "item",
+    //       foreignField: "_id",
+    //       as: "productInfo",
+    //     },
+    //   },
+    //   {
+    //     $project: {
+    //       item: 1,
+    //       quantity: 1,
+    //       productInfo: { $arrayElemAt: ["$productInfo", 0] },
+    //     },
+    //   },
+    //   {
+    //     $group: {
+    //       _id: null,
+    //       total: { $sum: { $multiply: ["$quantity", "$productInfo.price"] } },
+    //     },
+    //   },
+    // ]).allowDiskUse(true);
+
     let total = await Cart.aggregate([
       {
-        $match: { userId: userId },
+        $match:{user:req.session.userId}
       },
       {
-        $unwind: "$products",
+        $unwind:'$products'
       },
       {
-        $project: {
-          item: { $toObjectId: "$products.item" },
-          quantity: "$products.quantity",
-        },
+        $project:{
+          item: { $toObjectId: '$products.item' },
+          size:'$products.size',
+          currentPrice:'$products.currentPrice',
+          tax:'$products.tax',
+          quantity:'$products.quantity'
+        }
       },
       {
-        $lookup: {
-          from: "products",
-          localField: "item",
-          foreignField: "_id",
-          as: "productInfo",
-        },
+        $lookup:{
+          from:'products',
+          localField:'item',
+          foreignField:'_id',
+          as:'productInfo'
+        }
       },
       {
-        $project: {
-          item: 1,
-          quantity: 1,
-          productInfo: { $arrayElemAt: ["$productInfo", 0] },
-        },
+        $project:{
+    
+          item:1,
+          size:1,
+          currentPrice:1,
+          tax:1,
+          quantity:1,
+          productInfo:{$arrayElemAt:['$productInfo',0]}
+        }
       },
       {
-        $group: {
-          _id: null,
-          total: { $sum: { $multiply: ["$quantity", "$productInfo.price"] } },
-        },
-      },
-    ]).allowDiskUse(true);
+        $group:{
+          _id:null,
+         
+              totalTax:{$sum:{$multiply:['$quantity','$tax']}},
+              total:{$sum:{$multiply:['$quantity','$currentPrice']}},
+              totalWithTax: { $sum: { $multiply: ['$quantity', { $add: ['$tax', '$currentPrice'] } ] } }
+
+        }
+      }
+   
+    ]);
 
    
    console.log(cart.products,'nnnnnnnnnnnnnnnnnn')
     // Store the total value in a session variable
     // req.session.total = total[0].total;
 
-    console.log(total[0].total, "cart got");
+    console.log(total[0].totalWithTax, "cart got");
     let status = req.body['payment-method'] === 'COD' ? 'placed' : 'pending'
 
     let orderObj = new Order({
@@ -1535,7 +1598,7 @@ exports.deliveryAddressPost = async (req, res) => {
       userId: cart.userId,
       paymentMethod: req.body['payment-method'],
       products: cart.products,
-      totalAmount: total[0].total,
+      totalAmount: total[0].totalWithTax,
       paymentstatus: status,
       deliverystatus:'not shipped',
       createdAt: new Date()
@@ -1763,7 +1826,9 @@ exports.orders = async (req, res) => {
     console.log(userId,"lksdfjglkjdlsafkjglkaj")
     let orders = await Order.find({ userId: userId });
     console.log(orders)
-    res.render('user/OrderView.ejs', { video: true, user: req.session.user, orders: orders });
+    // Access cartCount value from req object
+  const cartCount = req.cartCount;
+    res.render('user/OrderView.ejs', { video: true,cartCount, user: req.session.user, orders: orders });
   } catch (error) {
     res.status(500).send('Internal Server Error');
   }
