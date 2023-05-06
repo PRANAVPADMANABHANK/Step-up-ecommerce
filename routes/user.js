@@ -19,7 +19,14 @@ const bcrypt = require('bcrypt')
 // });
 
 router.get('/index',userController.cartCount,userController.indexPage)
+
 router.get('/profile',userController.isLogin,userController.cartCount,userController.userProfile)
+router.patch('/profile/:id',userController.editUserProfile);
+router.patch('/address',userController.updateUserAddress);
+router.delete('/address/:id',userController.deleteUserAddress);
+router.patch('/addressEdit',userController.addressEdit)
+router.post('/update-user-password',userController.confirmAndUpdatePassword);
+
 
 
 router.get('/signup',userController.userSignup)

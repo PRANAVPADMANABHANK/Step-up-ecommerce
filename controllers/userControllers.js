@@ -75,6 +75,86 @@ exports.userProfile = async(req,res)=>{
   
 }
 
+exports.editUserProfile = async(req,res)=>{
+  console.log(req.body,'userr');
+  const userProfile = await User.findOneAndUpdate(
+      {_id: req.params.id}, // filter object
+      {    name:req.body.name,
+          email:req.body.email,
+          mobile:req.body.phone} // update object
+    );
+  res.redirect('/profile');
+}
+
+exports.updateUserAddress =async(req,res)=>{
+  console.log(req.body.userId,'idddd')
+  let user = req.session.user;
+ const address = await User.findOneAndUpdate({ _id: user._id }, 
+    { $push: {
+        address: {
+            name:req.body.name,
+            mobile:req.body.mobile,
+            addressDetails:req.body.addressDetails,
+            city:req.body.city,
+            state:req.body.state,
+            zip: req.body.zip,
+            typeOfAddress:req.body.typeOfAddress
+
+        } } }, 
+    { new: true });
+  console.log(address,'address')
+  res.json(address); 
+}
+
+exports.deleteUserAddress = async(req,res)=>{
+    
+      
+  try {
+    let user = req.session.user;
+    await User.findByIdAndUpdate({_id:user._id}, { $pull: { address: { _id: req.params.id } } }, { new: true });
+    res.redirect("/profile");
+
+  } catch (error) {
+    console.log(error)
+  }
+
+}
+
+exports.addressEdit = (req,res)=>{
+  const { addressId, ...formData } = req.body;
+  console.log(addressId)
+  console.log(formData)
+  try {
+   
+  } catch (error) {
+    
+  }
+}
+
+exports.confirmAndUpdatePassword = async(req,res)=>{
+     
+   
+  let verifiedUser = await User.findOne({_id:req.session.user._id });
+ 
+  bcrypt.compare(req.body.currentpassword, verifiedUser.password).then(async(status) => {
+     if (status) {
+         let hashPassword = await bcrypt.hash(req.body.newpassword, 10);
+    
+        await User.findOneAndUpdate(
+         {_id: req.session.user._id}, // filter object
+         {password: hashPassword} // update object
+       );
+
+        console.log('huihadsfasdfasd')
+         res.json(true)
+     } else {
+         console.log('password is not matching');
+        
+         res.json({message:'not matching'})
+     }
+ })
+
+}
 
 exports.indexPage = async (req, res) => {
   let user = req.session.user;

@@ -131,7 +131,7 @@
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<span class="icon-user"></span>
 					<% if (locals.user) { %>
-						Hello <%= user.name %>
+						Hello <%= locals.user.name %>
 					 <% } else { %>
 						Account
 					 <% } %>	

@@ -18,6 +18,18 @@ const userSchema =new Schema({
         type: String,
         required: true
     },
+    address :[
+        
+        { 
+         name: String,
+         mobile: String,
+         addressDetails: String,
+         city:String,
+         state:String,
+         zip:Number,
+         typeOfAddress:String
+         }
+     ],
     status :{
         type: Boolean,
         required:true
