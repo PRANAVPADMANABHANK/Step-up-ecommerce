@@ -1,5 +1,21 @@
-<br><br><br><br><br>
+<!-- <br><br><br><br><br>
+
+<div class="col-md-10 d-flex justify-content-end">
+  <form action="/orders/date" method="post">
+    <select name="selector" id="my-dropdown" class="form-select form-select-sm bg-light border-0" style="box-shadow: 0 0 3px;">
+      <option value="0">select year</option>
+      <option value="<%= new Date().getFullYear() %>"><%= new Date().getFullYear() %></option>
+      <option value="<%= new Date().getFullYear()-1 %>"><%= new Date().getFullYear()-1 %></option>
+      <option value="<%= new Date().getFullYear()-2 %>"><%= new Date().getFullYear()-2 %></option>
+      <option value="<%= new Date().getFullYear()-3 %>"><%= new Date().getFullYear()-3 %></option>
+    </select>
+    <button type="submit" class="btn btn-info">Get Orders</button>
+  </form>
+</div>
+
+
 <div class="container-fluid">
+  <h3>Order Details</h3>
 <table class="table table-striped table-hover">
     <thead>
       <tr>
@@ -11,8 +27,9 @@
         <th>Mobile</th>
         <th>Total Amount</th>
         <th>Total Quantity</th>
-        <th>Status</th>
+        <th>Delivery Status</th>
         <th>Payment</th>
+        <th>Order Status</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -29,10 +46,13 @@
           <td><%= getTotalQuantity(element.products) %></td>
           <td><span class="badge badge-success"><%= element.paymentstatus %></span></td>
           <td><%= element.paymentMethod %></td>
+          <td><%= element.deliverystatus %></td>
           <td><a href="/viewOrderProducts/<%= element._id %>" class="btn btn-primary">View Details</a></td>
         </tr>
+        
       </tbody>
-    <% }) %>
+    
+    <%}) %>
             
   </table>
 </div>
@@ -44,4 +64,347 @@
     <%= total %>
   <% } %>
 
-  <br><br><br><br><br>
+  <br><br><br><br><br> -->
+
+
+
+
+
+
+
+
+
+<!-- 
+<section>
+    <div class="container">
+       <table class="table mt-5">
+        <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th>Address</th>
+                <th>Amount</th>
+                <th>Payment</th>
+                <th>status</th>
+                <th>view Orders</th>
+            </tr>
+        </thead>
+         <tbody>
+            <%# orders.forEach(element => { %>
+     
+            <tr>
+                <td><%#= new Date(element.createdAt).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true }) %> </td>
+                <td><%#= element.deliveryDetails.address %> </td>
+                <td><%#= element.totalAmount %> </td>
+                <td><%#= element.paymentMethod %> </td>
+                <td><%#= element.status %> </td>
+                <td><a href="/view-placed-orders/<%#= element._id %>" class="btn btn-primary">View Product</a></td>
+            </tr>
+              <%# }) %>
+         </tbody>
+                 
+          
+       </table>
+    </div>
+</section> -->
+
+<style>
+  .container {
+    max-width: 1200px;
+  }
+
+  .card-header {
+
+    font-weight: bold;
+  }
+
+  .card {
+    border-radius: 5px;
+  }
+
+  .product-image {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .strike-text {
+    text-decoration: line-through;
+  }
+
+  .spec-1 span {
+    margin-right: 10px;
+  }
+
+  .dot::before {
+    content: "\2022";
+    color: #bdbdbd;
+    margin-right: 5px;
+    margin-left: 5px;
+    font-weight: bold;
+  }
+
+  .bg-dark-subtle {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .bg-opacity-50 {
+    opacity: 0.5;
+  }
+
+  .btn {
+    border-radius: 25px;
+  }
+
+  .btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+  }
+
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+
+  .btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+  }
+
+  .form-select {
+    font-size: 14px;
+  }
+
+  @media (max-width: 576px) {
+    .card-body {
+      padding: 5px;
+    }
+
+    .product-image {
+      height: 80px;
+    }
+
+    .spec-1 span {
+      margin-right: 5px;
+    }
+
+    .dot::before {
+      margin-right: 3px;
+      margin-left: 3px;
+      font-size: 12px;
+    }
+  }
+   .nav-link:hover {
+    color: white;
+    background-color: #6c757d;
+    text-decoration: none;
+  }
+</style>
+<br><br><br>
+
+<div class="container mt-5 mb-5">
+
+
+
+  <div class="row d-flex justify-content-center">
+
+    <div class="col-md-10 d-flex justify-content-center">
+      <h3 class="fw-medium"><b> Your Orders </b></h3>
+    </div>
+
+    <div class="col-md-10 d-flex justify-content-start">
+      <form action="/orders/date" method="post">
+
+        <select name="selector" id="my-dropdown" class="form-select form-select-sm bg-light border-0"
+          style="box-shadow: 0 0 3px;">
+          <option value="0">select year</option>
+          <option value="<%= new Date().getFullYear() %>">
+            <%= new Date().getFullYear() %>
+          </option>
+          <option value="<%= new Date().getFullYear()-1 %>">
+            <%= new Date().getFullYear()-1 %>
+          </option>
+          <option value="<%= new Date().getFullYear()-2 %>">
+            <%= new Date().getFullYear()-2 %>
+          </option>
+          <option value="<%= new Date().getFullYear()-3 %>">
+            <%= new Date().getFullYear()-3 %>
+          </option>
+        </select>
+
+
+        <button type="submit" class="btn btn-info">Get Orders</button>
+      </form>
+    </div>
+    <!-- 
+      <div class="col-md-10 d-flex justify-content-around">
+      
+        <ul class="list-inline">
+          <li><a href="#">orders</a></li>
+          <li><a href="/order-not-shipped">not yet shipped</a></li>
+          <li><a href="/order-cancelled-list">cancelled</a></li>
+          <li><a href="/order-returned-list">returned</a></li>
+       
+        </ul>
+        
+      </div> -->
+
+      <div class="col-md-10 d-flex justify-content-around mt-2">
+        <div class="border rounded p-3" style="background-color: #f9f9f9; box-shadow: 0 0 10px rgba(0,0,0,0.2);">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <a href="/orders" class="nav-link" style="font-size: 20px; color: black;">
+                <i class="fas fa-search me-2"></i>Orders
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="/order-not-shipped" class="nav-link" style="font-size: 20px; color: black;">
+                <i class="fas fa-search me-2"></i>Not yet shipped
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="/order-cancelled-list" class="nav-link" style="font-size: 20px; color: black;">
+                <i class="fas fa-search me-2"></i>Cancelled
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="/order-returned-list" class="nav-link" style="font-size: 20px; color: black;">
+                <i class="fas fa-search me-2"></i>Returned
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      
+    
+        
+
+
+
+    <div class="col-md-10  ">
+      <% locals.orders.forEach(element=> { %>
+        <div class="card mt-4 border border-2">
+          <div class="card-header d-flex justify-content-around text-dark">
+            <span>Order <%= element.paymentstatus %>
+                <%= new Date(element.createdAt).toLocaleString('en-US', { month: 'short' , day: 'numeric' ,
+                  year: 'numeric' , hour12: true }) %></span>
+            <span> Address : <%= element.deliveryDetails.streetaddress %></span>
+            <span> Total: &#8377; <%= element.totalAmount %> </span>
+            <span> Order Summary</span>
+          </div>
+          <% element.products.forEach(prd=> { %>
+
+            <div class="card-body border border-2">
+              <div class="row p-2 bg-white border rounded">
+                <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image"
+                    src="/uploads/<%= prd.item.images[0] %>" style="height: 100px; width: 100px"></div>
+                <div class="col-md-6 mt-1">
+                  <h5><b>
+                      <%= prd.item.productname%>
+                    </b></h5>
+                  <div class="d-flex flex-row">
+
+                  </div>
+
+                  <p class="text-justify text-truncate para mb-0">Quantity : <%= prd.quantity %><br><br></p>
+                  <h6><span class="fw-medium">order-status :</span> <span>
+                      <%= prd.orderstatus %>
+                    </span> <br><br></h6>
+                </div>
+                <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                  <!-- <div class="d-flex flex-row align-items-center">
+                              <h4 class="mr-1">Rs. <%#= prd.item.salePrice %></h4><span class="strike-text"></span>                     
+                          </div> -->
+                  <h6 class="text-success">
+                    <%= prd.deliverystatus %>
+                  </h6>
+                  <div class="d-flex flex-column mt-4">
+                    <% if (prd.deliverystatus !=='returned' ) { %>
+                      <button class="btn btn-outline-secondary btn-sm" <%=prd.orderstatus==='cancelled' ? 'hidden' : ''
+                        %> type="button" onclick="location.href='/invoice/?orderId=<%= element._id %>&productId=<%=
+                            prd.item._id %>';">Invoice</button>
+
+                      <% if (prd.deliverystatus==='delivered' ) { %>
+                        <button class="btn btn-danger btn-sm mt-2"
+                          onclick="returnOrder('<%= element._id %>','<%= prd.item._id %>')" type="button">Return order
+                        </button>
+                  </div>
+                  <% } else{ %>
+                    <button class="btn btn-danger btn-sm mt-2" <%=prd.orderstatus==='cancelled' ? 'hidden' : '' %>
+                      onclick="cancelOrder('<%= element._id %>','<%= prd.item._id %>')" type="button" >Cancel order
+                    </button>
+                </div>
+                <% } %>
+                  <% } %>
+
+
+              </div>
+            </div>
+        </div>
+
+        <% }) %>
+    </div>
+    <% }) %>
+
+  </div>
+
+</div>
+</div>
+
+
+
+
+
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+
+  function cancelOrder(orderId, productId) {
+    // Display a confirmation SweetAlert message
+    swal({
+      title: "Confirmation",
+      text: "Are you sure you want to proceed?",
+      icon: "info",
+      buttons: ["Cancel", "Confirm"],
+      dangerMode: true,
+      closeOnClickOutside: false,
+      closeOnEsc: false,
+      customClass: {
+        container: 'my-swal-container',
+        content: 'my-swal-content',
+        title: 'my-swal-title',
+        cancelButton: 'my-swal-cancel-button',
+        confirmButton: 'my-swal-confirm-button'
+      }})
+      .then((willCancel) => {
+        if (willCancel) {
+          // Redirect to the cancel order page if the user confirms the cancellation
+          location.href = `/cancel-order/?orderId=${orderId}&productId=${productId}`;
+        }
+      });
+  }
+
+  function returnOrder(orderId, productId) {
+    swal({
+      title: "Confirmation",
+      text: "Are you sure you want to proceed?",
+      icon: "info",
+      buttons: ["Cancel", "Confirm"],
+      dangerMode: true,
+      closeOnClickOutside: false,
+      closeOnEsc: false,
+      customClass: {
+        container: 'my-swal-container',
+        content: 'my-swal-content',
+        title: 'my-swal-title',
+        cancelButton: 'my-swal-cancel-button',
+        confirmButton: 'my-swal-confirm-button'
+    }})
+      .then((willCancel) => {
+        if (willCancel) {
+          // Redirect to the cancel order page if the user confirms the cancellation
+          location.href = `/return-order/?orderId=${orderId}&productId=${productId}`;
+        }
+      });
+  }
+</script>

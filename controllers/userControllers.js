@@ -1899,19 +1899,44 @@ exports.orderPlacedCod = (req,res)=>{
 }
 
 exports.orders = async (req, res) => {
-  
 
-  try {
-    const userId = req.session.user._id;
-    console.log(userId,"lksdfjglkjdlsafkjglkaj")
-    let orders = await Order.find({ userId: userId });
-    console.log(orders)
+    let orders = await Order.find({ userId: req.session.user._id })
+  .sort('-updatedAt')
+  .populate({
+    path: 'products.item',
+    model: 'Product'
+  }).exec();
+
+
+  console.log(orders, 'ordersssss')
+  // res.locals.orders=orders
+  //   const userId = req.session.user._id;
+  //   // console.log(userId,"lksdfjglkjdlsafkjglkaj")
+  //   let orders = await Order.find({ userId: userId });
+  //   // console.log(orders)
     // Access cartCount value from req object
   const cartCount = req.cartCount;
-    res.render('user/OrderView.ejs', { video: true,cartCount, user: req.session.user, orders: orders });
-  } catch (error) {
-    res.status(500).send('Internal Server Error');
+  if(req.session.filterOrders){
+    res.locals.orders=req.session.filterOrders
+    req.session.filterOrders = null;
+  }else if(req.session.noOrders){
+    res.locals.orders = req.session.noOrders 
+    req.session.noOrders = null;
+  }else if(req.session.cancelledOrders){
+    res.locals.orders= req.session.cancelledOrders;
+    req.session.cancelledOrders=null;
+  }else if(req.session.notShippedOrders){
+    res.locals.orders= req.session.notShippedOrders
+    req.session.notShippedOrders=null;
+  }else if(req.session.returneddOrders){
+    res.locals.orders= req.session.returneddOrders
+    req.session.returneddOrders=null;
   }
+  else{
+    res.locals.orders=orders
+  }
+    res.render('user/OrderView', { video: true,cartCount, user: req.session.user  });
+  
 }
 
 
@@ -1926,29 +1951,107 @@ exports.viewOrderProducts = async (req,res)=>{
     
 
    // Fetch the cart items
+// let cartItems = await Order.aggregate([
+//   {
+//     $match: { _id: cond },
+//   },
+  
+//   {
+//     $lookup: {
+//       from: "products",
+//       localField: 'products.item',
+//       foreignField: "_id",
+//       as:"productInfo",
+//     },
+//   }
+ 
+// ]);
+
 let cartItems = await Order.aggregate([
   {
     $match: { _id: cond },
   },
-  
   {
     $lookup: {
       from: "products",
-      localField: 'products.item',
+      localField: "products.item",
       foreignField: "_id",
-      as:"productInfo",
+      as: "productInfo",
     },
-  }
- 
+  },
+  {
+    $project: {
+      _id: 1,
+      deliveryDetails: 1,
+      userId: 1,
+      paymentMethod: 1,
+      products: 1,
+      totalAmount: 1,
+      paymentstatus: 1,
+      deliverystatus: 1,
+      createdAt: 1,
+      productInfo: {
+        $map: {
+          input: "$productInfo",
+          as: "p",
+          in: {
+            _id: "$$p._id",
+            productname: "$$p.productname",
+            images: "$$p.images",
+            quantity: {
+              $arrayElemAt: [
+                "$products.quantity",
+                {
+                  $indexOfArray: ["$products.item", "$$p._id"],
+                },
+              ],
+            },
+            size: {
+              $arrayElemAt: [
+                "$products.size",
+                {
+                  $indexOfArray: ["$products.item", "$$p._id"],
+                },
+              ],
+            },
+            currentPrice: {
+              $arrayElemAt: [
+                "$products.currentPrice",
+                {
+                  $indexOfArray: ["$products.item", "$$p._id"],
+                },
+              ],
+            },
+            tax: {
+              $arrayElemAt: [
+                "$products.tax",
+                {
+                  $indexOfArray: ["$products.item", "$$p._id"],
+                },
+              ],
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    $unwind: "$productInfo",
+  },
 ]);
-console.log(cartItems[0].products,"💥💥💥")
-console.log(cartItems[0].productInfo,"hgjhgjhgjhgjhgjhghg");
-// Add the quantity of each product to the corresponding product object
-cartItems[0].productInfo.forEach((product, index) => {
-  product.quantity = cartItems[0].products[index].quantity;
-});
 
-res.render("user/viewProductDetails",{ user,video:true, products: cartItems[0].productInfo })
+  console.log(cartItems,"///////////")
+  console.log(cartItems[0].products,"?????????????")
+// console.log(cartItems[0].products,"💥💥💥")
+// console.log(cartItems[0].productInfo,"hgjhgjhgjhgjhgjhghg");
+// Access cartCount value from req object
+const cartCount = req.cartCount;
+// Add the quantity of each product to the corresponding product object
+// cartItems[0].productInfo.forEach((product, index) => {
+//   product.quantity = cartItems[0].products[index].quantity;
+// });
+
+res.render("user/viewProductDetails",{ user,video:true,cartCount, cartItems, products:cartItems[0].products})
     
 
 

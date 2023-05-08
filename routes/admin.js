@@ -50,6 +50,12 @@ router.get('/addsubCategory',subCategoryController.CreateSubcategory)
 router.post('/addsubCategory',subCategoryController.createSubcategoryPost)
 
 router.get('/Orders',adminController.Orders)
+router.post('/order-details/',adminController.orderDetailsAdmin);
+router.get('/sales-report',adminController.salesSummary);
+router.post('/sales-report',adminController.salesReport);
+
+
+
 
 router.get('/coupon',couponControllers.couponPage);
 router.post('/coupon',couponControllers.postCoupon);

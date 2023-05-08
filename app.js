@@ -20,6 +20,10 @@ const toastr = require('express-toastr');
 
 const flash = require('express-flash');
 
+const XLSX = require('xlsx');
+const htmlToText = require('html-to-text');
+const $ = require('jquery');
+
 
 
 // const { MongoDBStore } = require('connect-mongodb-session');
@@ -102,10 +106,24 @@ app.use('/admin',adminRouter)
 
 
 // catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
+// Handle 404 errors
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
+// Error handler
+// app.use(function(err, req, res, next) {
+//   // Set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+//   // Render the 404 page
+//   res.status(err.status || 404);
+//   res.render('user/404',{other:true});
+// });
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

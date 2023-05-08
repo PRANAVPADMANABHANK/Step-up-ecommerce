@@ -7,6 +7,7 @@ const userController = require('../controllers/userControllers')
 const addressController = require('../controllers/addressControllers')
 const couponControllers = require('../controllers/couponControllers')
 const bcrypt = require('bcrypt')
+const orderController =require('../controllers/orderControllers')
 
 
 
@@ -82,8 +83,8 @@ router.post('/editSavedAddress/:id',userController.editSavedAddressPost)
 router.delete('/deleteAddress/:id', userController.deleteAddress);
 
 router.get('/orderPlaced',userController.orderPlacedCod)
-router.get('/Orders',userController.cartCount,userController.orders)
-router.get('/viewOrderProducts/:id',userController.viewOrderProducts)
+router.get('/Orders',userController.isLogin,userController.cartCount,userController.orders)
+router.get('/viewOrderProducts/:id',userController.isLogin,userController.cartCount,userController.viewOrderProducts)
 
 
 router.post('/verify-payment',userController.paymentVerify);
@@ -104,6 +105,16 @@ router.post('/add-address',addressController.addAddressPost)
 
 
 router.post('/apply-coupon',couponControllers.applyCoupon);
+
+router.post('/orders/date',orderController.sortOrders);
+router.get('/cancel-order/',userController.isLogin,orderController.cancelOrder);
+router.get('/return-order/',userController.isLogin,orderController.returnOrder);
+router.get('/order-not-shipped',userController.isLogin,orderController.listOfNotShippedOrder);
+router.get('/order-cancelled-list',userController.isLogin,orderController.listOfCancelledOrder);
+router.get('/order-returned-list',userController.isLogin,orderController.listOfReturnedOrder);
+router.get('/invoice/',userController.isLogin,orderController.invoice);
+
+
 
 // router.use((req, res, next) => {
 //   res.render('user/404')
