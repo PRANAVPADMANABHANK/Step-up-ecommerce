@@ -1959,6 +1959,7 @@ exports.orders = async (req, res) => {
     .exec();
 
   console.log(orders, "ordersssss");
+  console.log(orders[0].products,"]]]]]]]]]]]]]]]]")
   // res.locals.orders=orders
   //   const userId = req.session.user._id;
   //   // console.log(userId,"lksdfjglkjdlsafkjglkaj")

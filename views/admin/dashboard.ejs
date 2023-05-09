@@ -4,15 +4,44 @@
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 <link href="/admins/css/app.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
 
+<style>
+    .modern-card {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to bottom, #3d3d3d, #1c1c1c);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease-in-out;
+    }
 
+    .modern-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .modern-title {
+        font-size: 24px;
+        color: #fff;
+        margin-bottom: 10px;
+    }
+
+    .modern-amount {
+        font-size: 48px;
+        color: #fff;
+        margin-bottom: 20px;
+    }
+    .icon-lg {
+    font-size: 2rem; /* Change the value as needed */
+  }
+</style>
+<h3><strong>DASHBOARD</strong> </h3>
 <main class="content">
     <div class="container-fluid p-0">
 
         <div class="row mb-2 mb-xl-3">
-            <div class="col-auto d-none d-sm-block">
-                <h3><strong>Dashboard</strong> </h3>
-            </div>
+           
 
             <div class="col-auto ms-auto text-end mt-n1">
                 <!-- <a href="#" class="btn btn-light bg-white me-2">Invite a Friend</a>
@@ -24,128 +53,135 @@
                 <div class="w-100">
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="card">
+                            <div class="card modern-card">
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">Orders</h5>
+                                    <div class="d-flex justify-content-between">
+                                        <h2 class="card-title modern-title">Orders</h2>
+                                        <div class="icon align-self-center">
+                                            <i class="bi bi-receipt"></i>
                                         </div>
 
-                                        <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="align-middle" data-feather="truck"></i>
-                                            </div>
-                                        </div>
+
+
                                     </div>
-                                    <h1 class="mt-1 mb-3"><%= locals.totalQuantity%></h1>
-                                    <div class="mb-0">
-                                        <span class="badge badge-primary-light"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-                                        <!-- <span class="text-muted">Since last week</span> -->
+                                    <div class="my-3">
+                                        <h1 class="display-3 mb-0 text-white">&#8377;<%= locals.totalQuantity %>
+                                        </h1>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span class="badge bg-primary" style="    width: 57px;height: 18px;">
+                                            <i class="bi bi-arrow-down-right"></i> 3.65%
+                                        </span>
+                                        <span class="text-muted">Since last week</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">shipped</h5>
-                                        </div>
 
-                                        <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="align-middle" data-feather="users"></i>
-                                            </div>
+
+
+                            <div class="card modern-card border-0 shadow-sm">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h5 class="card-title modern-title">Shipped</h5>
+                                        <div class="icon align-self-center">
+                                            <i class="bi bi-truck"></i>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3"><%= locals.totalShipped %></h1>
-                                    <div class="mb-0">
-                                        <span class="badge badge-success-light"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-                                        <!-- <span class="text-muted">Since last week</span> -->
+                                    <h1 class="display-4 mb-3"><span class=" text-white">&#8377; <%= locals.totalShipped
+                                                %></span></h1>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="badge bg-primary">
+                                                <i class="mdi mdi-arrow-top-right"></i> 5.25%
+                                            </span>
+                                            <span class="text-muted ">Since last week</span>
+                                        </div>
+                                        <div>
+                                            <!-- <span class="text-muted">All time</span> -->
+                                            <span class="h4 ml-1">
+                                                <%= locals.totalShippedAllTime %>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+
+
+
+
+
                         </div>
                         <div class="col-sm-6">
-                            <div class="card">
+                            <div class="card modern-card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">sales</h5>
-                                        </div>
-
-                                        <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="align-middle" data-feather="dollar-sign"></i>
+                                        <div class="d-flex justify-content-between mt-0">
+                                            <h5 class="card-title modern-title">Sales</h5>
+                                            <div class="icon align-self-center">
+                                                <i class="bi bi-bag"></i>
                                             </div>
                                         </div>
+
+
                                     </div>
-                                    <h1 class="mt-1 mb-3">&#8377; <%= locals.totalProfit %></h1>
+
+                                    <h1 class="mt-3 mb-4 modern-amount">&#8377; <%= locals.totalProfit %>
+                                    </h1>
+
                                     <div class="mb-0">
-                                        <span class="badge badge-success-light"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-                                        <!-- <span class="text-muted">Since last week</span> -->
+                                        <span class="badge bg-primary"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65%
+                                        </span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
+
+                            <div class="card modern-card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title">cancelled</h5>
-                                        </div>
-
-                                        <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="align-middle" data-feather="shopping-cart"></i>
-                                            </div>
+                                        <div class="d-flex justify-content-between mt-0">
+                                            <h5 class="card-title modern-title">Cancelled</h5>
+                                            <div class="icon align-self-center">
+                                                <i class="bi bi-x icon-lg"></i>
+                                              </div>
                                         </div>
                                     </div>
-                                    <h1 class="mt-1 mb-3"><%= locals.totalCancelled %></h1>
+                                    <h1 class="mt-3 mb-4 modern-amount">&#8377;<%= locals.totalCancelled %>
+                                    </h1>
                                     <div class="mb-0">
-                                        <span class="badge badge-danger-light"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
-                                        <!-- <span class="text-muted">Since last week</span> -->
+                                        <span class="badge bg-primary">
+                                            <i class="mdi mdi-arrow-bottom-right"></i> -2.25%
+                                        </span>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-xl-6 col-xxl-7">
-                <div class="card flex-fill w-100">
-                    <div class="card-header">
-                        <!-- <div class="card-actions float-end">
-                            <div class="dropdown show">
-                                <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                                    <i class="align-middle" data-feather="more-horizontal"></i>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                        </div> -->
-                        <h5 class="card-title mb-0">Monthly Orders</h5>
-                    </div>
-                    <div class="card-body d-flex w-100">
-                        <div class="align-self-center chart chart-lg">
-                            <canvas id="chartjs-dashboard-bar"></canvas>
-                        </div>
-                    </div>
+                <div class="card bg-white shadow-sm">
+                  <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Monthly Orders</h5>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="chartjs-dashboard-bar"></canvas>
+                  </div>
                 </div>
-            </div>
-        </div>
-       
-      
+              </div>
+              
+
+
 
     </div>
 </main>
 
 <script src="/admins/js/app.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
         var gradientLight = ctx.createLinearGradient(0, 0, 0, 225);
         gradientLight.addColorStop(0, "rgba(215, 227, 244, 1)");
@@ -219,7 +255,7 @@
     });
 </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Pie chart
         new Chart(document.getElementById("chartjs-dashboard-pie"), {
             type: "pie",
@@ -250,15 +286,15 @@
 </script>
 
 <script>
-  
+
     var datas = `<%- JSON.stringify(orderBasedOnMonths) %>`;
     var parseData = JSON.parse(datas)
-    console.log(parseData,'.iahve asfdsd')
-    document.addEventListener("DOMContentLoaded", function() {
+    console.log(parseData, '.iahve asfdsd')
+    document.addEventListener("DOMContentLoaded", function () {
         // Bar chart
-       
+
         new Chart(document.getElementById("chartjs-dashboard-bar"), {
-            
+
             type: "bar",
             data: {
                 labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -274,7 +310,7 @@
                             orderCounts[month.month - 1] = month.orderCount;
                         });
                         return orderCounts;
-                    })(),        
+                    })(),
                     barPercentage: .75,
                     categoryPercentage: .5
                 }]
@@ -306,47 +342,47 @@
     });
 </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         var markers = [{
-                coords: [31.230391, 121.473701],
-                name: "Shanghai"
-            },
-            {
-                coords: [28.704060, 77.102493],
-                name: "Delhi"
-            },
-            {
-                coords: [6.524379, 3.379206],
-                name: "Lagos"
-            },
-            {
-                coords: [35.689487, 139.691711],
-                name: "Tokyo"
-            },
-            {
-                coords: [23.129110, 113.264381],
-                name: "Guangzhou"
-            },
-            {
-                coords: [40.7127837, -74.0059413],
-                name: "New York"
-            },
-            {
-                coords: [34.052235, -118.243683],
-                name: "Los Angeles"
-            },
-            {
-                coords: [41.878113, -87.629799],
-                name: "Chicago"
-            },
-            {
-                coords: [51.507351, -0.127758],
-                name: "London"
-            },
-            {
-                coords: [40.416775, -3.703790],
-                name: "Madrid "
-            }
+            coords: [31.230391, 121.473701],
+            name: "Shanghai"
+        },
+        {
+            coords: [28.704060, 77.102493],
+            name: "Delhi"
+        },
+        {
+            coords: [6.524379, 3.379206],
+            name: "Lagos"
+        },
+        {
+            coords: [35.689487, 139.691711],
+            name: "Tokyo"
+        },
+        {
+            coords: [23.129110, 113.264381],
+            name: "Guangzhou"
+        },
+        {
+            coords: [40.7127837, -74.0059413],
+            name: "New York"
+        },
+        {
+            coords: [34.052235, -118.243683],
+            name: "Los Angeles"
+        },
+        {
+            coords: [41.878113, -87.629799],
+            name: "Chicago"
+        },
+        {
+            coords: [51.507351, -0.127758],
+            name: "London"
+        },
+        {
+            coords: [40.416775, -3.703790],
+            name: "Madrid "
+        }
         ];
         var map = new jsVectorMap({
             map: "world",
@@ -376,13 +412,13 @@
         window.addEventListener("resize", () => {
             map.updateSize();
         });
-        setTimeout(function() {
+        setTimeout(function () {
             map.updateSize();
         }, 250);
     });
 </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
         var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
         document.getElementById("datetimepicker-dashboard").flatpickr({
@@ -395,23 +431,23 @@
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function(event) { 
-setTimeout(function(){
-  if(localStorage.getItem('popState') !== 'shown'){
-    window.notyf.open({
-      type: "success",
-      message: "Get access to all 500+ components and 45+ pages with AdminKit PRO. <u><a class=\"text-white\" href=\"https://adminkit.io/pricing\" target=\"_blank\">More info</a></u> 🚀",
-      duration: 10000,
-      ripple: true,
-      dismissible: false,
-      position: {
-        x: "left",
-        y: "bottom"
-      }
-    });
+    document.addEventListener("DOMContentLoaded", function (event) {
+        setTimeout(function () {
+            if (localStorage.getItem('popState') !== 'shown') {
+                window.notyf.open({
+                    type: "success",
+                    message: "Get access to all 500+ components and 45+ pages with AdminKit PRO. <u><a class=\"text-white\" href=\"https://adminkit.io/pricing\" target=\"_blank\">More info</a></u> 🚀",
+                    duration: 10000,
+                    ripple: true,
+                    dismissible: false,
+                    position: {
+                        x: "left",
+                        y: "bottom"
+                    }
+                });
 
-    localStorage.setItem('popState','shown');
-  }
-}, 15000);
-});
+                localStorage.setItem('popState', 'shown');
+            }
+        }, 15000);
+    });
 </script>
