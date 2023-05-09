@@ -1146,6 +1146,12 @@ exports.otpLogin = async (req, res) => {
   }
 };
 
+exports.otp = (req,res)=>{
+  
+    res.render("user/otp",{other:true})
+ 
+}
+
 exports.verify = async (req, res) => {
   res.render("user/verify", { other: true });
 };
@@ -1604,7 +1610,7 @@ exports.editSavedAddress = async (req, res) => {
 
 exports.deliveryAddressPost = async (req, res) => {
   let orders = req.body;
-  console.log(orders);
+  console.log(orders,"❤️❤️❤️❤️❤️");
   let cod = req.body["payment-method"];
   console.log(cod);
 
