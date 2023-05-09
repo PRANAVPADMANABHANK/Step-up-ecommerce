@@ -1,0 +1,89 @@
+<!-- Add Banner Form -->
+<div class="card">
+    <div class="card-header">
+      Add Banner
+    </div>
+    <div class="card-body">
+      <form action="/admin/banner" method="POST" enctype="multipart/form-data" id="addBannerForm" novalidate>
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" class="form-control" id="title" name="title" required>
+          <div class="invalid-feedback">
+            Please enter a title for the banner.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" name="description" required></textarea>
+          <div class="invalid-feedback">
+            Please enter a description for the banner.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label">Image:</label>
+          <input type="file" class="form-control" id="image" name="image" multiple required>
+      
+      
+          <!-- <input type="file" class="form-control" id="image" name="image" >
+          <input type="file" class="form-control" id="image" name="image" > -->
+        
+          <div class="invalid-feedback">
+            Please choose an image for the banner.
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Banner</button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Add Banner Form Validation -->
+  <script>
+    (function() {
+      'use strict';
+  
+      var form = document.getElementById('addBannerForm');
+      var titleInput = document.getElementById('title');
+      var descriptionInput = document.getElementById('description');
+      var imageInput = document.getElementById('image');
+  
+      form.addEventListener('submit', function(event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+  
+        form.classList.add('was-validated');
+      });
+  
+      titleInput.addEventListener('invalid', function(event) {
+        event.target.classList.add('is-invalid');
+        event.target.nextElementSibling.textContent = 'Please enter a title for the banner.';
+      });
+  
+      titleInput.addEventListener('input', function(event) {
+        event.target.classList.remove('is-invalid');
+        event.target.nextElementSibling.textContent = '';
+      });
+  
+      descriptionInput.addEventListener('invalid', function(event) {
+        event.target.classList.add('is-invalid');
+        event.target.nextElementSibling.textContent = 'Please enter a description for the banner.';
+      });
+  
+      descriptionInput.addEventListener('input', function(event) {
+        event.target.classList.remove('is-invalid');
+        event.target.nextElementSibling.textContent = '';
+      });
+  
+      imageInput.addEventListener('invalid', function(event) {
+        event.target.classList.add('is-invalid');
+        event.target.nextElementSibling.textContent = 'Please choose an image for the banner.';
+      });
+  
+      imageInput.addEventListener('input', function(event) {
+        event.target.classList.remove('is-invalid');
+        event.target.nextElementSibling.textContent = '';
+      });
+    })();
+  </script>
+  

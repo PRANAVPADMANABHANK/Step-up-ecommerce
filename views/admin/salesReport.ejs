@@ -80,10 +80,11 @@
                     <button type="button" onclick="salesReportPdf()" class="btn btn-secondary btn-icon bg-dark">
                         <i class="bi bi-file-earmark-pdf-fill"></i> PDF
                     </button>
+
+                    <button type="button" onclick="salesReportExcel()" class="btn btn-secondary btn-icon bg-dark">
+                        <i class="bi bi-file-earmark-excel-fill"></i> Excel
+                    </button>
                 </div>
-                <button type="button" onclick="salesReportExcel()" class="btn btn-secondary btn-icon bg-dark">
-                    <i class="bi bi-file-earmark-excel-fill"></i> Excel
-                </button>
             </div>
 
             <div class="col-md-12 d-flex justify-content-start">
@@ -233,6 +234,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 <script type="text/javascript" src="/javascripts/tableToExcel.js"></script>
 <script src="https://unpkg.com/html-to-text@8.0.0/html-to-text.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+
 
 <script>
 
@@ -337,7 +340,28 @@
         console.log("pdf")
         doc.save("Orders.pdf");
     }
+    // function salesReportExcel() {
+    //     TableToExcel.convert(document.getElementById("datatables-reponsive"));
+    // }
+
     function salesReportExcel() {
-        TableToExcel.convert(document.getElementById("datatables-reponsive"));
-    }
+  var wb = XLSX.utils.book_new();
+  var ws = XLSX.utils.table_to_sheet(document.querySelector('#datatables-reponsive'));
+
+  // Adjust column widths
+  ws['!cols'] = [
+    { wch: 20 }, // Customer Name
+    { wch: 10 }, // Order ID
+    { wch: 20 }, // Product Name
+    { wch: 10 }, // Quantity
+    { wch: 15 }, // Unit Price
+    { wch: 15 }, // Total Price
+  ];
+
+  XLSX.utils.book_append_sheet(wb, ws, "Sales Report");
+
+  // Save the Excel file
+  XLSX.writeFile(wb, "Sales Report.xlsx");
+}
+
 </script>

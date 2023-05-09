@@ -42,6 +42,44 @@
 		  font-size: small;
 	}
 
+
+
+	.pagination {
+		margin: 30px 0;
+	}
+
+	.pagination .page-item {
+		margin-right: 5px;
+		border-radius: 5px;
+	}
+
+	.pagination .page-item.active .page-link {
+		background-color: #17a2b8;
+		border-color: #17a2b8;
+	}
+
+	.pagination .page-link {
+		color: #17a2b8;
+		border-color: #17a2b8;
+	}
+
+	.pagination .page-link:hover {
+		color: #fff;
+		background-color: #17a2b8;
+		border-color: #17a2b8;
+	}
+
+	.pagination .page-item.disabled .page-link {
+		color: #6c757d;
+		pointer-events: none;
+		background-color: #fff;
+		border-color: #6c757d;
+	}
+
+	.pagination .page-item.disabled .page-link:hover {
+		background-color: #fff;
+	}
+
 </style>
 
 <section class="ftco-section bg-light">
@@ -66,3 +104,31 @@
 		</div>
 	</div>    	
 </section>
+
+<div class="d-flex justify-content-center">
+	<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-end">
+
+			<% if (pageNum> 1) { %>
+				<li class="page-item">
+					<a class="page-link" href="/kids?page=<%= pageNum - 1 %>">Previous</a>
+				</li>
+				<% } %>
+
+					<% for (let i=1; i <=pages; i++) { %>
+						<li class="page-item <%= i === pageNum ? 'active' : '' %>">
+							<a class="page-link" href="/kids?page=<%= i %>">
+								<%= i %>
+							</a>
+						</li>
+						<% } %>
+
+							<% if (pageNum < pages) { %>
+								<li class="page-item">
+									<a class="page-link" href="/kids?page=<%= pageNum + 1 %>">Next</a>
+								</li>
+								<% } %>
+
+		</ul>
+	</nav>
+</div>

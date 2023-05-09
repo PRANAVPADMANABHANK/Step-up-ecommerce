@@ -17,7 +17,8 @@ const connectDB = require('./server/config/db')
 const multer = require('multer')
 const methodOverride = require('method-override');
 const toastr = require('express-toastr');
-
+// Import the middleware function
+const getBanners = require('./middlewares/bannermiddleware');
 const flash = require('express-flash');
 
 const XLSX = require('xlsx');
@@ -49,6 +50,9 @@ app.use(session({
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
+// Register the middleware function
+app.use(getBanners);
 
 
 app.use(expressLayout);

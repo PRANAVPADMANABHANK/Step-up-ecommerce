@@ -1,20 +1,19 @@
 <style>
 	video#myVideo {
-	  position: fixed;
-	  top: 0;
-	  left: 0;
-	  width: 50%;
-	  height: 50%;
-	  object-fit: cover;
-	  z-index: -1;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 50%;
+		height: 50%;
+		object-fit: cover;
+		z-index: -1;
 	}
+
 	/* .nav-item:hover {
   		background-color: #ffffff;
 	} */
+</style>
 
-
-  </style>
-  
 
 
 
@@ -22,156 +21,171 @@
 
 
 <header>
-    <body class="goto-here">
+
+	<body class="goto-here">
 		<div class="py-1 bg-black">
-    	<div class="container">
-    		<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
-	    		<div class="col-lg-12 d-block">
-		    		<div class="row d-flex">
-		    			<div class="col-md pr-4 d-flex topper align-items-center">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
-						    <span class="text">+ 1235 2355 98</span>
-					    </div>
-					    <div class="col-md pr-4 d-flex topper align-items-center">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-						    <span class="text">youremail@email.com</span>
-					    </div>
-					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
-					    </div>
-				    </div>
-			    </div>
-		    </div>
-		  </div>
-    </div>
-	
-	<body>
-		<!--  MP4, WebM, and Ogg -->
-		<style>
-		
-		  video {
- 			 margin-top: 100px; /* adjust the value as needed */
-		}
-		video {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  border: 2px solid #333;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
-#container {
-				text-align: center;
-			  }
-			  
-			  #extra-large {
-				font-size: 68px;
-				font-weight: bold;
-			  }
-			  
-			  #small {
-				font-size: 12px;
-				text-transform: uppercase;
-			  }
-
-
-
-		</style>
-		
-	     <% if (!locals.video) { %>
-			<body class="container">
-				<video autoplay muted loop width="90%">
-				  <source src="/uploads/Shoes by 2GO - Theatrical Ad Film _ Commercial.webm">
-				  This browser does not support HTML5 audio
-				</video>
-			  </body>
-			  <head>
-				<title>Nike Air Max Plus</title>
-			
-			  </head>
-			  <body>
-				<div id="container">
-				  <p id="small">Just In</p>
-				  <h1 id="extra-large">NIKE AIR <BR> MAX PLUS</h1>
+			<div class="container">
+				<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+					<div class="col-lg-12 d-block">
+						<div class="row d-flex">
+							<div class="col-md pr-4 d-flex topper align-items-center">
+								<div class="icon mr-2 d-flex justify-content-center align-items-center"><span
+										class="icon-phone2"></span></div>
+								<span class="text">+ 1235 2355 98</span>
+							</div>
+							<div class="col-md pr-4 d-flex topper align-items-center">
+								<div class="icon mr-2 d-flex justify-content-center align-items-center"><span
+										class="icon-paper-plane"></span></div>
+								<span class="text">youremail@email.com</span>
+							</div>
+							<div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
+								<span class="text">3-5 Business days delivery &amp; Free Returns</span>
+							</div>
+						</div>
+					</div>
 				</div>
-			  </body>
-		 <% } %>
-		
-		  
-		 
-	  
+			</div>
+		</div>
 
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="/index">StepUp</a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
+		<body>
+			<!--  MP4, WebM, and Ogg -->
+			<style>
+				video {
+					margin-top: 100px;
+					/* adjust the value as needed */
+				}
 
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-			  
-	          <li class="nav-item active"><a href="/" class="nav-link">Men</a></li>
-	          <li class="nav-item dropdown">
-				<li class="nav-item active"><a href="/women" class="nav-link">Women</a></li>
-            </li>
-	          <li class="nav-item"><a href="/kids" class="nav-link">Baby & Kid</a></li>
-			  <% if (locals.user) { %>
-				<li class="nav-item"><a href="/shop" class="nav-link">shop</a></li>
-			  <% } %>
-			  
-	          <li class="nav-item"><a href="/signup" class="nav-link">Signup</a></li>
-	          <% if (!locals.cartIcon){%>
+				video {
+					display: block;
+					margin-left: auto;
+					margin-right: auto;
+					border: 2px solid #333;
+					border-radius: 10px;
+					box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+				}
 
-	          <li class="nav-item cta cta-colored"><a href="/cart"  class="nav-link"><span class="icon-shopping_cart" id="cartCount"><%=locals.cartCount%> </span></a></li>
+				#container {
+					text-align: center;
+				}
 
-			  <%}%>
+				#extra-large {
+					font-size: 68px;
+					font-weight: bold;
+				}
 
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<span class="icon-user"></span>
-					<% if (locals.user) { %>
-						Hello <%= locals.user.name %>
-					 <% } else { %>
-						Account
-					 <% } %>	
-					
-				</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				#small {
+					font-size: 12px;
+					text-transform: uppercase;
+				}
+			</style>
 
-					<a class="dropdown-item" href="/profile">Profile</a>
-					<a class="dropdown-item" href="/savedAddress">Saved Addresses</a>
-					<a class="dropdown-item" href="/Orders">Orders</a>
-					<a class="dropdown-item" href="/signup">Register</a>
+			<% if (!locals.video) { %>
 
-					<% if (locals.user) { %>
-						<a class="dropdown-item" href="/logout">Logout</a>
-					 <% } else { %>
-						<a class="dropdown-item" href="/login">Login</a>
-					 <% } %>
-					
-					
-				</div>
-			</li>
-			
-			  
+				<body class="container">
+					<video autoplay muted loop width="90%">
+						<source src="/uploads/Shoes by 2GO - Theatrical Ad Film _ Commercial.webm">
+						This browser does not support HTML5 audio
+					</video>
+				</body>
+
+				<head>
+					<title>Nike Air Max Plus</title>
+
+				</head>
+
+				<body>
+					<div id="container">
+						<p id="small">Just In</p>
+						<h1 id="extra-large">NIKE AIR <BR> MAX PLUS</h1>
+					</div>
+				</body>
+				<% } %>
 
 
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
-    <!-- END nav -->
+
+
+
+					<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
+						id="ftco-navbar">
+						<div class="container">
+							<a class="navbar-brand" href="/">StepUp</a>
+							<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+								aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="oi oi-menu"></span> Menu
+							</button>
+
+							<div class="collapse navbar-collapse" id="ftco-nav">
+								<ul class="navbar-nav ml-auto">
+
+									<li class="nav-item active"><a href="/" class="nav-link">Men</a></li>
+									<li class="nav-item dropdown">
+									<li class="nav-item active"><a href="/women" class="nav-link">Women</a></li>
+									</li>
+									<li class="nav-item"><a href="/kids" class="nav-link">Baby & Kid</a></li>
+									<% if (locals.user) { %>
+										<li class="nav-item"><a href="/shop" class="nav-link">shop</a></li>
+										<% } %>
+
+											<li class="nav-item"><a href="/signup" class="nav-link">Signup</a></li>
+											<% if (!locals.cartIcon){%>
+
+												<li class="nav-item cta cta-colored"><a href="/cart"
+														class="nav-link"><span class="icon-shopping_cart"
+															id="cartCount">
+															<%=locals.cartCount%>
+														</span></a></li>
+
+												<%}%>
+
+													<li class="nav-item dropdown">
+														<a class="nav-link dropdown-toggle" href="#"
+															id="navbarDropdownMenuLink" role="button"
+															data-toggle="dropdown" aria-haspopup="true"
+															aria-expanded="false">
+															<span class="icon-user"></span>
+															<% if (locals.user) { %>
+																Hello <%= locals.user.name %>
+																	<% } else { %>
+																		Account
+																		<% } %>
+
+														</a>
+														<div class="dropdown-menu"
+															aria-labelledby="navbarDropdownMenuLink">
+
+															<a class="dropdown-item" href="/profile">Profile</a>
+															<a class="dropdown-item" href="/savedAddress">Saved
+																Addresses</a>
+															<a class="dropdown-item" href="/Orders">Orders</a>
+															<a class="dropdown-item" href="/signup">Register</a>
+
+															<% if (locals.user) { %>
+																<a class="dropdown-item" href="/logout">Logout</a>
+																<% } else { %>
+																	<a class="dropdown-item" href="/login">Login</a>
+																	<% } %>
+
+
+														</div>
+													</li>
+
+
+
+
+								</ul>
+							</div>
+						</div>
+					</nav>
+					<!-- END nav -->
 </header>
 
 <script>
 
 
-$(document).ready(function() {
-  $('.nav-item').click(function() {
-    $(this).toggleClass('active');
-  });
-});
+	$(document).ready(function () {
+		$('.nav-item').click(function () {
+			$(this).toggleClass('active');
+		});
+	});
 
-  </script>
-  
+</script>

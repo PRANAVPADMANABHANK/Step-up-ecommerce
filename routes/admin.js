@@ -5,10 +5,23 @@ const adminController = require('../controllers/adminControllers');
 const userController = require('../controllers/userControllers')
 const subCategoryController = require('../controllers/subCategoryControllers')
 const couponControllers = require('../controllers/couponControllers')
+const bannerControllers = require('../controllers/bannerControllers')
+const multer = require('multer');
 // const product = require('../models/product');
 
 
+// Set storage engine for multer
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, 'public/uploads/banners');
+  },
+  filename: function(req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
 
+// Initialize multer upload middleware
+const upload = multer({ storage: storage });
 
 //  GET admin listing.
 router.get('/adminLogin',adminController.adminLogin)
@@ -62,9 +75,11 @@ router.post('/coupon',couponControllers.postCoupon);
 router.patch('/coupon-disable/:id',couponControllers.disableCoupon);
 router.patch('/coupon-enable/:id',couponControllers.enableCoupon);
 router.get('/edit-coupon',couponControllers.editCoupon);
-router.post('/update-coupon',couponControllers.updateCoupon);
+router.post('/update-coupon',couponControllers.updateCoupon);   
 
 
+router.get('/banner',bannerControllers.getBanner)
+router.post('/banner',bannerControllers.addBanner);
 
 
 
