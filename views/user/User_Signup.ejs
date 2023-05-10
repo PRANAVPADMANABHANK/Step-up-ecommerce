@@ -40,7 +40,13 @@
 	</script>
 	<!--===============================================================================================-->
 </head>
+<style>
+	.login100-form-btn:hover {
+	background-color: #333;
+	color: #fff;
+}
 
+</style>
 <body>
 
 	<div class="limiter">
@@ -89,7 +95,7 @@
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
 						<span class="label-input100">Mobile</span>
 						<input class="input100" type="text" id="Mobile" name="mobile" placeholder="Type your mobile"
-							required>
+							>
 
 						<span class="focus-input100" data-symbol="&#xf190;"></span>
 						<span id="mobile-error" style="color: red;"></span><br>
@@ -137,78 +143,89 @@
 	<script src="/js/main.js"></script>
 	<script>
 		function validateForm() {
-			var username = document.forms["myForm"]["username"].value;
-			var email = document.forms["myForm"]["email"].value;
-			var password = document.forms["myForm"]["password"].value;
-			var mobile = document.forms["myForm"]["mobile"].value;
+  var username = document.forms["myForm"]["username"].value;
+  var email = document.forms["myForm"]["email"].value;
+  var password = document.forms["myForm"]["password"].value;
+  var confirmPassword = document.forms["myForm"]["confirm-password"].value;
+  var mobile = document.forms["myForm"]["mobile"].value;
 
-			// Define the regular expressions for validation
-			var usernameRegex = /^[a-zA-Z0-9_]+$/;
-			var emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-			var passwordRegex = /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]{4,}$/;
-			var mobileRegex = /^\d{10}$/;
+  // Define the regular expressions for validation
+  var usernameRegex = /^[a-zA-Z0-9_]+$/;
+  var emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+  var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{4,}$/;
+  var mobileRegex = /^\d{10}$/;
 
-			// Validate the input fields
-			if (!username.match(usernameRegex)) {
-				document.getElementById("username-error").innerHTML = "Username can only contain letters, numbers and underscore.";
-				return false;
-			} else {
-				document.getElementById("username-error").innerHTML = "";
-			}
-			if (!email.match(emailRegex)) {
-				document.getElementById("email-error").innerHTML = "Please enter a valid email address.";
-				return false;
-			} else {
-				document.getElementById("email-error").innerHTML = "";
-			}
-			if (!password.match(passwordRegex)) {
-				document.getElementById("password-error").innerHTML = "Password must contain at least 4 characters including one uppercase letter, one lowercase letter, one number and one special character.";
-				return false;
-			} else {
-				document.getElementById("password-error").innerHTML = "";
-			}
-			if (!mobile.match(mobileRegex)) {
-				document.getElementById("mobile-error").innerHTML = "Please enter a valid mobile number.";
-				return false;
-			} else {
-				document.getElementById("mobile-error").innerHTML = "";
-			}
+  // Validate the input fields
+  if (!username.match(usernameRegex)) {
+    document.getElementById("username-error").innerHTML = "Username can only contain letters, numbers and underscore.";
+    return false;
+  } else if (username.length < 4 || username.length > 20) {
+    document.getElementById("username-error").innerHTML = "Username must be between 4 and 20 characters.";
+    return false;
+  } else {
+    document.getElementById("username-error").innerHTML = "";
+  }
+  if (!email.match(emailRegex)) {
+    document.getElementById("email-error").innerHTML = "Please enter a valid email address.";
+    return false;
+  } else {
+    document.getElementById("email-error").innerHTML = "";
+  }
+  if (!password.match(passwordRegex)) {
+    document.getElementById("password-error").innerHTML = "Password must contain at least 4 characters including one uppercase letter, one lowercase letter, one number and one special character.";
+    return false;
+  } else if (password !== confirmPassword) {
+    document.getElementById("confirm-password-error").innerHTML = "Passwords do not match.";
+    return false;
+  } else {
+    document.getElementById("password-error").innerHTML = "";
+    document.getElementById("confirm-password-error").innerHTML = "";
+  }
+  if (!mobile.match(mobileRegex)) {
+    document.getElementById("mobile-error").innerHTML = "Please enter a valid mobile number.";
+    return false;
+  } else {
+    document.getElementById("mobile-error").innerHTML = "";
+  }
 
-			// If all the input fields are valid, submit the form
-			return true;
-		}
+  // If all the input fields are valid, submit the form
+  return true;
+}
 
 
-		const passwordInput = document.getElementById("password");
-		const confirmPasswordInput = document.getElementById("confirm-password");
-		const passwordError = document.getElementById("password-error");
-		const confirmPasswordError = document.getElementById("confirm-password-error");
 
-		function validatePassword() {
-			if (passwordInput.value.length < 4) {
-				passwordError.innerText = "Password must be at least 4 characters long";
-				return false;
-			} else {
-				passwordError.innerText = "";
-				return true;
-			}
-		}
 
-		function validateConfirmPassword() {
-			if (confirmPasswordInput.value !== passwordInput.value) {
-				confirmPasswordError.innerText = "Passwords do not match";
-				return false;
-			} else {
-				confirmPasswordError.innerText = "";
-				return true;
-			}
-		}
 
-		function validateForm() {
-			const isPasswordValid = validatePassword();
-			const isConfirmPasswordValid = validateConfirmPassword();
-			return isPasswordValid && isConfirmPasswordValid;
-		}
+		// const passwordInput = document.getElementById("password");
+		// const confirmPasswordInput = document.getElementById("confirm-password");
+		// const passwordError = document.getElementById("password-error");
+		// const confirmPasswordError = document.getElementById("confirm-password-error");
+
+		// function validatePassword() {
+		// 	if (passwordInput.value.length < 4) {
+		// 		passwordError.innerText = "Password must be at least 4 characters long";
+		// 		return false;
+		// 	} else {
+		// 		passwordError.innerText = "";
+		// 		return true;
+		// 	}
+		// }
+
+		// function validateConfirmPassword() {
+		// 	if (confirmPasswordInput.value !== passwordInput.value) {
+		// 		confirmPasswordError.innerText = "Passwords do not match";
+		// 		return false;
+		// 	} else {
+		// 		confirmPasswordError.innerText = "";
+		// 		return true;
+		// 	}
+		// }
+
+		// function validateForm() {
+		// 	const isPasswordValid = validatePassword();
+		// 	const isConfirmPasswordValid = validateConfirmPassword();
+		// 	return isPasswordValid && isConfirmPasswordValid;
+		// }
 
 		const form = document.querySelector("form");
 		form.addEventListener("submit", (event) => {
