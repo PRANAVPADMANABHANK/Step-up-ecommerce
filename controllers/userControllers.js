@@ -1889,7 +1889,7 @@ exports.paymentVerify = async (req, res) => {
     let details = req.body;
     const crypto = require("crypto");
     let hmac = crypto.createHmac("sha256", "NU1nWwREDDpDVKdjog8bUFrj");
-
+    console.log(hmac,"\\\\\\\\\\")
     hmac.update(
       details.payment.razorpay_order_id +
         "|" +
