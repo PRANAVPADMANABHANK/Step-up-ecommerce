@@ -1125,6 +1125,12 @@ exports.otpLogin = async (req, res) => {
         users: req.body.number,
         otp: randomNumber,
       });
+      console.log(req.body.number,"//////////");
+      
+      const foundUser = await User.findOne({ mobile: req.body.number });
+      console.log(foundUser,"?????????????????")
+      // Use the foundUser object as needed
+
       await OTP.create(newUser);
     }
     res.render("user/verify", { other: true });
@@ -1155,10 +1161,12 @@ exports.otp = (req,res)=>{
 exports.verify = async (req, res) => {
   res.render("user/verify", { other: true });
 };
-exports.postVerify = (req, res) => {
+exports.postVerify =async (req, res) => {
   const code = req.body.code;
   console.log(req.body.code);
   console.log("heyyyyyy");
+  const userOtp = await OTP.findOne({ otp: code });
+  console.log(userOtp,"\\\\\\\\\\\\\\\\\\\\");
   // OTP.findOne({ users: code }, (err, found) => {
   //   if (err) {
   //     res.render("error");
@@ -1167,16 +1175,23 @@ exports.postVerify = (req, res) => {
   //   } else {
   //     res.render("user/error");
   //   }
+  const user = await User.findOne({ mobile: userOtp.users });
+  console.log(user);
 
   OTP.findOne({ otp: code }).then((found) => {
     if (found) {
       console.log("success");
-      res.render("user/success", { other: true });
+      req.session.loggedIn = true;
+      req.session.user = user.name;
+      res.render("user/success", { other: true, user: req.session.user });
     } else {
       console.log("error");
       res.render("user/error", { other: true });
     }
   });
+  
+  
+  
   console.log("jksadhfkjhkjsadfhkjhsadkjf");
 
   OTP.findOneAndDelete({ otp: code })
