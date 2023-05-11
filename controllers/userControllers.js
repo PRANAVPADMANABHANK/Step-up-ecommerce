@@ -358,9 +358,9 @@ exports.addtoCart = async (req, res) => {
       console.log(proExist);
       if (proExist > -1) {
         await Cart.updateOne(
-          { userId, "products.item": productId },
+          { userId, "products.item": productId , "products.size":req.query.size},
           { $inc: { "products.$.quantity": 1 } }
-        );
+        );//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       } else {
         await Cart.updateOne({ userId }, { $push: { products: proObj } });
       }
