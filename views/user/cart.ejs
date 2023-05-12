@@ -236,32 +236,6 @@
 <script>
 
 
-
-	// function changeQuantity(cartId, proId, count,userId) {
-	// 	console.log('hello')
-	// 	let quantity = parseInt(document.getElementById(proId).innerHTML);
-	// 	count = parseInt(count);
-
-	// 	if (quantity === 1 && count === -1) {
-	// 		Swal.fire({
-	// 			title: 'Confirm',
-	// 			text: 'Are you sure you want to remove this product from the cart?',
-	// 			icon: 'warning',
-	// 			showCancelButton: true,
-	// 			confirmButtonText: 'Confirm',
-	// 		}).then((result) => {
-	// 			if (result.isConfirmed) {
-	// 				updateQuantity(cartId, proId, count, quantity,userId);
-	// 			}
-	// 		});
-	// 	} else {
-	// 		updateQuantity(cartId, proId, count, quantity,userId);
-	// 	}
-	// }
-
-
-
-
 	function changeQuantity(cartId, proId, userId, count, salePrice) {
 		console.log(userId)
 		console.log(proId)
@@ -316,46 +290,6 @@
 
 				}
 
-
-
-				// document.getElementById('totalPrice').innerHTML = response.subtotal;
-				// document.getElementById('adTax').innerHTML = response.tax;
-
-
-				// console.log("helllo gooys")
-				// console.log(response.total[0].total);
-				// var subtotalAmounts = response.subtotalAmounts; // Access the subtotalAmounts from the response
-				// var subtotal = response.subtotal; // Access the subtotal from the response
-
-				// // Use the subtotal and subtotalAmounts in your front-end code as needed
-				// console.log(subtotalAmounts);
-				// console.log(subtotalAmounts[0]);
-
-				// document.getElementById('totalPrice').innerHTML = response.subtotal;
-				// document.getElementById('adTax').innerHTML = response.tax;
-				// document.getElementById('taxWithTotal').innerHTML = response.totalWithTax;
-
-				// document.getElementById('total').innerHTML ="₹"+ response.total[0].total
-				// document.getElementById('subtotal').innerHTML = "₹"+ response.subtotalAmounts
-				// if (response.removeProduct) {
-
-				// 	console.log("heyyyyyhello");
-
-				// 	Swal.fire({
-				// 		title: 'Product Removed',
-				// 		text: 'Product has been removed from the cart.',
-				// 		icon: 'success',
-				// 		showCancelButton: true,
-				// 		confirmButtonText: 'Confirm',
-				// 	}).then((result) => {
-				// 		if (result.isConfirmed) {
-				// 			location.reload();
-				// 		}
-				// 	});
-				// } else {
-				// 			document.getElementById(proId).innerHTML = quantity + count;
-
-				// 		}
 			},
 		});
 	}
@@ -363,41 +297,6 @@
 
 
 
-	// function removeItem(cartId, proId) {
-	// 	Swal.fire({
-	// 		title: "Are you sure?",
-	// 		text: "Do you want to remove this product from the cart?",
-	// 		icon: "warning",
-	// 		showCancelButton: true,
-	// 		confirmButtonColor: "#3085d6",
-	// 		cancelButtonColor: "#d33",
-	// 		confirmButtonText: "Confirm",
-	// 		cancelButtonText: "Cancel",
-	// 	}).then((result) => {
-	// 		if (result.isConfirmed) {
-	// 			$.ajax({
-	// 				url: '/removeItem',
-	// 				data: {
-	// 					cart: cartId,
-	// 					product: proId,
-	// 					confirmResult: true, // Set confirmResult to true if user confirmed
-	// 				},
-	// 				method: 'post',
-	// 				success: (response) => {
-	// 					if (response.success && response.removeProduct) {
-	// 						Swal.fire({
-	// 							title: "Success",
-	// 							text: "Product removed from cart.",
-	// 							icon: "success",
-	// 						}).then(() => {
-	// 							location.reload();
-	// 						});
-	// 					}
-	// 				},
-	// 			});
-	// 		}
-	// 	});
-	// }
 function removeItem(cartId, proId, userId) {
     $.ajax({
         url: '/removeItem',

@@ -514,51 +514,7 @@ exports.getCartProducts = async (req, res) => {
     }
     console.log(total, "....");
 
-    // let result = await Cart.aggregate([
-    //   {
-    //     $match: { userId }, // Replace 'userId' with the actual field that represents the user ID
-    //   },
-    //   {
-    //     $unwind: "$products",
-    //   },
-    //   {
-    //     $project: {
-    //       item: { $toObjectId: "$products.item" },
-    //       quantity: "$products.quantity",
-    //     },
-    //   },
-    //   {
-    //     $lookup: {
-    //       from: "products",
-    //       localField: "item",
-    //       foreignField: "_id",
-    //       as: "productInfo",
-    //     },
-    //   },
-    //   {
-    //     $project: {
-    //       item: 1,
-    //       quantity: 1,
-    //       productInfo: { $arrayElemAt: ["$productInfo", 0] },
-    //     },
-    //   },
-    //   {
-    //     $project: {
-    //       _id: 0,
-    //       item: 1,
-    //       quantity: 1,
-    //       total: { $multiply: ["$quantity", "$productInfo.price"] },
-    //     },
-    //   },
-    // ]);
-
-    // console.log(cartItems,'cartItemssst')
-    // console.log(total[0].total,'total got')
-    // console.log(result, "result got");
-    // console.log(result[0].total, "result got");
-    // console.log(result[1].total, "result got");
-
-    // Access cartCount value from req object
+    
     const cartCount = req.cartCount;
 
     res.render("user/Cart", {
@@ -683,173 +639,7 @@ exports.changeProductQuantity = async (req, res) => {
       res.json({ success: true, total });
       console.log("else worked");
     }
-    // let total = await Cart.aggregate([
-    //   {
-    //     $match:{user:req.session.userId}
-    //   },
-    //   {
-    //     $unwind:'$products'
-    //   },
-    //   {
-    //     $project:{
-    //       item: { $toObjectId: '$products.item' },
-    //       size:'$products.size',
-    //       currentPrice:'$products.currentPrice',
-    //       tax:'$products.tax',
-    //       quantity:'$products.quantity'
-    //     }
-    //   },
-    //   {
-    //     $lookup:{
-    //       from:'products',
-    //       localField:'item',
-    //       foreignField:'_id',
-    //       as:'productInfo'
-    //     }
-    //   },
-    //   {
-    //     $project:{
-
-    //       item:1,
-    //       size:1,
-    //       currentPrice:1,
-    //       tax:1,
-    //       quantity:1,
-    //       productInfo:{$arrayElemAt:['$productInfo',0]}
-    //     }
-    //   },
-    //   {
-    //     $group:{
-    //       _id:null,
-
-    //           totalTax:{$sum:{$multiply:['$quantity','$tax']}},
-    //           total:{$sum:{$multiply:['$quantity','$currentPrice']}},
-    //           totalWithTax: { $sum: { $multiply: ['$quantity', { $add: ['$tax', '$currentPrice'] } ] } }
-
-    //     }
-    //   }
-
-    // ]);
-
-    // console.log(total)
-
-    //   let total = await Cart.aggregate([
-    //     {
-    //       $match: { userId: userId },
-    //     },
-    //     {
-    //       $unwind: "$products",
-    //     },
-    //     {
-    //       $project: {
-    //         item: { $toObjectId: "$products.item" },
-    //         quantity: "$products.quantity",
-    //       },
-    //     },
-    //     {
-    //       $lookup: {
-    //         from: "products",
-    //         localField: "item",
-    //         foreignField: "_id",
-    //         as: "productInfo",
-    //       },
-    //     },
-    //     {
-    //       $project: {
-    //         item: 1,
-    //         quantity: 1,
-    //         productInfo: { $arrayElemAt: ["$productInfo", 0] },
-    //       },
-    //     },
-    //     {
-    //       $group: {
-    //         _id: null,
-    //         total: { $sum: { $multiply: ["$quantity", "$productInfo.price"] } },
-    //       },
-    //     },
-    //   ]).allowDiskUse(true);
-
-    //  console.log(total[0].total)
-
-    //   let subtotal = await Cart.aggregate([
-    //     {
-    //       $match: {  userId: userId }, // Replace 'userId' with the actual field that represents the user ID
-    //     },
-    //     {
-    //       $unwind: "$products",
-    //     },
-    //     {
-    //       $project: {
-    //         item: { $toObjectId: "$products.item" },
-    //         quantity: "$products.quantity",
-    //       },
-    //     },
-    //     {
-    //       $lookup: {
-    //         from: "products",
-    //         localField: "item",
-    //         foreignField: "_id",
-    //         as: "productInfo",
-    //       },
-    //     },
-    //     {
-    //       $project: {
-    //         item: 1,
-    //         quantity: 1,
-    //         productInfo: { $arrayElemAt: ["$productInfo", 0] },
-    //       },
-    //     },
-    //     {
-    //       $project: {
-    //         _id: 0,
-    //         item: 1,
-    //         quantity: 1,
-    //         subtotal: { $multiply: ["$quantity", "$productInfo.price"] },
-    //       },
-    //     },
-    //   ]);
-    //   console.log(subtotal,"/////////");
-
-    //   // Extract only the subtotal amount for each product
-    //   let subtotalAmounts = subtotal.map((item) => item.subtotal);
-
-    //   if (parsedCount === -1 && parsedQuantity === 1) {
-    //     console.log("if condition matched");
-    //     await Cart.updateOne(
-    //       { _id: objectIdCartId },
-    //       {
-    //         $pull: { products: { item: objectIdproductId } },
-    //       }
-    //     );
-
-    //     console.log("removed");
-
-    //     res.json({
-    //       success: true,
-    //       removeProduct: true,
-    //       total: total,
-    //       subtotalAmounts: subtotalAmounts,
-    //       subtotal: subtotal,
-    //     }); // Send removeProduct flag as true in the response
-    //   } else {
-    //     console.log("else condition");
-    //     console.log(parsedCount);
-    //     await Cart.updateOne(
-    //       { _id: objectIdCartId, "products.item": objectIdproductId },
-    //       {
-    //         $inc: { "products.$.quantity": parsedCount },
-    //       }
-    //     );
-    //   }
-
-    //   //  console.log( req.session.total);
-    //   res.json({
-    //     success: true,
-    //     removeProduct: false,
-    //     total: total,
-    //     subtotalAmounts: subtotalAmounts,
-    //     subtotal: subtotal,
-    //   });
+    
   } catch (error) {
     console.error(error);
   }
@@ -925,21 +715,7 @@ exports.removeItem = async (req, res) => {
 
     let response = {};
     if (displayTotal.length === 0) {
-      //  if(req.session.coupon){
-
-      //    let backToTotal = await User.findOne({_id:req.session.user._id},{appliedCoupon:1})
-      //    let minPurchase=backToTotal.appliedCoupon[0].minPurchase
-
-      //      response.couponApplied =null;
-
-      //      await User.updateOne(
-      //        { _id: req.session.user._id },
-      //        { $pull: { appliedCoupon: { status: false } } }
-      //      );
-      //       req.session.couponStatus = null;
-      //      req.session.coupon = null;
-
-      //  }
+     
       response.subtotal = 0;
       response.tax = 0;
       response.totalWithTax = 0;
@@ -948,22 +724,7 @@ exports.removeItem = async (req, res) => {
       let subtotal = displayTotal[0].total;
       let tax = displayTotal[0].totalTax;
       let totalWithTax = displayTotal[0].totalWithTax;
-      // if(req.session.coupon){
-
-      //   let backToTotal = await User.findOne({_id:req.session.user._id},{appliedCoupon:1})
-      //   let minPurchase=backToTotal.appliedCoupon[0].minPurchase
-      //   if(minPurchase<=displayTotal[0].total)
-      //   {
-      //     response.couponApplied =req.session.coupon;
-      //   }else{
-      //     await User.updateOne(
-      //       { _id: req.session.user._id },
-      //       { $pull: { appliedCoupon: { status: false } } }
-      //     );
-      //      req.session.couponStatus = null;
-      //     req.session.coupon = null;
-      //   }
-      // }
+  
       response.subtotal = subtotal;
       response.tax = tax;
       response.totalWithTax = totalWithTax;
@@ -974,57 +735,9 @@ exports.removeItem = async (req, res) => {
     console.log(error);
   }
 
-  // console.log("remove cart here");
 
-  // const { cart, product, confirmResult } = req.body; // Retrieve confirmResult from req.body
-  // console.log(cart);
-  // console.log(product);
-  // const objectIdCartId = new ObjectId(cart);
-  // const objectIdProductId = new ObjectId(product);
-  // console.log(objectIdCartId);
-  // console.log(objectIdProductId);
-  // try {
-  //   console.log("inside try");
-  //   // Update cart in the database only if user confirmed the removal
-  //   if (confirmResult) {
-  //     await Cart.findByIdAndUpdate(objectIdCartId, {
-  //       $pull: { products: { item: objectIdProductId } },
-  //     });
-  //     console.log("pulled");
-  //     res.json({ success: true, removeProduct: true });
-  //   } else {
-  //     res.json({ success: false, removeProduct: false });
-  //   }
-  // } catch (error) {
-  //   console.log(error);
-  // }
 };
 
-// exports.removeItem = async (req, res) => {
-//   console.log("remove cart here");
-
-//   const { cart, product } = req.body;
-//   console.log(cart);
-//   console.log(product);
-//   const objectIdCartId = new ObjectId(cart);
-//   const objectIdProductId = new ObjectId(product);
-//   console.log(objectIdCartId);
-//   console.log(objectIdProductId);
-//   try {
-//     console.log("inside try");
-//     // Update cart in the database only if user confirmed the removal
-//     let confirmResult = req.body.confirmResult;
-//     if (confirmResult) {
-//       await Cart.findByIdAndUpdate(objectIdCartId, { $pull: { products: { item: objectIdProductId } } });
-//       console.log("pulled");
-//       res.json({ success: true, removeProduct: true });
-//     } else {
-//       res.json({ success: false, removeProduct: false });
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 exports.loginPage = async (req, res) => {
   if (req.session.user) {
@@ -1135,18 +848,6 @@ exports.otpLogin = async (req, res) => {
     }
     res.render("user/verify", { other: true });
 
-    // function saveUser() {
-
-    //   console.log(newUser)
-    //   newUser
-    //     .save()
-    //     .then(() => {
-    //       res.render("user/verify");
-    //     })
-    //     .catch((err) => {
-    //       console.log("error generating number", err);
-    //     });
-    // }
   } catch (error) {
     console.log(error);
   }
@@ -1305,41 +1006,7 @@ exports.deliveryAddress = async (req, res) => {
   console.log(userId, "user");
 
   try {
-    // let total = await Cart.aggregate([
-    //   {
-    //     $match: { userId },
-    //   },
-    //   {
-    //     $unwind: "$products",
-    //   },
-    //   {
-    //     $project: {
-    //       item: { $toObjectId: "$products.item" },
-    //       quantity: "$products.quantity",
-    //     },
-    //   },
-    //   {
-    //     $lookup: {
-    //       from: "products",
-    //       localField: "item",
-    //       foreignField: "_id",
-    //       as: "productInfo",
-    //     },
-    //   },
-    //   {
-    //     $project: {
-    //       item: 1,
-    //       quantity: 1,
-    //       productInfo: { $arrayElemAt: ["$productInfo", 0] },
-    //     },
-    //   },
-    //   {
-    //     $group: {
-    //       _id: null,
-    //       total: { $sum: { $multiply: ["$quantity", "$productInfo.price"] } },
-    //     },
-    //   },
-    // ]);
+    ;
     cartItems = await Cart.aggregate([
       {
         $match: { userId },
