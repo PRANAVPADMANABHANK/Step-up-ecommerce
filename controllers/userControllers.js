@@ -1315,42 +1315,6 @@ exports.deliveryAddressPost = async (req, res) => {
     let userId = req.session.user._id;
     console.log(cart, userId);
 
-    // let total = await Cart.aggregate([
-    //   {
-    //     $match: { userId: userId },
-    //   },
-    //   {
-    //     $unwind: "$products",
-    //   },
-    //   {
-    //     $project: {
-    //       item: { $toObjectId: "$products.item" },
-    //       quantity: "$products.quantity",
-    //     },
-    //   },
-    //   {
-    //     $lookup: {
-    //       from: "products",
-    //       localField: "item",
-    //       foreignField: "_id",
-    //       as: "productInfo",
-    //     },
-    //   },
-    //   {
-    //     $project: {
-    //       item: 1,
-    //       quantity: 1,
-    //       productInfo: { $arrayElemAt: ["$productInfo", 0] },
-    //     },
-    //   },
-    //   {
-    //     $group: {
-    //       _id: null,
-    //       total: { $sum: { $multiply: ["$quantity", "$productInfo.price"] } },
-    //     },
-    //   },
-    // ]).allowDiskUse(true);
-
     let total = await Cart.aggregate([
       {
         $match: { user: req.session.userId },
