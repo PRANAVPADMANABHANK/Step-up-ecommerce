@@ -517,7 +517,7 @@ exports.getCartProducts = async (req, res) => {
     
     const cartCount = req.cartCount;
 
-    res.render("user/Cart", {
+    res.render("user/cart", {
       cartItems,
       user,
       video: true,
