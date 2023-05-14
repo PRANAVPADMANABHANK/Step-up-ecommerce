@@ -80,7 +80,119 @@
 		background-color: #fff;
 	}
 
+
+	.wishlist-btn {
+		display: inline-flex;
+		align-items: center;
+		background-color: transparent;
+		border: none;
+		padding: 0;
+		font-size: 14px;
+		text-decoration: none;
+		cursor: pointer;
+		position: relative;
+	}
+
+	.purchase-text {
+		margin-right: 5px;
+	}
+
+	.heart-icon {
+		color: #ff0000;
+		font-size: 16px;
+		transition: color 0.3s;
+	}
+
+	.wishlist-btn:hover .heart-icon {
+		color: #ff6347;
+	}
+
+	.purchase-btn {
+		background-color: #428bca;
+		color: #fff;
+		border: none;
+		padding: 8px 12px;
+		border-radius: 4px;
+		font-size: 14px;
+		text-decoration: none;
+	}
+
+	.purchase-btn:hover {
+		background-color: #ff9632;
+	}
+
+	.purchase-btn:focus {
+		outline: none;
+	}
+
+	.wishlist-purchase {
+		display: flex;
+		align-items: center;
+	}
+
+	.wishlist-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: transparent;
+		border: none;
+		padding: 0;
+		margin-left: 10px;
+		font-size: 20px;
+		color: #ff0000;
+		transition: color 0.3s;
+	}
+
+	.wishlist-btn:hover {
+		color: #ff6347;
+	}
+
+	.wishlist-purchase {
+		display: flex;
+		align-items: center;
+	}
+
+	.wishlist-btn {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: transparent;
+		border: none;
+		padding: 0;
+		margin-left: 10px;
+		cursor: pointer;
+		transition: transform 0.3s;
+	}
+
+	.wishlist-btn .heart-icon {
+		font-size: 24px;
+		color: #f85555;
+		transition: color 0.3s;
+	}
+
+
+
+	.wishlist-btn:hover {
+		transform: scale(1.2);
+	}
 </style>
+
+<!-- Add this line in the <head> section of your HTML -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+	integrity="sha512-nkCa6D09Et6N2p7K+YYfDE2x9oNvr9POd2X/3oZxPTT2b79Ol/ljpzYYF5foBnc8V41ewDSsEx2iyh0N9fLUpg=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- JavaScript -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+<!-- Bootstrap theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
 
 <section class="ftco-section bg-light">
 	<div class="container mt-5">
@@ -96,7 +208,14 @@
 						<h2 class="card-text green"><%= item.deal%></h2>
 						<h1 class="card-text" style="font-weight: bold; font-size: 1.2em;">₹<%= item.price%></h1>
 						<h2 class="card-text">size <%= item.size%></h2>
-						<a href="/singleProduct/<%=item._id %>" class="card-link btn btn-primary">PURCHASE</a>
+						<div class="wishlist-purchase">
+							<a href="/singleProduct/<%=item._id %>" class="card-link btn btn-primary">PURCHASE</a>
+							<a id="" type="button" onclick="addToWishList('<%=item._id%>');event.stopPropagation();"
+								class="wishlist-btn">
+								<i class="fas fa-heart heart-icon"></i>
+							</a>
+						</div>
+						<!-- <a href="/singleProduct/<%=item._id %>" class="card-link btn btn-primary">PURCHASE</a> -->
 					</div>
 				</div>
 			</div>
@@ -132,3 +251,34 @@
 		</ul>
 	</nav>
 </div>
+
+
+<script>
+	function addToWishList(proId) {
+
+		$.ajax({
+			url: `/add-to-wishlist/${proId}`,
+			method: 'get',
+			success: (response) => {
+				if (response.status) {
+					let wishListCount = $('#wishlist-count').html()
+					console.log(wishListCount)
+					wishListCount = parseInt(wishListCount) + 1
+					console.log(wishListCount)
+					$("#wishlist-count").html(wishListCount);
+
+					alertify.set('notifier', 'delay', 2);
+					alertify.set('notifier', 'position', 'top-right');
+					alertify.success('added to the wishlist');
+
+				} else {
+
+					alertify.set('notifier', 'delay', 2);
+					alertify.set('notifier', 'position', 'top-right');
+					alertify.error('you have this item in your wishlist');
+				}
+
+			}
+		})
+	}
+</script>
