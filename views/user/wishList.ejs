@@ -1,0 +1,155 @@
+<style>
+  .wishlist-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .wishlist-item img {
+    width: 100%;
+    max-width: 200px;
+    margin-bottom: 10px;
+  }
+
+  .item-name {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+
+  .item-description {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .item-price {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .add-to-cart,
+  .remove-from-wishlist {
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  .add-to-cart {
+    background-color: #28a745;
+  }
+
+  .remove-from-wishlist {
+    background-color: #dc3545;
+  }
+</style>
+<!-- JavaScript -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+<!-- Bootstrap theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+
+
+
+
+<div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-center justify-content-center">
+			<div class="col-md-9 ftco-animate text-center">
+				<!-- <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span></p> -->
+				<h1 class="mb-0 bread">My WishList</h1>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+  
+  <%# if (locals.wishItems.products.length) { %>
+  <div class="row">
+    <div class="col-lg-12 mt-5 text-center">
+      <h3 class="fw-medium text-center"></h3>
+    </div>
+  </div>
+
+
+  <div class="row">
+      <%# locals.wishItems.products.forEach(element=> { %>
+        <div class="col-sm-4 ">
+          <div class="wishlist-item text-center ">
+            <div>
+              <img class="img-fluid rounded mx-auto d-block" src="/product-images/<%#= element.product_id.images[0] %>"
+                alt="Product Name">
+              <h3 class="item-name">
+                <%#= element.product_id.productName %>
+              </h3>
+              <p class="item-description">Product description goes here.</p>
+              <p class="item-price">
+                <%#= element.salePrice %>
+              </p>
+              <!-- <button class="add-to-cart btn btn-block btn-success">Add to Cart</button> -->
+              <button class="add-to-cart btn btn-block btn-success"
+                onclick="location.href='/wishlist-to-cart/<%#= element.product_id._id  %>';"><span
+                  class="icon_bag_alt"></span> Add to cart</button>
+              <button class="remove-from-wishlist btn btn-block btn-danger" id="removeItem" type="button"
+                onclick="removeWishList('<%#= element.product_id._id %>')">Remove from Wishlist</button>
+            </div>
+
+          </div>
+        </div>
+
+        <%# }) %>
+   </div>
+      <%# }else{ %>
+        <div class="d-flex justify-content-center align-items-center vh-100 ">
+        
+            <div class="row justify-content-center align-items-center py-5">
+              <div class="col-md-12 col-lg-12 text-center">
+                <h4>Your Wishlist is Empty</h4>
+                <p class="mb-4">Add some products to your wishlist to keep track of them</p>
+                <button class="btn btn-primary" onclick="window.location.href='/';">Add Products</button>
+              </div>
+            </div>
+     
+        </div>
+        
+        <%# } %>
+ 
+</div>
+
+
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+
+  function removeWishList(proId) {
+    // Display a confirmation SweetAlert message
+    swal({
+      title: "Are you sure?",
+      text: 'you wont be able to revert this',
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willCancel) => {
+        if (willCancel) {
+          // Redirect to the cancel order page if the user confirms the cancellation
+          alertify.set('notifier', 'delay', 2);
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error('item removed');
+          location.href = `/wishlist/${proId}`;
+        }
+      });
+  }
+
+
+
+</script>
