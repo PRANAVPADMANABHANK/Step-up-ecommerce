@@ -103,8 +103,8 @@
 										<li class="nav-item cta cta-colored">
 											<a href="/wishlist" class="nav-link">
 											  <i class="fas fa-heart" id="wishlistIcon"></i>
-											  <span class="wishlist-count">
-												<%#= locals.wishListCount %>
+											  <span class="wishlist-count" id="wishlist-count">
+												<%= locals.wishListCount ??"0" %>
 											  </span>
 											</a>
 										  </li>

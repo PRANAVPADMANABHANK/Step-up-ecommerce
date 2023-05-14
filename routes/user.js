@@ -9,7 +9,10 @@ const couponControllers = require('../controllers/couponControllers')
 const bcrypt = require('bcrypt')
 const orderController =require('../controllers/orderControllers')
 const wishlistController = require('../controllers/wishlistControllers')
+const userVerify = require('../middlewares/userVerify');
 
+
+router.use(userVerify.wishListCount);
 
 router.get('/index',userController.cartCount,userController.indexPage)
 
@@ -91,7 +94,7 @@ router.get('/invoice/',userController.isLogin,orderController.invoice)
 router.get('/wishlist',userController.isLogin,userController.cartCount,wishlistController.wishListPage);
 router.get('/add-to-wishlist/:id',wishlistController.addToWishList);
 router.get('/wishlist/:id',wishlistController.removeFromWishlist);
-router.get('/wishlist-to-cart/:id',wishlistController.wishlistToProDetails);
+router.get('/wishlist-to-cart/:id',userController.cartCount,wishlistController.wishlistToProDetails);
 
 
 module.exports = router;
