@@ -97,16 +97,21 @@ exports.removeFromWishlist = async(req,res)=>{
 
 exports. wishlistToProDetails = async (req, res) => {
     try {
-   
+      let user = req.session.user
       let productIdToRemove =req.params.id;
-      let updatedDoc =  await Wishlist.findOneAndUpdate(
-        { user_id: req.session.user._id },
-        { $pull: { products: { product_id: productIdToRemove } } },
-        { new: true }
-      );
-      console.log(updatedDoc)
-      const productDetails = await Product.findOne({ _id: req.params.id });
-      res.render("user/productDetails", { productDetails });
+      console.log(productIdToRemove)
+      
+    // Access cartCount value from req object
+    const cartCount = req.cartCount;
+    //   let updatedDoc =  await Wishlist.findOneAndUpdate(
+    //     { user_id: req.session.user._id },
+    //     { $pull: { products: { product_id: productIdToRemove } } },
+    //     { new: true }
+    //   );
+    //   console.log(updatedDoc)
+      const singleProduct = await Product.findOne({ _id: req.params.id });
+      console.log(singleProduct)
+      res.render("user/userSingleProduct", { singleProduct , video: true,cartCount,user});
     } catch (error) {
       console.log(error)
     }
