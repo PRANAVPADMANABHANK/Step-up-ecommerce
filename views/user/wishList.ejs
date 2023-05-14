@@ -72,7 +72,7 @@
 </div>
 <div class="container">
   
-  <%# if (locals.wishItems.products.length) { %>
+  <% if (locals.wishItems.products.length) { %>
   <div class="row">
     <div class="col-lg-12 mt-5 text-center">
       <h3 class="fw-medium text-center"></h3>
@@ -81,33 +81,33 @@
 
 
   <div class="row">
-      <%# locals.wishItems.products.forEach(element=> { %>
+      <% locals.wishItems.products.forEach(element=> { %>
         <div class="col-sm-4 ">
           <div class="wishlist-item text-center ">
             <div>
-              <img class="img-fluid rounded mx-auto d-block" src="/product-images/<%#= element.product_id.images[0] %>"
+              <img class="img-fluid rounded mx-auto d-block" src="/uploads/<%= element.product_id.images[1] %>"
                 alt="Product Name">
               <h3 class="item-name">
-                <%#= element.product_id.productName %>
+                <%= element.product_id.productname %>
               </h3>
               <p class="item-description">Product description goes here.</p>
               <p class="item-price">
-                <%#= element.salePrice %>
+                <%= element.price %>
               </p>
               <!-- <button class="add-to-cart btn btn-block btn-success">Add to Cart</button> -->
               <button class="add-to-cart btn btn-block btn-success"
-                onclick="location.href='/wishlist-to-cart/<%#= element.product_id._id  %>';"><span
+                onclick="location.href='/wishlist-to-cart/<%= element.product_id._id  %>';"><span
                   class="icon_bag_alt"></span> Add to cart</button>
               <button class="remove-from-wishlist btn btn-block btn-danger" id="removeItem" type="button"
-                onclick="removeWishList('<%#= element.product_id._id %>')">Remove from Wishlist</button>
+                onclick="removeWishList('<%= element.product_id._id %>')">Remove from Wishlist</button>
             </div>
 
           </div>
         </div>
 
-        <%# }) %>
+        <% }) %>
    </div>
-      <%# }else{ %>
+      <% }else{ %>
         <div class="d-flex justify-content-center align-items-center vh-100 ">
         
             <div class="row justify-content-center align-items-center py-5">
@@ -120,7 +120,7 @@
      
         </div>
         
-        <%# } %>
+        <% } %>
  
 </div>
 

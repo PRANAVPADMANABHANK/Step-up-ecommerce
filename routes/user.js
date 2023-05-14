@@ -90,6 +90,8 @@ router.get('/invoice/',userController.isLogin,orderController.invoice)
 //wishlist
 router.get('/wishlist',userController.isLogin,userController.cartCount,wishlistController.wishListPage);
 router.get('/add-to-wishlist/:id',wishlistController.addToWishList);
+router.get('/wishlist/:id',wishlistController.removeFromWishlist);
+router.get('/wishlist-to-cart/:id',wishlistController.wishlistToProDetails);
 
 
 module.exports = router;

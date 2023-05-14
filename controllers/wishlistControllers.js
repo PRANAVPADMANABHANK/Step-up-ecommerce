@@ -5,14 +5,17 @@ const Product = require('../models/productSchema')
 
 exports.wishListPage = async(req,res)=>{
 
+
+      // Access cartCount value from req object
+      const cartCount = req.cartCount;
     try{
        if(req.session.user){
            const wishItems = await Wishlist.findOne({ user_id: req.session.user._id }).populate('products.product_id');
+           console.log(wishItems,"................")
           if (!wishItems) {
             // Handle the case when no wishlist is found
             console.log(wishItems,'newone')
-             // Access cartCount value from req object
-            const cartCount = req.cartCount;
+           
             return res.render('user/wishList',{video: true, user:req.session.user, cartCount})
           }else {
             
@@ -75,3 +78,37 @@ exports.addToWishList = async(req,res)=>{
     }
 
 }
+
+
+exports.removeFromWishlist = async(req,res)=>{
+    try{
+        let productIdToRemove =req.params.id;
+      let updatedDoc =  await Wishlist.findOneAndUpdate(
+        { user_id: req.session.user._id },
+        { $pull: { products: { product_id: productIdToRemove } } },
+        { new: true }
+      );
+     console.log(updatedDoc)
+      res.redirect('/wishlist')
+    }catch(error){
+        console.log(error)
+    }
+}
+
+exports. wishlistToProDetails = async (req, res) => {
+    try {
+   
+      let productIdToRemove =req.params.id;
+      let updatedDoc =  await Wishlist.findOneAndUpdate(
+        { user_id: req.session.user._id },
+        { $pull: { products: { product_id: productIdToRemove } } },
+        { new: true }
+      );
+      console.log(updatedDoc)
+      const productDetails = await Product.findOne({ _id: req.params.id });
+      res.render("user/productDetails", { productDetails });
+    } catch (error) {
+      console.log(error)
+    }
+  
+  }

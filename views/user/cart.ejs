@@ -95,141 +95,155 @@
 		</div>
 	</div>
 </div>
-
-<section class="ftco-section ftco-cart">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 ftco-animate">
-				<div class="cart-list">
-					<table class="table">
-						<thead class="thead-primary">
-							<tr class="text-center">
-								<th>Image</th>
-								<th>Details</th>
-								<th>Product</th>
-								<th>Price</th>
-								<th>Size</th>
-								<!-- <th>Sub Total</th> -->
-								<th>Quantity</th>
-								<th> </th>
-							</tr>
-						</thead>
-						<tbody>
-							<% locals.cartItems.forEach(item=> { %>
-
-
-								<!-- <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td> -->
-
-								<td>
-									<img style="width: 50px; height:auto"
-										src="/uploads/<%= item.productInfo.images[0] %>" alt="" />
-								</td>
-
-								<!-- <td class="image-prod"><div class="img" src="/uploads/<%= item.productInfo.images[1] %>"></div></td> -->
-
-								<td class="product-name">
-									<h3>
-										<%= item.productInfo.productname %>
-									</h3>
-
-								</td>
-
-								<td class="category">
-									<%= item.productInfo.type %>
-								</td>
-
-
-								<td class="quantity">₹ <span>
-										<%= item.productInfo.price %>
-									</span>
-								</td>
-
-								<td>
-									<%= item.size %>
-								</td>
-
-								<!-- <td class="category">
-									<span id="subtotal-<%=item.unique_id %>">₹ <%= item.productInfo.price * item.quantity %></span>
-								</td> -->
-								<!-- <td class="quantity">
-						        	<div class="input-group mb-3">
-					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-					          	</div>
-					          </td> -->
-
-								<td class="total" style="display: 0; align-items: center;">
-									<button type="button" class="btn btn-danger"
-										style="width: 30px; height: 25px !important; border-radius: 0; margin-right: 5px;"
-										onclick="changeQuantity('<%=item._id%>','<%=item.unique_id%>','<%= user._id %>',-1,'<%= item.productInfo.price%>')">-</button>
-									<b id="<%=item.unique_id%>" style="margin-right: 5px;">
-										<%= item.quantity %>
-									</b>
-									<!-- <span id="<%#=item.unique_id %>"
-										><%#=item.quantity %></span
-									  > -->
-									<button type="button" class="btn btn-success"
-										style="width: 30px; height: 25px !important; border-radius: 0;"
-										onclick="changeQuantity('<%=item._id%>','<%=item.unique_id%>','<%= user._id %>',1,'<%= item.productInfo.price%>')">+</button>
-								</td>
-
-
-								<td class="category">
-									<button type="button" class="btn btn-danger"
-										style="width: 87px; height: 25px !important; border-radius: 0;"
-										onclick="removeItem('<%=item._id%>','<%=item.unique_id%>','<%= user._id %>')">Remove</button>
-								</td>
-
-
-
+<% if (locals.cartItems.length) { %>
+	<section class="ftco-section ftco-cart">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 ftco-animate">
+					<div class="cart-list">
+						<table class="table">
+							<thead class="thead-primary">
+								<tr class="text-center">
+									<th>Image</th>
+									<th>Details</th>
+									<th>Product</th>
+									<th>Price</th>
+									<th>Size</th>
+									<!-- <th>Sub Total</th> -->
+									<th>Quantity</th>
+									<th> </th>
 								</tr>
-
-
-								<% }) %>
-						</tbody>
-					</table>
+							</thead>
+	
+							<tbody>
+								<% locals.cartItems.forEach(item=> { %>
+	
+	
+									<!-- <tr class="text-center">
+									<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td> -->
+	
+									<td>
+										<img style="width: 50px; height:auto"
+											src="/uploads/<%= item.productInfo.images[0] %>" alt="" />
+									</td>
+	
+									<!-- <td class="image-prod"><div class="img" src="/uploads/<%= item.productInfo.images[1] %>"></div></td> -->
+	
+									<td class="product-name">
+										<h3>
+											<%= item.productInfo.productname %>
+										</h3>
+	
+									</td>
+	
+									<td class="category">
+										<%= item.productInfo.type %>
+									</td>
+	
+	
+									<td class="quantity">₹ <span>
+											<%= item.productInfo.price %>
+										</span>
+									</td>
+	
+									<td>
+										<%= item.size %>
+									</td>
+	
+									<!-- <td class="category">
+										<span id="subtotal-<%=item.unique_id %>">₹ <%= item.productInfo.price * item.quantity %></span>
+									</td> -->
+									<!-- <td class="quantity">
+										<div class="input-group mb-3">
+										 <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+									  </div>
+								  </td> -->
+	
+									<td class="total" style="display: 0; align-items: center;">
+										<button type="button" class="btn btn-danger"
+											style="width: 30px; height: 25px !important; border-radius: 0; margin-right: 5px;"
+											onclick="changeQuantity('<%=item._id%>','<%=item.unique_id%>','<%= user._id %>',-1,'<%= item.productInfo.price%>')">-</button>
+										<b id="<%=item.unique_id%>" style="margin-right: 5px;">
+											<%= item.quantity %>
+										</b>
+										<!-- <span id="<%#=item.unique_id %>"
+											><%#=item.quantity %></span
+										  > -->
+										<button type="button" class="btn btn-success"
+											style="width: 30px; height: 25px !important; border-radius: 0;"
+											onclick="changeQuantity('<%=item._id%>','<%=item.unique_id%>','<%= user._id %>',1,'<%= item.productInfo.price%>')">+</button>
+									</td>
+	
+	
+									<td class="category">
+										<button type="button" class="btn btn-danger"
+											style="width: 87px; height: 25px !important; border-radius: 0;"
+											onclick="removeItem('<%=item._id%>','<%=item.unique_id%>','<%= user._id %>')">Remove</button>
+									</td>
+	
+	
+	
+									</tr>
+	
+	
+									<% }) %>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-start">
+				<div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
+					<div class="cart-total mb-3">
+						<h3>Cart Totals</h3>
+						<p class="d-flex">
+							<span>Subtotal</span>
+							<span id="totalPrice">
+								₹<%= locals.subtotal %>
+							</span>
+						</p>
+						<p class="d-flex">
+							<span>Tax</span>
+							<span id="adTax">
+								₹<%= locals.tax %>
+							</span>
+						</p>
+						<!-- <p class="d-flex">
+							<span>Discount</span>
+							<span></span>
+						</p> -->
+						<hr>
+						<p class="d-flex total-price">
+							<span>Total</span>
+							<% if (total.length) { %>
+								<span id="taxWithTotal">₹<%=locals.totalWithTax %></span>
+								<% }else{ %>
+	
+									<span id="total">0</span>
+	
+									<% } %>
+	
+						</p>
+					</div>
+					<p class="text-center"><a href="/address" class="btn btn-primary py-3 px-4">Proceed to Checkout</a>
+					</p>
 				</div>
 			</div>
 		</div>
-		<div class="row justify-content-start">
-			<div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
-				<div class="cart-total mb-3">
-					<h3>Cart Totals</h3>
-					<p class="d-flex">
-						<span>Subtotal</span>
-						<span id="totalPrice">
-							₹<%= locals.subtotal %>
-						</span>
-					</p>
-					<p class="d-flex">
-						<span>Tax</span>
-						<span id="adTax">
-							₹<%= locals.tax %>
-						</span>
-					</p>
-					<!-- <p class="d-flex">
-						<span>Discount</span>
-						<span></span>
-					</p> -->
-					<hr>
-					<p class="d-flex total-price">
-						<span>Total</span>
-						<% if (total.length) { %>
-							<span id="taxWithTotal">₹<%=locals.totalWithTax %></span>
-							<% }else{ %>
-
-								<span id="total">0</span>
-
-								<% } %>
-
-					</p>
-				</div>
-				<p class="text-center"><a href="/address" class="btn btn-primary py-3 px-4">Proceed to Checkout</a>
-				</p>
-			</div>
+	</section>
+<% }else{ %>
+	<div class="d-flex justify-content-center align-items-center vh-100 ">
+        
+		<div class="row justify-content-center align-items-center py-5">
+		  <div class="col-md-12 col-lg-12 text-center">
+			<h4>Your Cart is Empty</h4>
+			<p class="mb-4">Add some products to your Cart to keep track of them</p>
+			<button class="btn btn-primary" onclick="window.location.href='/';">Add Products</button>
+		  </div>
 		</div>
+ 
 	</div>
-</section>
+<% }%>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
