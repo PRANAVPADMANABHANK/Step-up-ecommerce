@@ -1,3 +1,6 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+ 
 <style>
 	video#myVideo {
 		position: fixed;
@@ -9,15 +12,38 @@
 		z-index: -1;
 	}
 
-	/* .nav-item:hover {
-  		background-color: #ffffff;
-	} */
+	video {
+		margin-top: 100px;
+		/* adjust the value as needed */
+	}
+
+	video {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		border: 2px solid #333;
+		border-radius: 10px;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	}
+
+	#container {
+		text-align: center;
+	}
+
+	#extra-large {
+		font-size: 68px;
+		font-weight: bold;
+	}
+
+	#small {
+		font-size: 12px;
+		text-transform: uppercase;
+	}
+	.wishlist-count {
+  color: black;
+}
+
 </style>
-
-
-
-
-
 
 
 <header>
@@ -47,86 +73,43 @@
 			</div>
 		</div>
 
-		<body>
-			<!--  MP4, WebM, and Ogg -->
-			<style>
-				video {
-					margin-top: 100px;
-					/* adjust the value as needed */
-				}
 
-				video {
-					display: block;
-					margin-left: auto;
-					margin-right: auto;
-					border: 2px solid #333;
-					border-radius: 10px;
-					box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-				}
+		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+			<div class="container">
+				<a class="navbar-brand" href="/">StepUp</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+					aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="oi oi-menu"></span> Menu
+				</button>
 
-				#container {
-					text-align: center;
-				}
+				<div class="collapse navbar-collapse" id="ftco-nav">
+					<ul class="navbar-nav ml-auto">
 
-				#extra-large {
-					font-size: 68px;
-					font-weight: bold;
-				}
+						<li class="nav-item active"><a href="/" class="nav-link">Men</a></li>
+						<li class="nav-item dropdown">
+						<li class="nav-item active"><a href="/women" class="nav-link">Women</a></li>
+						</li>
+						<li class="nav-item"><a href="/kids" class="nav-link">Baby & Kid</a></li>
+						<%# if (locals.user) { %>
+							<li class="nav-item"><a href="/shop" class="nav-link">shop</a></li>
+							<%# } %>
 
-				#small {
-					font-size: 12px;
-					text-transform: uppercase;
-				}
-			</style>
-
-			<% if (!locals.video) { %>
-
-				<body class="container">
-					<video autoplay muted loop width="90%">
-						<source src="/uploads/Shoes by 2GO - Theatrical Ad Film _ Commercial.webm">
-						This browser does not support HTML5 audio
-					</video>
-				</body>
-
-				<head>
-					<title>Nike Air Max Plus</title>
-
-				</head>
-
-				<body>
-					<div id="container">
-						<p id="small">Just In</p>
-						<h1 id="extra-large">NIKE AIR <BR> MAX PLUS</h1>
-					</div>
-				</body>
-				<% } %>
-
-
-
-
-
-					<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-						id="ftco-navbar">
-						<div class="container">
-							<a class="navbar-brand" href="/">StepUp</a>
-							<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-								aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-								<span class="oi oi-menu"></span> Menu
-							</button>
-
-							<div class="collapse navbar-collapse" id="ftco-nav">
-								<ul class="navbar-nav ml-auto">
-
-									<li class="nav-item active"><a href="/" class="nav-link">Men</a></li>
-									<li class="nav-item dropdown">
-									<li class="nav-item active"><a href="/women" class="nav-link">Women</a></li>
-									</li>
-									<li class="nav-item"><a href="/kids" class="nav-link">Baby & Kid</a></li>
-									<% if (locals.user) { %>
-										<li class="nav-item"><a href="/shop" class="nav-link">shop</a></li>
+								<% if (locals.user) { %>
+									<!-- <li class="nav-item"><a href="/signup" class="nav-link"></a></li> -->
+									<% }else{ %>
+										<li class="nav-item"><a href="/signup" class="nav-link">Signup</a></li>
 										<% } %>
 
-											<li class="nav-item"><a href="/signup" class="nav-link">Signup</a></li>
+										<li class="nav-item cta cta-colored">
+											<a href="/wishlist" class="nav-link">
+											  <i class="fas fa-heart" id="wishlistIcon"></i>
+											  <span class="wishlist-count">
+												<%#= locals.wishListCount %>
+											  </span>
+											</a>
+										  </li>
+										  
+
 											<% if (!locals.cartIcon){%>
 
 												<li class="nav-item cta cta-colored"><a href="/cart"
@@ -150,42 +133,67 @@
 																		<% } %>
 
 														</a>
+
 														<div class="dropdown-menu"
 															aria-labelledby="navbarDropdownMenuLink">
-
-															<a class="dropdown-item" href="/profile">Profile</a>
-															<a class="dropdown-item" href="/savedAddress">Saved
-																Addresses</a>
-															<a class="dropdown-item" href="/Orders">Orders</a>
-															<a class="dropdown-item" href="/signup">Register</a>
-
 															<% if (locals.user) { %>
-																<a class="dropdown-item" href="/logout">Logout</a>
-																<% } else { %>
-																	<a class="dropdown-item" href="/login">Login</a>
-																	<% } %>
+																<a class="dropdown-item" href="/profile">Profile</a>
+																<a class="dropdown-item" href="/savedAddress">Saved
+																	Addresses</a>
+																<a class="dropdown-item" href="/Orders">Orders</a>
+																<% } %>
+
+																	<a class="dropdown-item" href="/signup">Register</a>
+
+																	<% if (locals.user) { %>
+																		<a class="dropdown-item"
+																			href="/logout">Logout</a>
+																		<% } else { %>
+																			<a class="dropdown-item"
+																				href="/login">Login</a>
+																			<% } %>
 
 
 														</div>
 													</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<% if (!locals.video) { %>
+
+			<body class="container">
+				<video autoplay muted loop width="90%">
+					<source src="/uploads/Shoes by 2GO - Theatrical Ad Film _ Commercial.webm">
+					This browser does not support HTML5 audio
+				</video>
+			</body>
+
+			<head>
+				<title>Nike Air Max Plus</title>
+
+			</head>
+
+			<body>
+				<div id="container">
+					<p id="small">Just In</p>
+					<h1 id="extra-large">NIKE AIR <BR> MAX PLUS</h1>
+				</div>
+			</body>
+			<% } %>
 
 
-
-
-								</ul>
-							</div>
-						</div>
-					</nav>
-					<!-- END nav -->
+				<!-- END nav -->
 </header>
 
 <script>
 
 
-	$(document).ready(function () {
-		$('.nav-item').click(function () {
-			$(this).toggleClass('active');
-		});
-	});
+	// $(document).ready(function () {
+	// 	$('.nav-item').click(function () {
+	// 		$(this).toggleClass('active');
+	// 	});
+	// });
 
 </script>

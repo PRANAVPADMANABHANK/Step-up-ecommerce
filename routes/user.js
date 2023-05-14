@@ -8,6 +8,7 @@ const addressController = require('../controllers/addressControllers')
 const couponControllers = require('../controllers/couponControllers')
 const bcrypt = require('bcrypt')
 const orderController =require('../controllers/orderControllers')
+const wishlistController = require('../controllers/wishlistControllers')
 
 
 router.get('/index',userController.cartCount,userController.indexPage)
@@ -85,6 +86,10 @@ router.get('/order-not-shipped',userController.isLogin,orderController.listOfNot
 router.get('/order-cancelled-list',userController.isLogin,orderController.listOfCancelledOrder)
 router.get('/order-returned-list',userController.isLogin,orderController.listOfReturnedOrder)
 router.get('/invoice/',userController.isLogin,orderController.invoice)
+
+//wishlist
+router.get('/wishlist',userController.isLogin,userController.cartCount,wishlistController.wishListPage);
+router.get('/add-to-wishlist/:id',wishlistController.addToWishList);
 
 
 module.exports = router;
