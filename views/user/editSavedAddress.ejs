@@ -134,4 +134,10 @@
         // Show the Toastr message with a 3-second lifetime
         toastr.info('Address changes discarded.', 'Info', { timeOut: 20000 });
     });
+
+    // Disable right-click context menu
+document.addEventListener('contextmenu', function(event) {
+  event.preventDefault();
+});
+
 </script>

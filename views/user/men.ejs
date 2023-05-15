@@ -223,11 +223,12 @@
 
 							<div class="wishlist-purchase d-flex justify-content-center">
 								<a href="/singleProduct/<%= item._id %>" class="card-link btn btn-primary">PURCHASE</a>
-								<a id="" type="button" onclick="addToWishList('<%= item._id %>');event.stopPropagation();"
-								  class="wishlist-btn">
-								  <i class="fas fa-heart heart-icon"></i>
+								<a id="" type="button"
+									onclick="addToWishList('<%= item._id %>');event.stopPropagation();"
+									class="wishlist-btn">
+									<i class="fas fa-heart heart-icon"></i>
 								</a>
-							  </div>
+							</div>
 
 							<!-- <a href="/singleProduct/<%#=item._id %>" class="card-link btn btn-primary">PURCHASE</a> -->
 						</div>
@@ -295,4 +296,10 @@
 			}
 		})
 	}
+
+	// Disable right-click context menu
+document.addEventListener('contextmenu', function(event) {
+  event.preventDefault();
+});
+
 </script>
