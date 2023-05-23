@@ -305,7 +305,7 @@ exports.salesSummary = async(req,res)=>{
   }else{
    res.locals.orders = orders;
   }
-  console.log(orders,'sales reprot order summaryu')
+  console.log(orders,'sales reprot order summary')
   res.render('admin/salesReport',{admin:true,adminDetails})
 }
 
