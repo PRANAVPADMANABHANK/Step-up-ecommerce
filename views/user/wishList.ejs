@@ -1,3 +1,7 @@
+
+  <!-- CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 <style>
   .wishlist-item {
     border: 1px solid #ddd;
@@ -27,24 +31,46 @@
     margin-bottom: 10px;
   }
 
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+
   .add-to-cart,
   .remove-from-wishlist {
     color: white;
-    padding: 10px;
+    padding: 4px 8px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .add-to-cart {
-    background-color: #28a745;
+    background-color: #4CAF50;
   }
 
   .remove-from-wishlist {
-    background-color: #dc3545;
+    background-color: #DC143C;
+  }
+
+  .add-to-cart:hover,
+  .remove-from-wishlist:hover {
+    background-color: #45a049;
+  }
+
+  .button-icon {
+    margin-right: 3px;
   }
 </style>
+
 <!-- JavaScript -->
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
@@ -95,11 +121,16 @@
                 &#8377;<%= element.product_id.price %>
               </p>
               <!-- <button class="add-to-cart btn btn-block btn-success">Add to Cart</button> -->
-              <button class="add-to-cart btn btn-block btn-success"
-                onclick="location.href='/wishlist-to-cart/<%= element.product_id._id  %>';"><span
-                  class="icon_bag_alt"></span> Add to cart</button>
-              <button class="remove-from-wishlist btn btn-block btn-danger" id="removeItem" type="button"
-                onclick="removeWishList('<%= element.product_id._id %>')">Remove from Wishlist</button>
+              <button class="add-to-cart btn btn-block btn-success" onclick="location.href='/wishlist-to-cart/<%= element.product_id._id  %>'">
+                <i class="fas fa-shopping-cart button-icon"></i>
+                Add to Cart
+              </button>
+              <button class="remove-from-wishlist btn btn-block btn-danger" id="removeItem" type="button" onclick="removeWishList('<%= element.product_id._id %>')">
+                <i class="fas fa-heart button-icon"></i>
+                Remove from Wishlist
+              </button>
+              
+              
             </div>
 
           </div>
