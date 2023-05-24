@@ -1,0 +1,133 @@
+<br><br><br><br>
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'poppins', sans-serif;
+    }
+  
+    .coupon-card {
+      background: linear-gradient(135deg, #7158fe, #9d4de6);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.15);
+      position: relative;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+  
+    .logo {
+      width: 60px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+  
+    .coupon-card h3 {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 24px;
+      margin-bottom: 10px;
+    }
+  
+    .coupon-card p {
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+  
+    .coupon-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+  
+    #cpnCode {
+      border: 1px dashed #fff;
+      padding: 6px 12px;
+      border-right: 0;
+      font-size: 12px;
+    }
+  
+    #cpnBtn {
+      border: 1px solid #fff;
+      background: #fff;
+      padding: 6px 12px;
+      color: #7158fe;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  
+    .circle1,
+    .circle2 {
+      background: #f0fff3;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  
+    .circle1 {
+      left: -15px;
+    }
+  
+    .circle2 {
+      right: -15px;
+    }
+    
+  </style>
+ <html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Coupon Code Web Design</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="coupon-row">
+        <% coupons.forEach(coupon => { %>
+          <div class="coupon-card">
+            <img src="https://i.postimg.cc/pTDdkWpM/Step-5.png" class="logo">
+            <h3><%= coupon.discount %> flat off on all purchase<br>using <%= coupon.couponCode %></h3>
+            <div class="coupon-row">
+              <span class="cpnCode" style="border: 1px solid white; padding: 4px;"> <%= coupon.couponCode %> </span>
+              <span class="cpnBtn" style="background-color: white; color: black; padding: 4px; display: inline-block; border-radius: 4px; cursor: pointer;">Copy Code</span>
+
+            </div>
+            <p>Valid Till: <%= coupon.expires.toDateString() %></p>
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  <br><br>
+    <script>
+      var cpnBtns = document.getElementsByClassName("cpnBtn");
+      var cpnCodes = document.getElementsByClassName("cpnCode");
+  
+      for (var i = 0; i < cpnBtns.length; i++) {
+        cpnBtns[i].addEventListener("click", function (e) {
+          var code = this.previousElementSibling.innerHTML;
+          var btn = this;
+          navigator.clipboard.writeText(code).then(function () {
+            btn.innerHTML = "COPIED";
+            setTimeout(function () {
+              btn.innerHTML = "COPY CODE";
+            }, 3000);
+          }).catch(function (error) {
+            console.log("Copy failed: ", error);
+          });
+        });
+      }
+    </script>
+  </body>
+  </html>
+  

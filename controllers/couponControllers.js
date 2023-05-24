@@ -171,3 +171,17 @@ exports.applyCoupon = async (req, res) => {
   //     return await res.json({ message: 'already applied' })
   //  }
 };
+
+exports.getReward = async(req,res)=>{
+  try {
+    let user = req.session.user;
+     // Access cartCount value from req object
+     const cartCount = req.cartCount;
+     // Fetch all coupon details from the database
+    const coupons = await Coupon.find();
+    console.log(coupons)
+    res.render('user/rewards',{video:true, user,cartCount, coupons})
+  } catch (error) {
+    console.log(error)
+  }
+}

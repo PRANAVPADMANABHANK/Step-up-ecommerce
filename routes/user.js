@@ -96,5 +96,8 @@ router.get('/add-to-wishlist/:id',wishlistController.addToWishList);
 router.get('/wishlist/:id',wishlistController.removeFromWishlist);
 router.get('/wishlist-to-cart/:id',userController.cartCount,wishlistController.wishlistToProDetails);
 
+//Rewards
+router.get('/Rewards',userController.isLogin,userController.cartCount,couponControllers.getReward)
+
 
 module.exports = router;
