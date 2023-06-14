@@ -106,11 +106,6 @@
                                 </div>
                             </div>
 
-
-
-
-
-
                         </div>
                         <div class="col-sm-6">
                             <div class="card modern-card">
@@ -286,8 +281,9 @@
 </script>
 
 <script>
-
+    
     var datas = `<%- JSON.stringify(orderBasedOnMonths) %>`;
+    console.log(datas,"mmmmmm")
     var parseData = JSON.parse(datas)
     console.log(parseData, '.iahve asfdsd')
     document.addEventListener("DOMContentLoaded", function () {

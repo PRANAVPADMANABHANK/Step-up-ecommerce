@@ -360,7 +360,7 @@ exports.addtoCart = async (req, res) => {
         await Cart.updateOne(
           { userId, "products.item": productId , "products.size":req.query.size},
           { $inc: { "products.$.quantity": 1 } }
-        );//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        );
       } else {
         await Cart.updateOne({ userId }, { $push: { products: proObj } });
       }
@@ -535,27 +535,9 @@ exports.getCartProducts = async (req, res) => {
 };
 
 exports.changeProductQuantity = async (req, res) => {
-  // const { product, cart, count, quantity } = req.body;
-  // const parsedCount = parseInt(count);
-  // const parsedQuantity = parseInt(quantity);
-  // console.log(parsedQuantity);
-  // const cartId = cart;
-  // const productId = product;
-  // // Convert cartId to ObjectId
-  // const objectIdCartId = new ObjectId(cartId);
-  // const objectIdproductId = new ObjectId(productId);
-
+  
   try {
-    // console.log("inside the try");
-    // console.log("parsedCount:", parsedCount);
-    // console.log("parsedQuantity:", parsedQuantity);
-    // console.log("objectIdCartId:", objectIdCartId);
-    // console.log("objectIdproductId:", objectIdproductId);
-
-    // let cart = await Cart.findOne({});
-    // let userId = cart.userId;
-    // console.log(userId);
-    // let userId = req.session.user._id;
+    
     const response = {};
     let cart = req.body.cart;
     console.log(cart, "...........");
@@ -587,7 +569,7 @@ exports.changeProductQuantity = async (req, res) => {
 
       let total = await Cart.aggregate([
         {
-          $match: { user: req.session.userId },
+          $match: { userId:req.session.user._id },
         },
         {
           $unwind: "$products",
@@ -595,10 +577,10 @@ exports.changeProductQuantity = async (req, res) => {
         {
           $project: {
             item: { $toObjectId: "$products.item" },
+            quantity: "$products.quantity",
             size: "$products.size",
             currentPrice: "$products.currentPrice",
             tax: "$products.tax",
-            quantity: "$products.quantity",
           },
         },
         {
@@ -612,17 +594,16 @@ exports.changeProductQuantity = async (req, res) => {
         {
           $project: {
             item: 1,
+            quantity: 1,
             size: 1,
             currentPrice: 1,
             tax: 1,
-            quantity: 1,
             productInfo: { $arrayElemAt: ["$productInfo", 0] },
           },
         },
         {
           $group: {
             _id: null,
-
             totalTax: { $sum: { $multiply: ["$quantity", "$tax"] } },
             total: { $sum: { $multiply: ["$quantity", "$currentPrice"] } },
             totalWithTax: {
@@ -630,6 +611,7 @@ exports.changeProductQuantity = async (req, res) => {
                 $multiply: ["$quantity", { $add: ["$tax", "$currentPrice"] }],
               },
             },
+            // total: { $sum: { $multiply: ["$quantity", "$productInfo.price"] } },
           },
         },
       ]);
@@ -1048,7 +1030,7 @@ exports.deliveryAddress = async (req, res) => {
 
     let total = await Cart.aggregate([
       {
-        $match: { user: req.session.userId },
+        $match: { userId:req.session.user._id },
       },
       {
         $unwind: "$products",
@@ -1056,10 +1038,10 @@ exports.deliveryAddress = async (req, res) => {
       {
         $project: {
           item: { $toObjectId: "$products.item" },
+          quantity: "$products.quantity",
           size: "$products.size",
           currentPrice: "$products.currentPrice",
           tax: "$products.tax",
-          quantity: "$products.quantity",
         },
       },
       {
@@ -1073,17 +1055,16 @@ exports.deliveryAddress = async (req, res) => {
       {
         $project: {
           item: 1,
+          quantity: 1,
           size: 1,
           currentPrice: 1,
           tax: 1,
-          quantity: 1,
           productInfo: { $arrayElemAt: ["$productInfo", 0] },
         },
       },
       {
         $group: {
           _id: null,
-
           totalTax: { $sum: { $multiply: ["$quantity", "$tax"] } },
           total: { $sum: { $multiply: ["$quantity", "$currentPrice"] } },
           totalWithTax: {
@@ -1091,6 +1072,7 @@ exports.deliveryAddress = async (req, res) => {
               $multiply: ["$quantity", { $add: ["$tax", "$currentPrice"] }],
             },
           },
+          // total: { $sum: { $multiply: ["$quantity", "$productInfo.price"] } },
         },
       },
     ]);
@@ -1317,7 +1299,7 @@ exports.deliveryAddressPost = async (req, res) => {
 
     let total = await Cart.aggregate([
       {
-        $match: { user: req.session.userId },
+        $match: { userId:req.session.user._id },
       },
       {
         $unwind: "$products",
@@ -1325,10 +1307,10 @@ exports.deliveryAddressPost = async (req, res) => {
       {
         $project: {
           item: { $toObjectId: "$products.item" },
+          quantity: "$products.quantity",
           size: "$products.size",
           currentPrice: "$products.currentPrice",
           tax: "$products.tax",
-          quantity: "$products.quantity",
         },
       },
       {
@@ -1342,17 +1324,16 @@ exports.deliveryAddressPost = async (req, res) => {
       {
         $project: {
           item: 1,
+          quantity: 1,
           size: 1,
           currentPrice: 1,
           tax: 1,
-          quantity: 1,
           productInfo: { $arrayElemAt: ["$productInfo", 0] },
         },
       },
       {
         $group: {
           _id: null,
-
           totalTax: { $sum: { $multiply: ["$quantity", "$tax"] } },
           total: { $sum: { $multiply: ["$quantity", "$currentPrice"] } },
           totalWithTax: {
@@ -1360,6 +1341,7 @@ exports.deliveryAddressPost = async (req, res) => {
               $multiply: ["$quantity", { $add: ["$tax", "$currentPrice"] }],
             },
           },
+          // total: { $sum: { $multiply: ["$quantity", "$productInfo.price"] } },
         },
       },
     ]);
