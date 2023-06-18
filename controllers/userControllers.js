@@ -982,6 +982,13 @@ exports.deliveryAddress = async (req, res) => {
 
   const addressData = await Address.find({ user: user._id });
   console.log(addressData);
+
+  if (addressData.length === 0) {
+    // No address found for the user, redirect to Saved Address page
+    return res.redirect("/savedAddress");
+  }
+
+  
   const address = addressData[0].address;
   console.log(address, "address found");
 
